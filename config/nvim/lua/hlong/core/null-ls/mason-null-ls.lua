@@ -4,14 +4,8 @@ if not status_ok then
 	return
 end
 
+local providers = require("hlong.core.lsp.providers")
 mason_null_ls.setup({
-	ensure_installed = {
-		"golangci_lint",
-		"hadolint",
-		"prettier",
-		"shellcheck",
-		"shfmt",
-		"stylua",
-	},
+	ensure_installed = providers.servers,
 	automatic_installation = true,
 })

@@ -119,7 +119,7 @@ exec light -I
     bindsym $mod+period exec bemoji -t
 
     # Screenshot
-    bindsym $mod+Shift+s exec grim -g "$(slurp)" - | tee ~/Pictures/$(date +'%Y-%m-%d-%H%M%S.png') | wl-copy
+    bindsym $mod+Shift+s exec grim -g "$(slurp)" - | tee ~/Pictures/$(date +'%H%M%S-%Y-%m-%d.png') | wl-copy
 
 #
 # Moving around:
@@ -240,7 +240,7 @@ set $gnome-schema org.gnome.desktop.interface
 exec_always {
     gsettings set $gnome-schema gtk-theme 'Catppuccin-Mocha-Standard-Lavender-Dark'
     gsettings set $gnome-schema cursor-theme 'Catppuccin-Mocha-Lavender-Cursors'
-    gsettings set $gnome-schema font-name 'FiraMono Nerd Font Regular 11'
+    gsettings set $gnome-schema font-name 'FuraMono Nerd Font Regular 11'
 }
 
 #

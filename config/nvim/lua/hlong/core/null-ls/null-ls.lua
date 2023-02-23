@@ -4,32 +4,17 @@ if not null_ls_status_ok then
 	return
 end
 
-local utils = require("null-ls.utils").make_conditional_utils()
-local code_actions = null_ls.builtins.code_actions
-local diagnostics = null_ls.builtins.diagnostics
-local formatting = null_ls.builtins.formatting
+local key = 1
 
-local sources = {
-	code_actions.eslint,
-	code_actions.gitrebase,
-	code_actions.gitsigns,
-	diagnostics.eslint.with({
-		command = utils.root_has_file("node_modules/.bin/eslint") and "node_modules/.bin/eslint" or "eslint",
-	}),
-	diagnostics.flake8,
-	diagnostics.golangci_lint,
-	diagnostics.hadolint,
-	diagnostics.shellcheck,
-	formatting.black.with({
-		extra_args = { "--fast" },
-	}),
-	formatting.prettier.with({
-		command = utils.root_has_file("node_modules/.bin/prettier") and "node_modules/.bin/prettier" or "prettier",
-		extra_filetypes = { "toml" },
-	}),
-	formatting.shfmt,
-	formatting.stylua,
-}
+local providers = require("hlong.core.null-ls.providers")
+local sources = {}
+for _, provider in pairs(providers) do
+	local require_ok, opts = pcall(require, "hlong.core.null-ls.providers." .. provider)
+	if require_ok then
+		sources[key] = opts
+		key = key + 1
+	end
+end
 
 local null_ls_group = vim.api.nvim_create_augroup("null-ls", { clear = true })
 
