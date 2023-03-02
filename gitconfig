@@ -1,0 +1,18 @@
+[pull]
+	rebase = true
+[fetch]
+	prune = true
+[diff]
+	colorMoved = zebra
+  tool = nvimdiff
+[merge]
+	conflictstyle = diff3
+  tool = nvimdiff3
+[core]
+	editor = nvim
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential

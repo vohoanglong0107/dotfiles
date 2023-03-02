@@ -1,0 +1,116 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+if [[ -d /usr/share/oh-my-zsh ]]; then
+  export ZSH="/usr/share/oh-my-zsh/"
+else
+  export ZSH=$HOME/.oh-my-zsh
+fi
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+COMPLETION_WAITING_DOTS="true"
+
+plugins=(
+  git
+  golang
+  docker
+  kubectl
+  vi-mode
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  nvm
+  fzf
+)
+
+# Catppuccin Mocha Theme (for zsh-syntax-highlighting)
+#
+# Paste this files contents inside your ~/.zshrc before you activate zsh-syntax-highlighting
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main cursor)
+typeset -gA ZSH_HIGHLIGHT_STYLES
+# Main highlighter styling: https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md
+#
+## General
+### Diffs
+### Markup
+## Classes
+## Comments
+ZSH_HIGHLIGHT_STYLES[comment]='fg=#585b70'
+## Constants
+## Entitites
+## Functions/methods
+ZSH_HIGHLIGHT_STYLES[alias]='fg=#a6e3a1'
+ZSH_HIGHLIGHT_STYLES[suffix-alias]='fg=#a6e3a1'
+ZSH_HIGHLIGHT_STYLES[global-alias]='fg=#a6e3a1'
+ZSH_HIGHLIGHT_STYLES[function]='fg=#a6e3a1'
+ZSH_HIGHLIGHT_STYLES[command]='fg=#a6e3a1'
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=#a6e3a1,italic'
+ZSH_HIGHLIGHT_STYLES[autodirectory]='fg=#fab387,italic'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#fab387'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#fab387'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=#cba6f7'
+## Keywords
+## Built ins
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=#a6e3a1'
+ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=#a6e3a1'
+ZSH_HIGHLIGHT_STYLES[hashed-command]='fg=#a6e3a1'
+## Punctuation
+ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=#f38ba8'
+ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter-unquoted]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[process-substitution-delimiter]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument-delimiter]='fg=#f38ba8'
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=#f38ba8'
+ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]='fg=#f38ba8'
+## Serializable / Configuration Languages
+## Storage
+## Strings
+ZSH_HIGHLIGHT_STYLES[command-substitution-quoted]='fg=#f9e2af'
+ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter-quoted]='fg=#f9e2af'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#f9e2af'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument-unclosed]='fg=#e64553'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#f9e2af'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument-unclosed]='fg=#e64553'
+ZSH_HIGHLIGHT_STYLES[rc-quote]='fg=#f9e2af'
+## Variables
+ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument-unclosed]='fg=#e64553'
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[assign]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[named-fd]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[numeric-fd]='fg=#cdd6f4'
+## No category relevant in spec
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#e64553'
+ZSH_HIGHLIGHT_STYLES[path]='fg=#cdd6f4,underline'
+ZSH_HIGHLIGHT_STYLES[path_pathseparator]='fg=#f38ba8,underline'
+ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=#cdd6f4,underline'
+ZSH_HIGHLIGHT_STYLES[path_prefix_pathseparator]='fg=#f38ba8,underline'
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=#cba6f7'
+#ZSH_HIGHLIGHT_STYLES[command-substitution]='fg=?'
+#ZSH_HIGHLIGHT_STYLES[command-substitution-unquoted]='fg=?'
+#ZSH_HIGHLIGHT_STYLES[process-substitution]='fg=?'
+#ZSH_HIGHLIGHT_STYLES[arithmetic-expansion]='fg=?'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument-unclosed]='fg=#e64553'
+ZSH_HIGHLIGHT_STYLES[redirection]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[arg0]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[default]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[cursor]='fg=#cdd6f4'
+source $ZSH/oh-my-zsh.sh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+if zmodload zsh/terminfo && (( terminfo[colors] >= 256 )); then
+  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+else
+  [[ ! -f ~/.p10k-compat.zsh ]] || source ~/.p10k-compat.zsh
+fi
+
+# remove duplicate entry from $PATH. $PATH is string while $path is array
+typeset -aU path
+
+alias docker=podman
+alias cat="bat"

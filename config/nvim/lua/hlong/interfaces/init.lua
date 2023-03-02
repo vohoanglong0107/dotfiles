@@ -1,0 +1,7 @@
+require("hlong.interfaces.dashboard-nvim")
+require("hlong.interfaces.indent-blankline")
+require("hlong.interfaces.lualine")
+require("hlong.interfaces.nvim-notify")
+require("hlong.interfaces.nvim-tree")
+require("hlong.interfaces.trouble")
+require("hlong.interfaces.which-key")
