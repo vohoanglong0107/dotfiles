@@ -27,6 +27,7 @@ local plugins = {
 	{ "catppuccin/nvim", as = "catppuccin", commit = "6368edcd0b5e5cb5d9fb7cdee9d62cffe3e14f0e" },
 
 	-- Interfaces
+	{ "akinsho/bufferline.nvim", commit = "4ecfa81e470a589e74adcde3d5bb1727dd407363" },
 	{ "glepnir/dashboard-nvim", commit = "1aab263f4773106abecae06e684f762d20ef587e" },
 	{ "nvim-lualine/lualine.nvim", commit = "e99d733e0213ceb8f548ae6551b04ae32e590c80" },
 	{ "rcarriga/nvim-notify", commit = "bdd647f61a05c9b8a57c83b78341a0690e9c29d7" },

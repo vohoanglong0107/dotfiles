@@ -54,25 +54,7 @@ require("lualine").setup({
 		lualine_y = {},
 		lualine_z = { "location" },
 	},
-	tabline = {
-		lualine_c = {
-			"buffers",
-		},
-		lualine_x = {
-			{
-				"tabs",
-				mode = 1,
-				fmt = function(_, context)
-					local num_tab = #vim.api.nvim_list_tabpages()
-					if num_tab == 1 then
-						-- vim.notify("" .. num_tab)
-						return ""
-					end
-					return "" .. context.tabnr
-				end,
-			},
-		},
-	},
+	tabline = {},
 	winbar = {},
 	inactive_winbar = {},
 	extensions = {

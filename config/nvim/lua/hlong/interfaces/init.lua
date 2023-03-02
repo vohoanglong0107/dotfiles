@@ -1,3 +1,4 @@
+require("hlong.interfaces.bufferline")
 require("hlong.interfaces.dashboard-nvim")
 require("hlong.interfaces.indent-blankline")
 require("hlong.interfaces.lualine")
