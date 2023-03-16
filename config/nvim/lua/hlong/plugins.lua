@@ -40,6 +40,7 @@ local plugins = {
 	{ "folke/which-key.nvim", commit = "6d886f4dcaa25d1fe20e332f779fe1edb726d063" },
 	{ "lukas-reineke/indent-blankline.nvim", commit = "db7cbcb40cc00fc5d6074d7569fb37197705e7f6" },
 	{ "folke/noice.nvim", commit = "e5cb84f1ed524f850fa92e3a256e830ed07fadee" },
+	{ "folke/todo-comments.nvim", commit = "9d642940fe32e4a22570101f7ecf88e9e38a10f7" },
 
 	-- Core
 	{
