@@ -54,8 +54,8 @@ local plugins = {
 		commit = "32d9627123321db65a4f158b72b757bcaef1a3f4",
 	},
 
-	{ "neovim/nvim-lspconfig", commit = "ea5744f9243ec25a178a0bc403a4c8203ecc4f23" },
-	{ "hrsh7th/cmp-nvim-lsp", commit = "59224771f91b86d1de12570b4070fe4ad7cd1eeb" },
+	{ "neovim/nvim-lspconfig", commit = "4bb0f1845c5cc6465aecedc773fc2d619fcd8faf" },
+	{ "hrsh7th/cmp-nvim-lsp", commit = "0e6b2ed705ddcff9738ec4ea838141654f12eeef" },
 	{ "hrsh7th/cmp-buffer", commit = "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
 	{ "hrsh7th/cmp-path", commit = "91ff86cd9c29299a64f968ebb45846c485725f23" },
 	{ "hrsh7th/cmp-cmdline", commit = "8bc9c4a34b223888b7ffbe45c4fe39a7bee5b74d" },
