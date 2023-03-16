@@ -8,6 +8,7 @@ configs.setup({
 	ensure_installed = {
 		"bash",
 		"css",
+		"dockerfile",
 		"go",
 		"hcl",
 		"javascript",
@@ -16,8 +17,11 @@ configs.setup({
 		"markdown",
 		"markdown_inline",
 		"python",
+		"regex",
+		"starlark",
 		"tsx",
 		"typescript",
+		"vim",
 		"yaml",
 	},
 	highlight = {

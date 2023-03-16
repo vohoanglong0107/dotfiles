@@ -1,4 +1,6 @@
-require("which-key").setup({})
+require("which-key").setup({
+	show_keys = false,
+})
 
 -- From https://www.reddit.com/r/neovim/comments/vwud6m/comment/ifsflsl/?utm_source=share&utm_medium=web2x&context=3
 -- TLDR: using vim.keymap.set will automatically setup which-key
