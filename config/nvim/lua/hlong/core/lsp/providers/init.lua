@@ -1,18 +1,18 @@
 local M = {}
 
 M.servers = {
-	"lua_ls",
-	"tsserver",
-	"pyright",
 	"bashls",
-	"jsonls",
-	"yamlls",
 	"dockerls",
+	"eslint",
+	"gopls",
+	"jsonls",
+	"lua_ls",
+	"pyright",
+	"rnix",
 	"terraformls",
 	"tflint",
-	"rnix",
-	"gopls",
-	"eslint",
+	"tsserver",
+	"yamlls",
 }
 
 return M
