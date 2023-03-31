@@ -13,9 +13,6 @@ local sources = {
 	code_actions.eslint,
 	code_actions.gitrebase,
 	code_actions.gitsigns,
-	diagnostics.eslint.with({
-		command = utils.root_has_file("node_modules/.bin/eslint") and "node_modules/.bin/eslint" or "eslint",
-	}),
 	diagnostics.flake8,
 	diagnostics.golangci_lint,
 	diagnostics.hadolint,
@@ -35,6 +32,7 @@ local null_ls_group = vim.api.nvim_create_augroup("null-ls", { clear = true })
 
 null_ls.setup({
 	border = "rounded",
+	debounce = 1000,
 	debug = false,
 	sources = sources,
 	on_attach = function(client)

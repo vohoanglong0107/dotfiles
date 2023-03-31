@@ -12,6 +12,7 @@ M.servers = {
 	"tflint",
 	"rnix",
 	"gopls",
+	"eslint",
 }
 
 return M
