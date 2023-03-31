@@ -19,6 +19,7 @@ configs.setup({
 		"python",
 		"regex",
 		"starlark",
+		"terraform",
 		"tsx",
 		"typescript",
 		"vim",
