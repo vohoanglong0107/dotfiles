@@ -72,12 +72,15 @@ end
 
 local lspconfig_group = vim.api.nvim_create_augroup("LspConfig", { clear = true })
 
-M.on_attach = function(client, bufnr)
-	if client.name == "tsserver" then
-		client.server_capabilities.documentFormattingProvider = false
-	end
+local disable_formatting = {
+	eslint = true,
+	jsonls = true,
+	sumneko_lua = true,
+	tsserver = true,
+}
 
-	if client.name == "sumneko_lua" then
+M.on_attach = function(client, bufnr)
+	if disable_formatting[client.name] then
 		client.server_capabilities.documentFormattingProvider = false
 	end
 
@@ -87,7 +90,7 @@ M.on_attach = function(client, bufnr)
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			pattern = "<buffer>",
 			callback = function()
-				vim.lsp.buf.format({ async = false })
+				vim.lsp.buf.format({ async = false, timeout = 2000 })
 			end,
 			group = lspconfig_group,
 		})
