@@ -75,7 +75,7 @@ local lspconfig_group = vim.api.nvim_create_augroup("LspConfig", { clear = true 
 local disable_formatting = {
 	eslint = true,
 	jsonls = true,
-	sumneko_lua = true,
+	lua_ls = true,
 	tsserver = true,
 }
 
