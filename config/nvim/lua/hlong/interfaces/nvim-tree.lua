@@ -22,6 +22,9 @@ nvim_tree.setup({
 	hijack_directories = {
 		enable = false,
 	},
+	notify = {
+		threshold = vim.log.levels.WARN,
+	},
 })
 
 local api = require("nvim-tree.api")
