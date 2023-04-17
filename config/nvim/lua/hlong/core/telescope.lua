@@ -43,6 +43,21 @@ telescope.setup({
 			-- the default case_mode is "smart_case"
 		},
 	},
+	-- https://github.com/nvim-telescope/telescope.nvim/issues/855#issuecomment-1032325327
+	pickers = {
+		live_grep = {
+			additional_args = function(opts)
+				return {
+					"--glob",
+					"!gazelle_python.yaml",
+					"--glob",
+					"!pnpm-lock.yaml",
+					"--glob",
+					"!**/requirements_lock.txt",
+				}
+			end,
+		},
+	},
 })
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
