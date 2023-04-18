@@ -115,3 +115,5 @@ configs.setup({
 		},
 	},
 })
+
+vim.treesitter.language.register("terraform", "terraform-vars")
