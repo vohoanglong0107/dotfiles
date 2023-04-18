@@ -39,13 +39,13 @@ local plugins = {
 	{ "folke/trouble.nvim", commit = "897542f90050c3230856bc6e45de58b94c700bbf" },
 	{ "folke/which-key.nvim", commit = "6d886f4dcaa25d1fe20e332f779fe1edb726d063" },
 	{ "lukas-reineke/indent-blankline.nvim", commit = "db7cbcb40cc00fc5d6074d7569fb37197705e7f6" },
-	{ "folke/noice.nvim", commit = "e5cb84f1ed524f850fa92e3a256e830ed07fadee" },
+	{ "folke/noice.nvim", commit = "5c63a32fde4e87631ddd768f5d7674ec5988c1a2" },
 	{ "folke/todo-comments.nvim", commit = "9d642940fe32e4a22570101f7ecf88e9e38a10f7" },
 
 	-- Core
 	{
 		"nvim-treesitter/nvim-treesitter",
-		commit = "834f1dcb8736c82b1269227b4bfe830310b5b6a1",
+		commit = "7ade4d2e774795f458207db115421f09e2a049d8",
 		run = function()
 			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
 			ts_update()
@@ -53,11 +53,11 @@ local plugins = {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
-		commit = "b55fe6175f0001347a433c9df358c8cbf8a4e90f",
+		commit = "8673926519ea61069f9c1366d1ad1949316d250e",
 	},
 	{
 		"JoosepAlviste/nvim-ts-context-commentstring",
-		commit = "32d9627123321db65a4f158b72b757bcaef1a3f4",
+		commit = "ada15e97d7d48b409f8b135ced104e00e8479fb9",
 	},
 
 	{ "neovim/nvim-lspconfig", commit = "4bb0f1845c5cc6465aecedc773fc2d619fcd8faf" },
