@@ -11,8 +11,6 @@ local formatting = null_ls.builtins.formatting
 
 local sources = {
 	code_actions.eslint,
-	code_actions.gitrebase,
-	code_actions.gitsigns,
 	diagnostics.flake8,
 	diagnostics.golangci_lint,
 	diagnostics.hadolint,
