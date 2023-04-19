@@ -1,6 +1,6 @@
 gui:
   theme:
-    lightTheme: false 
+    lightTheme: false
     activeBorderColor:
       - "#a6e3a1" # Green
       - bold
@@ -17,8 +17,16 @@ gui:
     cherryPickedCommitFgColor:
       - "#89b4fa" # Blue
     unstagedChangesColor:
-      - red       # Red
+      - red # Red
 git:
   paging:
     colorArg: always
     pager: delta --dark --paging=never
+keybinding:
+  universal:
+    gotoTop: "g"
+    gotoBottom: "G"
+  commits:
+    viewResetOptions: "D"
+  stash:
+    popStash: "p"
