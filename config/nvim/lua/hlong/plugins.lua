@@ -39,7 +39,7 @@ local plugins = {
 	{ "folke/trouble.nvim", commit = "897542f90050c3230856bc6e45de58b94c700bbf" },
 	{ "folke/which-key.nvim", commit = "6d886f4dcaa25d1fe20e332f779fe1edb726d063" },
 	{ "lukas-reineke/indent-blankline.nvim", commit = "db7cbcb40cc00fc5d6074d7569fb37197705e7f6" },
-	{ "folke/noice.nvim", commit = "5c63a32fde4e87631ddd768f5d7674ec5988c1a2" },
+	{ "folke/noice.nvim", commit = "9649d9fd4d8fa8a8654e1e9c293718ae8d62e73b" },
 	{ "folke/todo-comments.nvim", commit = "9d642940fe32e4a22570101f7ecf88e9e38a10f7" },
 
 	-- Core
