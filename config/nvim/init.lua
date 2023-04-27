@@ -1,8 +1,6 @@
-require("hlong.plugins")
-require("hlong.impatient")
 require("hlong.options")
-require("hlong.themes")
-
-require("hlong.core")
-require("hlong.interfaces")
+-- load lazy first to set leader key
+require("hlong.lazy")
 require("hlong.keymaps")
+
+require("hlong.themes")
