@@ -1,6 +1,6 @@
 return {
 	"ahmedkhalf/project.nvim",
-	lazy = true,
+	event = "VimEnter",
 	config = function()
 		require("project_nvim").setup({
 			-- manual_mode = true,

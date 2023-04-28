@@ -1,6 +1,10 @@
 return {
 	"folke/trouble.nvim",
-	lazy = true,
+	event = { "BufReadPre", "BufNewFile" },
+	cmd = "Trouble",
+	dependencies = {
+		"nvim-tree/nvim-web-devicons",
+	},
 	config = function()
 		require("trouble").setup({
 			position = "bottom", -- position of the list can be: bottom, top, left, right
