@@ -75,6 +75,10 @@
     "branch": "main",
     "commit": "253961cfe9b0a63b2524088be294acd7522366e5"
   },
+  "neo-tree.nvim": {
+    "branch": "v2.x",
+    "commit": "8d485aab32da9b8841d4af977f992b82b14af469"
+  },
   "neodev.nvim": {
     "branch": "main",
     "commit": "fe48362be179b5705edcbcb947c1d84b263d5698"
@@ -110,10 +114,6 @@
   "nvim-surround": {
     "branch": "main",
     "commit": "e6047128e57c1aff1566fb9f627521d2887fc77a"
-  },
-  "nvim-tree.lua": {
-    "branch": "master",
-    "commit": "bb375fb20327c49920c41d2b51c1ce2f4fe7deb3"
   },
   "nvim-treesitter": {
     "branch": "master",
@@ -158,10 +158,6 @@
   "toggleterm.nvim": {
     "branch": "main",
     "commit": "68fdf851c2b7901a7065ff129b77d3483419ddce"
-  },
-  "tokyonight.nvim": {
-    "branch": "main",
-    "commit": "ab0ac67f4f32f44c3480f4b81ed90e11cb4f3763"
   },
   "trouble.nvim": {
     "branch": "main",

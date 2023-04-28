@@ -64,7 +64,7 @@ return {
 			winbar = {},
 			inactive_winbar = {},
 			extensions = {
-				"nvim-tree",
+				"neo-tree",
 				"toggleterm",
 			},
 		})

@@ -1,0 +1,56 @@
+return {
+	"nvim-neo-tree/neo-tree.nvim",
+	branch = "v2.x",
+	cmd = "Neotree",
+	keys = {
+		{
+			"<leader>e",
+			function()
+				require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
+			end,
+			desc = "Explorer NeoTree",
+		},
+	},
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		"nvim-tree/nvim-web-devicons",
+		"MunifTanjim/nui.nvim",
+	},
+	config = function()
+		-- Unless you are still migrating, remove the deprecated commands from v1.x
+		vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+		require("neo-tree").setup({
+			-- A list of functions, each representing a global custom command
+			-- that will be available in all sources (if not overridden in `opts[source_name].commands`)
+			-- see `:h neo-tree-global-custom-commands`
+
+			window = {
+				position = "left",
+				width = 40,
+				mapping_options = {
+					noremap = true,
+					nowait = true,
+				},
+				mappings = {
+					["S"] = "noop",
+					["s"] = "noop",
+					["o"] = "open",
+					["/"] = "noop",
+					["P"] = function(state)
+						local node = state.tree:get_node()
+						require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
+					end,
+				},
+			},
+			filesystem = {
+				filtered_items = {
+					hide_dotfiles = false,
+					hide_gitignored = false,
+					hide_hidden = false,
+				},
+				follow_current_file = true,
+				use_libuv_file_watcher = true,
+			},
+		})
+	end,
+}
