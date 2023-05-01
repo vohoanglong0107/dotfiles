@@ -233,7 +233,18 @@ local servers = {
 		settings = {
 			yaml = {
 				schemas = {
-					kubernetes = "*.yaml",
+					kubernetes = {
+						"configmap.yml",
+						"configmap.yaml",
+						"deployment.yml",
+						"deployment.yaml",
+						"hpa.yml",
+						"hpa.yaml",
+						"service.yml",
+						"service.yaml",
+						"serviceaccount.yml",
+						"serviceaccount.yaml",
+					},
 					["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
 					["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
 					["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
@@ -286,6 +297,11 @@ local lspconfig_group = vim.api.nvim_create_augroup("LspConfig", { clear = true 
 local on_attach = function(client, bufnr)
 	if disable_formatting[client.name] then
 		client.server_capabilities.documentFormattingProvider = false
+	end
+	if client.name == "yamlls" then
+		if vim.bo[bufnr].buftype ~= "" or vim.bo[bufnr].filetype == "helm" then
+			vim.diagnostic.disable(bufnr)
+		end
 	end
 
 	lsp_keymaps(bufnr)

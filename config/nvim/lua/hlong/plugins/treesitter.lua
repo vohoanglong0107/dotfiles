@@ -1,6 +1,10 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	dependencies = { "JoosepAlviste/nvim-ts-context-commentstring", "nvim-treesitter/nvim-treesitter-textobjects" },
+	dependencies = {
+		"JoosepAlviste/nvim-ts-context-commentstring",
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		"nvim-treesitter/playground",
+	},
 	build = function()
 		local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
 		ts_update()
@@ -8,6 +12,9 @@ return {
 	event = { "BufReadPost", "BufNewFile" },
 	config = function()
 		require("nvim-treesitter.configs").setup({
+			playground = {
+				enable = true,
+			},
 			ensure_installed = {
 				"bash",
 				"css",
