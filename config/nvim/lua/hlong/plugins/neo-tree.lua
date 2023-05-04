@@ -36,9 +36,18 @@ return {
 					["s"] = "noop",
 					["o"] = "open",
 					["/"] = "noop",
+					-- move to parent
 					["P"] = function(state)
 						local node = state.tree:get_node()
 						require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
+					end,
+					-- copy path -- https://github.com/nvim-neo-tree/neo-tree.nvim/issues/597#issuecomment-1312826244
+					["<c-y>"] = function(state)
+						local node = state.tree:get_node()
+						local content = node.path:gsub(state.path, ""):sub(2)
+						vim.fn.setreg('"', content)
+						vim.fn.setreg("1", content)
+						vim.fn.setreg("+", content)
 					end,
 				},
 			},
