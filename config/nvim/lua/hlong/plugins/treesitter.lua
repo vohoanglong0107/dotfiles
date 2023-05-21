@@ -4,6 +4,7 @@ return {
 		"JoosepAlviste/nvim-ts-context-commentstring",
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		"nvim-treesitter/playground",
+		"windwp/nvim-ts-autotag",
 	},
 	build = function()
 		local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
@@ -39,6 +40,9 @@ return {
 				enable = true, -- false will disable the whole extension
 			},
 			autopairs = {
+				enable = true,
+			},
+			autotag = {
 				enable = true,
 			},
 			indent = { enable = true },
