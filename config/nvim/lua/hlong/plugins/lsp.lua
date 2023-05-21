@@ -1,5 +1,6 @@
 local servers = {
 	bashls = {},
+	cssls = {},
 	dockerls = {},
 	eslint = {},
 	gopls = {
@@ -347,8 +348,12 @@ return {
 			},
 		})
 
+		local server_keys = {}
+		for server, opts in pairs(servers) do
+			table.insert(server_keys, server)
+		end
 		require("mason-lspconfig").setup({
-			ensure_installed = servers,
+			ensure_installed = server_keys,
 			automatic_installation = true,
 		})
 		require("neodev").setup({})
