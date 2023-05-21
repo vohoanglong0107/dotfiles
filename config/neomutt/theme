@@ -1,7 +1,7 @@
 # vim: syntax=neomuttrc
 source "~/.config/neomutt/cappuccin-theme"
 
-set to_chars = ""
+set to_chars = "󰋜"
 set index_format = "%4C %Z %-20.15L %s %*   %?X?  ?%{%b %d}  "
 set flag_chars = "    "
 set folder_format = "%2C %t %N %F %2l %-8.8u %-8.8g %8s %d  · %f"
@@ -15,7 +15,7 @@ set my_second_mark = '​' # U+200b
 set my_third_mark = '' # U+0082
 set my_left_separator = ''
 set my_right_separator = ''
-set status_format = " %D${my_first_mark}${my_left_separator}  Msgs:%?M?%M/?%m%?n?  New:%n?%?d?  Del:%d?%?F?  Flag:%F?%?t?  Tag:%t?%?p?  Post:%p?%?l? 󰋊 %l?${my_second_mark}${my_left_separator}%> ${my_right_separator}${my_first_mark}${my_second_mark}(%P) "
+set status_format = " %D${my_first_mark}${my_left_separator} 󰇯 Msgs:%?M?%M/?%m%?n?  New:%n?%?d?  Del:%d?%?F?  Flag:%F?%?t?  Tag:%t?%?p?  Post:%p?%?l? 󰋊 %l?${my_second_mark}${my_left_separator}%> ${my_right_separator}${my_first_mark}${my_second_mark}(%P) "
 
 set pager_format = " -%Z- %C/%m: %-20.20n   %s%*  -- (%P)"
 set sidebar_format = "%D%* %?N?%N/?%S"
@@ -26,7 +26,7 @@ color sidebar_indicator color0  color18
 
 color status   color0   color6  "(.*)${my_first_mark}${my_left_separator}" 1
 color status   color6   color0  ".*(${my_first_mark}${my_left_separator})" 1
-color status   color24  color0  '  Msgs:[0-9]*/?[0-9]+'
+color status   color24  color0  ' 󰇯 Msgs:[0-9]*/?[0-9]+'
 color status   color2   color0  '  New:[0-9]*' 
 color status   color3   color0  '  Flag:[0-9]*' 
 color status   color1   color0  '  Del:[0-9]*' 

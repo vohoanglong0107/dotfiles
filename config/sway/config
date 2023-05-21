@@ -240,7 +240,7 @@ set $gnome-schema org.gnome.desktop.interface
 exec_always {
     gsettings set $gnome-schema gtk-theme 'Catppuccin-Mocha-Standard-Lavender-Dark'
     gsettings set $gnome-schema cursor-theme 'Catppuccin-Mocha-Lavender-Cursors'
-    gsettings set $gnome-schema font-name 'FuraMono Nerd Font Regular 11'
+    gsettings set $gnome-schema font-name 'FiraMono Nerd Font Regular 11'
 }
 
 #
