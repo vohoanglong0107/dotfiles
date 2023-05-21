@@ -62,7 +62,7 @@ return {
 					},
 				},
 				mru = { limit = 3 },
-				project = { limit = 2 },
+				project = { limit = 2, icon = "󰏓 " },
 			},
 		})
 	end,
