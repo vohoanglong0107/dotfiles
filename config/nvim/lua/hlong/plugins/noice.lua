@@ -22,56 +22,13 @@ return {
 				inc_rename = false, -- enables an input dialog for inc-rename.nvim
 				lsp_doc_border = true, -- add a border to hover docs and signature help
 			},
-			-- routes = {
-			-- 	{
-			-- 		filter = {
-			-- 			event = "msg_show",
-			-- 			kind = "",
-			-- 			find = "written",
-			-- 		},
-			-- 		view = "mini",
-			-- 	},
-			--   {
-			--       view = "notify",
-			--       filter = { event = "msg_showmode" },
-			--     },
-			-- },
 			messages = {
-				view = "left_mini",
+				enabled = false,
 			},
 			views = {
 				mini = {
 					win_options = {
 						winblend = 0,
-					},
-				},
-				left_mini = {
-					backend = "mini",
-					relative = "editor",
-					timeout = 2000,
-					reverse = true,
-					focusable = false,
-					position = {
-						row = -1,
-						-- col = "100%",
-						col = 0,
-					},
-					size = {
-						width = "auto",
-						height = "auto",
-						max_height = 1,
-					},
-					border = {
-						style = "none",
-					},
-					zindex = 60,
-					win_options = {
-						winblend = 0,
-						winhighlight = {
-							Normal = "NoiceMini",
-							IncSearch = "",
-							Search = "",
-						},
 					},
 				},
 			},
