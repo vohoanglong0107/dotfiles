@@ -1,4 +1,6 @@
 gui:
+  windowSize: normal
+  sidePanelWidth: 0.2
   theme:
     lightTheme: false
     activeBorderColor:
