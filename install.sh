@@ -13,6 +13,8 @@ SRC_DIR=$(dirname "$(readlink -f "$0")")
 cd "$SRC_DIR" || exit
 find . -type f -not -path "./install.sh" -not -path "./config/nvim/*" -exec sh -c 'install_config "$1" '"$SRC_DIR" shell {} \;
 
-ln -s "$SRC_DIR/config/nvim" "$HOME/.config/nvim"
+if [[ ! -d "$HOME/.config/nvim" ]]; then
+	ln -s "$SRC_DIR/config/nvim" "$HOME/.config/nvim"
+fi
 
 bat cache --build
