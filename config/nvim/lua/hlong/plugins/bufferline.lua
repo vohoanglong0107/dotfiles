@@ -3,6 +3,11 @@ return {
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 	},
+	event = { "BufReadPre", "BufNewFile" },
+	keys = {
+		{ "<S-l>", "<cmd>BufferLineCycleNext<CR>" },
+		{ "<S-h>", "<cmd>BufferLineCyclePrev<CR>" },
+	},
 	config = function()
 		require("bufferline").setup({
 			highlights = require("catppuccin.groups.integrations.bufferline").get(),
