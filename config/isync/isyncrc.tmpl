@@ -1,21 +1,21 @@
 # modify version of https://github.com/LukeSmithxyz/mutt-wizard
-IMAPStore $fulladdr-remote
+IMAPStore <account1>-remote
 Host $imap
 Port $iport
 User $login
 PassCmd "pass $passprefix$fulladdr"
 AuthMechs LOGIN
-SSLType $imapssl
+SSLType IMAPS 
 
-MaildirStore $fulladdr-local
+MaildirStore <account1>-local
 Subfolders Verbatim
-Path $maildir/$fulladdr/
-Inbox $maildir/$fulladdr/INBOX
+Path ~/.local/share/mail/<account1>/
+Inbox ~/.local/share/mail/<account1>/INBOX
 
-Channel $fulladdr
+Channel <account1>
 Expunge Both
-$master :$fulladdr-remote:
-$slave :$fulladdr-local:
+Far <account1>-remote
+Near <account1>-local
 Patterns * !"[Gmail]/All Mail"
 Create Both
 SyncState *

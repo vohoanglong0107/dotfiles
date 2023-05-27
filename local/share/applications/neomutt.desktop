@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=neomutt
+GenericName=Mail client
+Comment=With support from isync, notmuch, msmtp
+Icon=neomutt
+Exec=neomutt
+Terminal=true
+Categories=Network;Email;ConsoleOnly;
+Keywords=email;

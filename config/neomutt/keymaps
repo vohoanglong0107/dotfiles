@@ -11,3 +11,5 @@ bind attach,index               s          flag-message
 bind browser,pager,index        g?         help
 bind browser,pager,index        ?          search-reverse
 
+macro index,pager \CB "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+macro attach,compose \CB "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
