@@ -72,6 +72,9 @@ return {
 							"!pnpm-lock.yaml",
 							"--glob",
 							"!**/requirements_lock.txt",
+							"--glob",
+							"!.git",
+							"--hidden",
 						}
 					end,
 				},
