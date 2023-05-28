@@ -12,7 +12,6 @@ return {
 				"prettier",
 				"shellcheck",
 				"shfmt",
-				"stylua",
 			},
 			automatic_installation = true,
 		})
