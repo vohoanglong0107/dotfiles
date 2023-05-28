@@ -62,7 +62,12 @@ keymap("n", "<leader>vm", function()
 		return
 	end
 	local function spanw_pandoc(callback)
-		uv.spawn("pandoc", { args = { "-f", "markdown", "-t", "pdf", "-o", tmp_pdf, md } }, callback)
+		uv.spawn("pandoc", { args = { "-f", "markdown", "-t", "pdf", "-o", tmp_pdf, md } }, function(code)
+			assert(code == 0, "Pandoc return non zero code: " .. code)
+			if callback ~= nil then
+				callback()
+			end
+		end)
 	end
 	w:start(
 		md,
