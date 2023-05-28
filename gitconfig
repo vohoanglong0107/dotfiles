@@ -33,3 +33,6 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
+[include]
+  # create a local gitconfig for sensitive info
+  path = ~/.gitconfig.local
