@@ -1,4 +1,5 @@
 local uv = vim.loop
+local Job = require("plenary.job")
 
 local opts = { silent = true }
 
@@ -65,12 +66,34 @@ keymap("n", "<leader>vm", function()
 		return
 	end
 	local function spanw_pandoc(callback)
-		uv.spawn("pandoc", { args = { "-f", "markdown", "-t", "pdf", "-o", tmp_pdf, md } }, function(code)
-			assert(code == 0, "Pandoc return non zero code: " .. code)
-			if callback ~= nil then
-				callback()
-			end
-		end)
+		Job:new({
+			command = "pandoc",
+			args = {
+				"-f",
+				"markdown",
+				"-t",
+				"pdf",
+				"--lua-filter",
+				os.getenv("HOME") .. "/.config/pandoc/relative.lua",
+				"-o",
+				tmp_pdf,
+				md,
+			},
+			on_stdout = function(err, data)
+				assert(not err, err)
+				vim.notify("pandoc: ", data)
+			end,
+			on_stderr = function(err, data)
+				assert(not err, err)
+				vim.notify("pandoc: ", data)
+			end,
+			on_exit = function(j, return_val)
+				assert(return_val == 0, "Pandoc return non zero code: " .. return_val)
+				if callback ~= nil then
+					callback()
+				end
+			end,
+		}):start()
 	end
 	w:start(
 		md,
@@ -80,9 +103,13 @@ keymap("n", "<leader>vm", function()
 		end)
 	)
 	spanw_pandoc(function()
-		uv.spawn("zathura", { args = { tmp_pdf } }, function()
-			w:stop()
-			os.remove(tmp_pdf)
-		end)
+		Job:new({
+			command = "zathura",
+			args = { tmp_pdf },
+			on_exit = function()
+				w:stop()
+				os.remove(tmp_pdf)
+			end,
+		}):start()
 	end)
 end, opts)
