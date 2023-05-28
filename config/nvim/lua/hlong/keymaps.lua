@@ -1,5 +1,5 @@
-local uv = vim.loop
 local Job = require("plenary.job")
+local uv = vim.loop
 
 local opts = { silent = true }
 
@@ -53,7 +53,10 @@ keymap("v", "p", '"_dP', opts)
 -- Image viewing
 -- run imv detached from vim
 keymap("n", "<leader>vi", function()
-	uv.spawn("imv", { args = { vim.api.nvim_buf_get_name(0) } })
+	Job:new({
+		command = "imv",
+		args = { vim.api.nvim_buf_get_name(0) },
+	}):start()
 end, opts)
 
 -- Markdown previewing
