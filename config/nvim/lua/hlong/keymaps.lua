@@ -1,3 +1,5 @@
+local uv = vim.loop
+
 local opts = { silent = true }
 
 -- Shorten function name
@@ -49,11 +51,12 @@ keymap("v", "p", '"_dP', opts)
 
 -- Image viewing
 -- run imv detached from vim
-keymap("n", "<leader>vi", ":!imv % &<CR>", opts)
+keymap("n", "<leader>vi", function()
+	uv.spawn("imv", { args = { vim.api.nvim_buf_get_name(0) } })
+end, opts)
 
 -- Markdown previewing
 keymap("n", "<leader>vm", function()
-	local uv = vim.loop
 	local tmp_pdf = os.tmpname()
 	local w = uv.new_fs_event()
 	local md = vim.api.nvim_buf_get_name(0)
