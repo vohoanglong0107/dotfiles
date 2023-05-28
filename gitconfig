@@ -13,8 +13,7 @@
 [pager]
   difftool = true
 [merge]
-	conflictstyle = diff3
-  tool = nvimdiff3
+  tool = nvimdiff2
 [core]
 	editor  = nvim
   pager = delta
