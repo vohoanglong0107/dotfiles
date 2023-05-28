@@ -50,3 +50,31 @@ keymap("v", "p", '"_dP', opts)
 -- Image viewing
 -- run imv detached from vim
 keymap("n", "<leader>vi", ":!imv % &<CR>", opts)
+
+-- Markdown previewing
+keymap("n", "<leader>vm", function()
+	local uv = vim.loop
+	local tmp_pdf = os.tmpname()
+	local w = uv.new_fs_event()
+	local md = vim.api.nvim_buf_get_name(0)
+	if w == nil then
+		vim.notify("can't spawn new fs event")
+		return
+	end
+	local function spanw_pandoc(callback)
+		uv.spawn("pandoc", { args = { "-f", "markdown", "-t", "pdf", "-o", tmp_pdf, md } }, callback)
+	end
+	w:start(
+		md,
+		{},
+		vim.schedule_wrap(function()
+			spanw_pandoc()
+		end)
+	)
+	spanw_pandoc(function()
+		uv.spawn("zathura", { args = { tmp_pdf } }, function()
+			w:stop()
+			os.remove(tmp_pdf)
+		end)
+	end)
+end, opts)
