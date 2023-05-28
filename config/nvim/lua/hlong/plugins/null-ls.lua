@@ -9,7 +9,6 @@ return {
 		require("mason-null-ls").setup({
 			ensure_installed = {
 				"golangci_lint",
-				"hadolint",
 				"prettier",
 				"shellcheck",
 				"shfmt",
