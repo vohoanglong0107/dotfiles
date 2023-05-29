@@ -1,4 +1,5 @@
 local Job = require("plenary.job")
+local Path = require("plenary.path")
 local uv = vim.loop
 
 local opts = { silent = true }
@@ -59,9 +60,17 @@ keymap("n", "<leader>vi", function()
 	}):start()
 end, opts)
 
+local function new_tmp_file_name()
+	local tmp = os.tmpname()
+	-- on posix lua create the file on os.tmpname()
+	os.remove(tmp)
+	return tmp
+end
+
 -- Markdown previewing
 keymap("n", "<leader>vm", function()
-	local tmp_pdf = os.tmpname()
+	local tmp_pdf = new_tmp_file_name() .. ".pdf"
+	local tmp_md = new_tmp_file_name() .. ".md"
 	local w = uv.new_fs_event()
 	local md = vim.api.nvim_buf_get_name(0)
 	if w == nil then
@@ -69,27 +78,36 @@ keymap("n", "<leader>vm", function()
 		return
 	end
 	local function spanw_pandoc(callback)
+		local file = assert(io.open(tmp_md, "w"))
+		file:write('<div class="markdown-body">', "\n")
+		local current_file = assert(io.open(md, "r"))
+		file:write(current_file:read("*a"), "\n")
+		file:write("</div>")
+		file:close()
 		Job:new({
 			command = "pandoc",
 			args = {
 				"-f",
-				"markdown",
+				"gfm",
 				"-t",
-				"pdf",
-				"--lua-filter",
-				os.getenv("HOME") .. "/.config/pandoc/relative.lua",
+				"html5",
+				"-c",
+				-- https://stackoverflow.com/a/23994783, thanks to wkhtmltopdf and gfm
+				os.getenv("HOME") .. "/.config/pandoc/github-markdown.css",
 				"-o",
 				tmp_pdf,
-				md,
+				tmp_md,
 			},
-			on_stdout = function(err, data)
-				assert(not err, err)
-				vim.notify("pandoc: ", data)
-			end,
-			on_stderr = function(err, data)
-				assert(not err, err)
-				vim.notify("pandoc: ", data)
-			end,
+			cwd = Path:new({ md }):parent().filename,
+			-- silent, gfm pandoc is very loud
+			-- on_stdout = function(err, data)
+			-- 	assert(not err, err)
+			-- 	vim.notify("pandoc: " .. data)
+			-- end,
+			-- on_stderr = function(err, data)
+			-- 	assert(not err, err)
+			-- 	vim.notify("pandoc: " .. data, vim.log.levels.WARN)
+			-- end,
 			on_exit = function(j, return_val)
 				assert(return_val == 0, "Pandoc return non zero code: " .. return_val)
 				if callback ~= nil then
@@ -112,6 +130,7 @@ keymap("n", "<leader>vm", function()
 			on_exit = function()
 				w:stop()
 				os.remove(tmp_pdf)
+				os.remove(tmp_md)
 			end,
 		}):start()
 	end)
