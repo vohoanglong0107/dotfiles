@@ -223,6 +223,7 @@ local servers = {
 		},
 	},
 	rnix = {},
+	ruff_lsp = {},
 	terraformls = {},
 	tflint = {},
 	tsserver = {
@@ -298,6 +299,9 @@ local lspconfig_group = vim.api.nvim_create_augroup("LspConfig", { clear = true 
 local on_attach = function(client, bufnr)
 	if disable_formatting[client.name] then
 		client.server_capabilities.documentFormattingProvider = false
+	end
+	if client.name == "ruff_lsp" then
+		client.server_capabilities.hoverProvider = false
 	end
 	if client.name == "yamlls" then
 		if vim.bo[bufnr].buftype ~= "" or vim.bo[bufnr].filetype == "helm" then

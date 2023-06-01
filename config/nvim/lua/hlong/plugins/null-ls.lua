@@ -24,11 +24,10 @@ return {
 
 		local sources = {
 			code_actions.eslint,
-			diagnostics.flake8,
+			diagnostics.ruff,
 			diagnostics.golangci_lint,
 			diagnostics.hadolint,
 			diagnostics.shellcheck,
-			formatting.isort,
 			formatting.black.with({
 				extra_args = { "--fast" },
 			}),
@@ -37,6 +36,7 @@ return {
 					or "prettier",
 				extra_filetypes = { "toml" },
 			}),
+			formatting.ruff,
 			formatting.shfmt,
 			formatting.stylua,
 		}
