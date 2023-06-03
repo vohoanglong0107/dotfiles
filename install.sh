@@ -11,7 +11,11 @@ export -f install_config
 
 SRC_DIR=$(dirname "$(readlink -f "$0")")
 cd "$SRC_DIR" || exit
-find . -type f -not -path "./install.sh" -not -path "./config/nvim/*" -exec sh -c 'install_config "$1" '"$SRC_DIR" shell {} \;
+find . -type f \
+  -not -path "./install.sh" \
+  -not -path "./config/nvim/*" \
+  -not -path "./screenshots/*" \
+  -exec sh -c 'install_config "$1" '"$SRC_DIR" shell {} \;
 
 if [[ ! -d "$HOME/.config/nvim" ]]; then
 	ln -s "$SRC_DIR/config/nvim" "$HOME/.config/nvim"
