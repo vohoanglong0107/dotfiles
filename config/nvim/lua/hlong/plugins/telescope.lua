@@ -66,17 +66,15 @@ return {
 				live_grep = {
 					additional_args = function(opts)
 						return {
-							"--glob",
-							"!gazelle_python.yaml",
-							"--glob",
-							"!pnpm-lock.yaml",
-							"--glob",
-							"!**/requirements_lock.txt",
-							"--glob",
-							"!.git",
 							"--hidden",
 						}
 					end,
+					glob_pattern = {
+						"!gazelle_python.yaml",
+						"!pnpm-lock.yaml",
+						"!**/requirements_lock.txt",
+						"!.git",
+					},
 				},
 			},
 		})
