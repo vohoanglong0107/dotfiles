@@ -23,7 +23,6 @@ plugins=(
   vi-mode
   zsh-autosuggestions
   zsh-syntax-highlighting
-  nvm
   fzf
 )
 
