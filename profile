@@ -16,9 +16,11 @@ export BEMOJI_PICKER_CMD="fuzzel --dmenu"
 
 # fzf
 if command -v fd &> /dev/null ; then
-  export FZF_DEFAULT_COMMAND='fd --type f'
+  export FZF_DEFAULT_COMMAND='fd'
+  export FZF_CTRL_T_COMMAND="fd --hidden --exclude '.git' --exclude 'node_modules'"
+  export FZF_ALT_C_COMMAND="fd --hidden --exclude '.git' --exclude 'node_modules' --type d"
 else
-  export FZF_DEFAULT_COMMAND='find . -type f'
+  export FZF_DEFAULT_COMMAND='find .'
 fi
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:-1,bg:-1,spinner:#f5e0dc,hl:#f5e0dc \
