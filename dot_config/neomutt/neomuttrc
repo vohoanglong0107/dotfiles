@@ -3,7 +3,7 @@ source "~/.config/neomutt/theme"
 
 set smtp_authenticators = 'gssapi:login'
 set query_command = "abook --mutt-query '%s'"
-set editor="toolbox run -c dev nvim"
+set editor="$EDITOR"
 set sleep_time = 0
 set markers = no
 set mime_forward = yes
