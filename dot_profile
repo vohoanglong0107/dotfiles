@@ -1,6 +1,6 @@
 # vim:ft=zsh
-if command -v nvim &> /dev/null ; then
-  export EDITOR='nvim'
+if command -v hx &> /dev/null ; then
+  export EDITOR='hx'
 else
   export EDITOR='vi'
 fi

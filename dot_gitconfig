@@ -15,7 +15,7 @@
 [merge]
   tool = nvimdiff2
 [core]
-	editor  = nvim
+	editor  = hx
   pager = delta
 [delta]
   side-by-side = true
