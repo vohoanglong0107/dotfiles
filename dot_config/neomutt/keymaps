@@ -1,6 +1,8 @@
 # vim: syntax=neomuttrc
 source "~/.config/neomutt/vim-keys.rc"
 
+set abort_key = "<Esc>"
+
 bind index                      o          display-message
 bind index                      <Return>   display-message
 bind index                      \Cj        sidebar-next
