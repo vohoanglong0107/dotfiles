@@ -1,0 +1,43 @@
+# vim: syntax=neomuttrc
+source "~/.config/neomutt/cappuccin-theme"
+
+set to_chars = "󰋜"
+set index_format = "%4C %Z %-20.15L %s %*   %?X?  ?%{%b %d}  "
+set flag_chars = "    "
+set folder_format = "%2C %t %N %F %2l %-8.8u %-8.8g %8s %d  · %f"
+set attach_format = "%u%D%I  %t%4n %T%.40d%>  [%.7m/%.10M, %.6e%?C?, %C?, %s]"
+
+# To mark and color each separator charaters separately,
+# I used some invisible zero width Unicode like U+200e, U+200b, U+0082
+# First separator is prefixed with U+200e, and so on
+set my_first_mark = '‎' # U+200e
+set my_second_mark = '​' # U+200b
+set my_third_mark = '' # U+0082
+set my_left_separator = ''
+set my_right_separator = ''
+set status_format = " %D${my_first_mark}${my_left_separator} 󰇯 Msgs:%?M?%M/?%m%?n?  New:%n?%?d?  Del:%d?%?F?  Flag:%F?%?t?  Tag:%t?%?p?  Post:%p?%?l? 󰋊 %l?${my_second_mark}${my_left_separator}%> ${my_right_separator}${my_first_mark}${my_second_mark}(%P) "
+
+set pager_format = " -%Z- %C/%m: %-20.20n   %s%*  -- (%P)"
+set sidebar_format = "%D%* %?N?%N/?%S"
+
+color sidebar_highlight color19 default
+color sidebar_flagged   color3  default    # Mailboxes with flagged mails are Yellow
+color sidebar_indicator color0  color18
+
+color status   color0   color6  "(.*)${my_first_mark}${my_left_separator}" 1
+color status   color6   color0  ".*(${my_first_mark}${my_left_separator})" 1
+color status   color24  color0  ' 󰇯 Msgs:[0-9]*/?[0-9]+'
+color status   color2   color0  '  New:[0-9]*' 
+color status   color3   color0  '  Flag:[0-9]*' 
+color status   color1   color0  '  Del:[0-9]*' 
+color status   color22  color0  '  Post:[0-9]*' 
+color status   color21  color0  ' 󰋊 [0-9]+[A-Z]' 
+color status   color0   default "${my_second_mark}${my_left_separator}"
+color status   color0   color24 "${my_first_mark}${my_second_mark}(.*)" 1
+color status   color24  default "${my_right_separator}"
+
+color index	   color3   default  ~F     # Flagged messages are Yellow
+color index		 color15  default  ~R     # Read messages are Subtext 0
+color index		 color23  default  ~T     # Tagged Messages are Red
+
+color progress color0   color24

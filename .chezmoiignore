@@ -1,0 +1,7 @@
+[^.]*
+**/*.log
+*_history*
+.zcompdump-*
+.cache
+.config/neomutt/domains.csv
+

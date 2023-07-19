@@ -1,0 +1,282 @@
+@import "mocha.css";
+
+* {
+  /* `otf-font-awesome` is required to be installed for icons */
+  font-family: FiraMono Nerd Font, Roboto, Helvetica, Arial, sans-serif;
+  font-size: 0.75rem;
+}
+
+window#waybar {
+  background-color: rgba(0, 0, 0, 0);
+  color: @text;
+}
+
+.modules-right {
+  margin: 0.4rem 0.7rem 0rem 0.7rem;
+}
+
+.modules-center {
+  margin: 0.4rem 0.7rem 0rem 0.7rem;
+}
+
+.modules-left {
+  margin: 0.4rem 0.7rem 0rem 0.7rem;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+/*
+* window#waybar.empty {
+*     background-color: transparent;
+*     }
+*     window#waybar.solo {
+*         background-color: #FFFFFF;
+*         }
+*         */
+
+window#waybar.termite {
+  background-color: #3f3f3f;
+}
+
+window#waybar.chromium {
+  background-color: #000000;
+  border: none;
+}
+
+button {
+  /* Avoid rounded borders under each button name */
+  border: none;
+  border-radius: 0;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+button:hover {
+  background: inherit;
+  box-shadow: inherit;
+  text-shadow: inherit;
+}
+
+#workspaces {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 0.75rem;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+#workspaces button {
+  padding: 0 0.5rem;
+  color: @lavender;
+}
+
+#workspaces button label {
+  font-size: 1.25rem;
+}
+
+/* due to how text are rendered in waybar, workspace icon are circle, so width 
+* and height must be equal, but waybar render text width in fixed proportion to 
+* height, so the rendered label width is short over half of icon width, in 
+* turn make the button width and padding skewed to the left, make the 
+* workspace box has more space to the left than the right.
+* So we must add a little margin to the right of the last child
+* (proportion to 0.275 font-size, so font-size 2rem will have 0.55 rem 
+* margin-right) */
+#workspaces button:last-child label {
+  margin-right: 0.34375rem;
+}
+
+#workspaces button:hover {
+  color: @sapphire;
+  background: transparent;
+}
+
+#workspaces button.focused {
+  color: @rosewater;
+}
+
+#workspaces button.urgent {
+  color: @red;
+}
+
+#mode {
+  /* background-color: #64727d; */
+  border-bottom: 3px solid #ffffff;
+}
+
+/* for window label */
+#window {
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 0 15px;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#mpd {
+  padding: 0 0.7rem;
+  color: @text;
+}
+
+#window,
+#workspaces {
+}
+
+.modules-right {
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+  margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+}
+
+#clock {
+}
+
+tooltip {
+  background-color: rgba(147, 153, 178, 0.3);
+}
+
+tooltip label {
+  color: @flamingo;
+}
+
+#battery {
+}
+
+#battery.charging,
+#battery.plugged {
+}
+
+#battery.warning:not(.charging) {
+  color: @yellow;
+}
+
+@keyframes blink {
+  to {
+    color: @red;
+  }
+}
+
+#battery.critical:not(.charging) {
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+label:focus {
+  /* background-color: #000000; */
+}
+
+#cpu {
+}
+
+#memory {
+}
+
+#disk {
+}
+
+#backlight {
+}
+
+#network {
+}
+
+#network.disconnected {
+  color: @red;
+}
+
+#pulseaudio {
+}
+
+#pulseaudio.muted {
+  color: @red;
+}
+
+#wireplumber {
+  color: #000000;
+}
+
+#wireplumber.muted {
+  background-color: #f53c3c;
+}
+
+#custom-media {
+  background-color: #66cc99;
+  color: #2a5c45;
+  min-width: 100px;
+}
+
+#custom-media.custom-spotify {
+  background-color: #66cc99;
+}
+
+#custom-media.custom-vlc {
+  background-color: #ffa000;
+}
+
+#temperature {
+}
+
+#temperature.critical {
+}
+
+#tray {
+  padding: 0;
+  padding-right: 0.7rem;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+}
+
+#idle_inhibitor {
+}
+
+#idle_inhibitor.activated {
+  color: #2d3436;
+}
+
+#mpd {
+  color: #2a5c45;
+}
+
+#mpd.disconnected {
+}
+
+#mpd.stopped {
+}
+
+#mpd.paused {
+}
+
+#scratchpad {
+}
+
+#scratchpad.empty {
+}

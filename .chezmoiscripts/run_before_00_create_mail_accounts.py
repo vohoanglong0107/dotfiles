@@ -1,0 +1,185 @@
+#! /usr/bin/env python3
+from pathlib import Path
+import fnmatch
+import csv
+import json
+from string import Template
+
+
+isyncrc = Template(
+    """IMAPStore $name-remote
+Host $host
+Port $port
+User $email
+Pass $password
+AuthMechs LOGIN
+SSLType IMAPS
+
+MaildirStore $name-local
+Subfolders Verbatim
+Path ~/.local/share/mail/$name/
+Inbox ~/.local/share/mail/$name/INBOX
+
+Channel $name
+Expunge Both
+Far :$name-remote:
+Near :$name-local:
+Patterns * !"[Gmail]/All Mail"
+Create Both
+SyncState *
+MaxMessages 0
+ExpireUnread no"""
+)
+
+msmtp = Template(
+    """account $email
+host $host
+port $port
+from $email
+user $email
+password "$password"
+auth on
+tls on
+logfile ~/.local/state/msmtp.log
+tls_starttls on"""
+)
+
+neomutt_accounts = Template(
+    r"""# Default account
+source "~/.config/neomutt/profile.$name"
+set spool_file = "+$name/INBOX"
+"""
+)
+
+mailboxes_names = {
+    "Gmail": {
+        "Sent": "[Gmail]/Sent Mail",
+        "Drafts": "[Gmail]/Drafts",
+        "Spam": "[Gmail]/Spam",
+        "Trash": "[Gmail]/Trash",
+    },
+    "default": {"Sent": "Sent", "Drafts": "Drafts", "Spam": "Junk", "Trash": "Deleted"},
+}
+
+mailboxes = Template(
+    r"""named-mailboxes " $mailbox_name" "+$name/INBOX"
+virtual-mailboxes "   Starred" "notmuch://?query=tag:flagged and to:$email"
+named-mailboxes \
+"  󰎞 Drafts" "+$name/$draft_mailbox_name" \
+"  󰛏 Spam" "+$name/$spam_mailbox_name" \
+"  󱡯 Sent Mail" "+$name/$sent_mailbox_name" \
+"   Trash" "+$name/$trash_mailbox_name"
+
+folder-hook $name 'source ~/.config/neomutt/profile.$name'
+"""
+)
+
+neomutt_profile = Template(
+    r"""set from = "$email"
+set sendmail = "msmtp -a $${from}"
+alias me $${real_name} <$${from}>
+set hostname = "${domain}"
+
+set postponed = "+$name/$draft_mailbox_name"
+set trash = "+$name/$trash_mailbox_name"
+# mail providers auto manage this
+set record = "/dev/null"
+"""
+)
+
+
+chezmoi_state_path = Path("~/.local/share/chezmoi").expanduser()
+
+email_providers = {}
+wildcard_domains = set()
+with open(chezmoi_state_path / "domains.csv") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        host = row.pop("ADDRESS")
+        email_providers[host] = row
+        if "*" in host:
+            wildcard_domains.add(host)
+
+with open(chezmoi_state_path / ".chezmoidata/emails.json") as f:
+    emails = json.load(f)
+for email in emails["emails"]:
+    email_domain = email["email"].split("@")[1]
+    if email_providers.get(email_domain, None) is not None:
+        email["domain"] = email_domain
+        continue
+    for wildcard_domain in wildcard_domains:
+        if fnmatch.fnmatch(email_domain, wildcard_domain):
+            email_domain = wildcard_domain
+            break
+    email["domain"] = email_domain
+
+isyncrc_path = chezmoi_state_path / "dot_config/isync/isyncrc"
+isyncrc_path.parent.mkdir(parents=True, exist_ok=True)
+with open(isyncrc_path, "w") as f:
+    for email in emails["emails"]:
+        f.write(
+            isyncrc.substitute(
+                name=email["name"],
+                email=email["email"],
+                password=email["password"],
+                host=email_providers[email["domain"]]["IMAP"],
+                port=email_providers[email["domain"]]["imap port"],
+            )
+        )
+        f.write("\n\n")
+
+msmtp_path = chezmoi_state_path / "dot_config/msmtp/private_config"
+msmtp_path.parent.mkdir(parents=True, exist_ok=True)
+with open(msmtp_path, "w") as f:
+    for email in emails["emails"]:
+        f.write(
+            msmtp.substitute(
+                email=email["email"],
+                password=email["password"],
+                host=email_providers[email["domain"]]["SMTP"],
+                port=email_providers[email["domain"]]["smtp port"],
+            )
+        )
+        f.write("\n\n")
+
+neomutt_accounts_path = chezmoi_state_path / "dot_config/neomutt/accounts"
+neomutt_accounts_path.parent.mkdir(parents=True, exist_ok=True)
+with open(neomutt_accounts_path, "w") as f:
+    f.write(neomutt_accounts.substitute(name=emails["emails"][0]["name"]))
+    f.write("\n\n")
+    for email in emails["emails"]:
+        if email["domain"] == "gmail.com":
+            mailbox_names = mailboxes_names["Gmail"]
+        else:
+            mailbox_names = mailboxes_names["default"]
+        f.write(
+            mailboxes.substitute(
+                mailbox_name=email["name"].capitalize(),
+                name=email["name"],
+                email=email["email"],
+                draft_mailbox_name=mailbox_names["Drafts"],
+                spam_mailbox_name=mailbox_names["Spam"],
+                sent_mailbox_name=mailbox_names["Sent"],
+                trash_mailbox_name=mailbox_names["Trash"],
+            )
+        )
+
+for email in emails["emails"]:
+    neomutt_profile_path = (
+        chezmoi_state_path / "dot_config/neomutt" / f'profile.{email["name"]}'
+    )
+    neomutt_profile_path.parent.mkdir(parents=True, exist_ok=True)
+    if email["domain"] == "gmail.com":
+        mailbox_names = mailboxes_names["Gmail"]
+    else:
+        mailbox_names = mailboxes_names["default"]
+    with open(neomutt_profile_path, "w") as f:
+        f.write(
+            neomutt_profile.substitute(
+                email=email["email"],
+                domain=email["email"].split("@")[1],
+                name=email["name"],
+                draft_mailbox_name=mailbox_names["Drafts"],
+                trash_mailbox_name=mailbox_names["Trash"],
+            )
+        )
