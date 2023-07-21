@@ -23,3 +23,17 @@ newline = "all"
 nbsp = "⍽"
 tab = "→"
 tabpad = "·" # Tabs will look like "→···" (depending on tab width)
+[keys.normal.space]
+"|" = """
+:pipe-to \
+content=$(echo "$(cat)" | od -An -t u1 | tr -d "\n" | xargs) \
+&& IFS=" " read -r -a content_bytes <<< $content \
+&& zellij ac focus-next-pane \
+&& zellij ac write 27 \
+&& zellij ac write-chars "[200~" \
+&& zellij ac write "${content_bytes[@]}" \
+&& zellij ac write 27 \
+&& zellij ac write-chars "[201~" \
+&& zellij ac write 10 \
+&& zellij ac focus-previous-pane
+"""
