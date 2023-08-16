@@ -23,6 +23,8 @@ newline = "all"
 nbsp = "⍽"
 tab = "→"
 tabpad = "·" # Tabs will look like "→···" (depending on tab width)
+[keys.insert.j]
+k = "normal_mode" # Maps `jk` to exit insert mode
 [keys.normal.space]
 "|" = """
 :pipe-to \
