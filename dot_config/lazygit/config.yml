@@ -43,3 +43,5 @@ customCommands:
     context: "files"
     description: "Compare (difftool) with local copy"
     subprocess: true
+os:
+  editPreset: "helix"
