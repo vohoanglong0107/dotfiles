@@ -132,6 +132,14 @@ verbs: [
         key: ctrl-w
         execution: ":input_del_word_left"
     }
+    {
+        key: ctrl-j
+        execution: ":line_down"
+    }
+    {
+        key: ctrl-k
+        execution: ":line_up"
+    }
 
 ]
 
