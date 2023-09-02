@@ -39,3 +39,7 @@ content=$(echo "$(cat)" | od -An -t u1 | tr -d "\n" | xargs) \
 && zellij ac write 10 \
 && zellij ac focus-previous-pane
 """
+"e" = """
+:run-shell-command \
+zellij run -c -- broot
+"""
