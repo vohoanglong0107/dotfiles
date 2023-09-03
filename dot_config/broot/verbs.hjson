@@ -140,6 +140,13 @@ verbs: [
         key: ctrl-k
         execution: ":line_up"
     }
-
+    {
+        invocation: +
+        execution: ":stage"
+    }
+    {
+        invocation: -
+        execution: ":unstage"
+    }
 ]
 
