@@ -31,6 +31,14 @@ keymap("n", "<A-k>", ":m .-2<CR>==", opts)
 -- Clear highlights
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 
+-- Consistent search direction
+keymap("n", "n", function()
+	return vim.v.searchforward == 1 and "n" or "N"
+end, { expr = true, silent = true })
+keymap("n", "N", function()
+	return vim.v.searchforward == 1 and "N" or "n"
+end, { expr = true, silent = true })
+
 -- Better paste
 keymap("v", "p", '"_dP', opts)
 
