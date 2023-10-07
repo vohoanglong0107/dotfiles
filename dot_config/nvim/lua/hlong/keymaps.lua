@@ -39,6 +39,9 @@ keymap("n", "N", function()
 	return vim.v.searchforward == 1 and "N" or "n"
 end, { expr = true, silent = true })
 
+-- Undo
+keymap("n", "U", "<cmd>redo<CR>", opts)
+
 -- Better paste
 keymap("v", "p", '"_dP', opts)
 
