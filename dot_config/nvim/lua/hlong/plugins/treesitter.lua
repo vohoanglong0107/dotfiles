@@ -128,6 +128,13 @@ return {
 					},
 				},
 			},
+			incremental_selection = {
+				enable = true,
+				keymaps = {
+					init_selection = "<A-o>",
+					node_incremental = "<A-o>",
+				},
+			},
 		})
 
 		vim.treesitter.language.register("terraform", "terraform-vars")
