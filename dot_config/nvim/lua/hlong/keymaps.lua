@@ -42,6 +42,15 @@ end, { expr = true, silent = true })
 -- Undo
 keymap("n", "U", "<cmd>redo<CR>", opts)
 
+-- Moving aroung
+keymap("n", "gl", "$", opts)
+keymap("n", "gs", "^", opts)
+keymap("n", "gm", "%", opts)
+keymap("v", "gl", "$", opts)
+keymap("v", "gs", "^", opts)
+keymap("v", "gm", "%", opts)
+keymap("n", "ga", "<C-6>", opts)
+
 -- Better paste
 keymap("v", "p", '"_dP', opts)
 
