@@ -54,6 +54,11 @@ keymap("n", "ga", "<C-6>", opts)
 -- Better paste
 keymap("v", "p", '"_dP', opts)
 
+-- System clipboard yank
+keymap("v", "<leader>y", '"+y', opts)
+keymap("v", "<leader>p", '"+p', opts)
+keymap("n", "<leader>p", '"+p', opts)
+
 -- Visual --
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
