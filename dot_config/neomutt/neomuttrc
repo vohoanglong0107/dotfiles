@@ -39,6 +39,9 @@ set header_cache_compress_level = 9
 set mbox_type = Maildir
 set folder = "~/.local/share/mail"
 
+set mailcap_path = ~/.config/neomutt/mailcap
+auto_view text/html
+
 set sidebar_folder_indent = no
 
 source ~/.config/neomutt/accounts
