@@ -3,6 +3,10 @@ keybinds {
 	normal {
 		unbind "Ctrl o"
 		unbind "Ctrl h"
+    bind "Alt H" { MovePane "Left"; }
+    bind "Alt J" { MovePane "Down"; }
+    bind "Alt K" { MovePane "Up"; }
+    bind "Alt L" { MovePane "Right"; }
 	}
 }
 theme "catppuccin-mocha"
