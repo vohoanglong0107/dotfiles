@@ -52,10 +52,10 @@ keymap("n", "U", "<cmd>redo<CR>")
 -- Moving aroung
 keymap("n", "gl", "$")
 keymap("n", "gs", "^")
-keymap("n", "gm", "%")
+keymap("n", "gm", "%", { silent = true, remap = true, desc = "Go to matching pair" })
 keymap("v", "gl", "$")
 keymap("v", "gs", "^")
-keymap("v", "gm", "%")
+keymap("v", "gm", "%", { silent = true, remap = true, desc = "Go to matching pair" })
 keymap("n", "ga", "<C-6>")
 
 -- Better paste
