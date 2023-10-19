@@ -2,10 +2,17 @@ local Job = require("plenary.job")
 local Path = require("plenary.path")
 local uv = vim.loop
 
-local opts = { silent = true }
-
 -- Shorten function name
-local keymap = vim.keymap.set
+local function keymap(mode, lhs, rhs, opts)
+    local options = { noremap = true, silent = true }
+    if opts then
+        if opts.desc then
+            opts.desc = "keymaps.lua: " .. opts.desc
+        end
+        options = vim.tbl_extend('force', options, opts)
+    end
+    vim.keymap.set(mode, lhs, rhs, options)
+end
 
 -- Modes
 --   normal_mode = "n",
@@ -16,20 +23,20 @@ local keymap = vim.keymap.set
 --   command_mode = "c",
 
 -- Resize with arrows
-keymap("n", "<C-Up>", ":resize -2<CR>", opts)
-keymap("n", "<C-Down>", ":resize +2<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+keymap("n", "<C-Up>", ":resize -2<CR>")
+keymap("n", "<C-Down>", ":resize +2<CR>")
+keymap("n", "<C-Left>", ":vertical resize -2<CR>")
+keymap("n", "<C-Right>", ":vertical resize +2<CR>")
 
 -- Navigate window
-keymap("n", "<C-w>b", "<C-w>s", opts)
+keymap("n", "<C-w>b", "<C-w>s")
 
 -- Move text up and down
-keymap("n", "<A-j>", ":m .+1<CR>==", opts)
-keymap("n", "<A-k>", ":m .-2<CR>==", opts)
+keymap("n", "<A-j>", ":m .+1<CR>==")
+keymap("n", "<A-k>", ":m .-2<CR>==")
 
 -- Clear highlights
-keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
+keymap("n", "<leader>h", "<cmd>nohlsearch<CR>")
 
 -- Consistent search direction
 keymap("n", "n", function()
@@ -40,37 +47,37 @@ keymap("n", "N", function()
 end, { expr = true, silent = true })
 
 -- Undo
-keymap("n", "U", "<cmd>redo<CR>", opts)
+keymap("n", "U", "<cmd>redo<CR>")
 
 -- Moving aroung
-keymap("n", "gl", "$", opts)
-keymap("n", "gs", "^", opts)
-keymap("n", "gm", "%", opts)
-keymap("v", "gl", "$", opts)
-keymap("v", "gs", "^", opts)
-keymap("v", "gm", "%", opts)
-keymap("n", "ga", "<C-6>", opts)
+keymap("n", "gl", "$")
+keymap("n", "gs", "^")
+keymap("n", "gm", "%")
+keymap("v", "gl", "$")
+keymap("v", "gs", "^")
+keymap("v", "gm", "%")
+keymap("n", "ga", "<C-6>")
 
 -- Better paste
-keymap("v", "p", '"_dP', opts)
+keymap("v", "p", '"_dP')
 
 -- System clipboard yank
-keymap("v", "<leader>y", '"+y', opts)
-keymap("v", "<leader>p", '"+p', opts)
-keymap("n", "<leader>p", '"+p', opts)
+keymap("v", "<leader>y", '"+y')
+keymap("v", "<leader>p", '"+p')
+keymap("n", "<leader>p", '"+p')
 
 -- Visual --
 -- Stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
+keymap("v", "<", "<gv")
+keymap("v", ">", ">gv")
 
 -- Move text up and down
-keymap("v", "<A-j>", ":m .+1<CR>==", opts)
-keymap("v", "<A-k>", ":m .-2<CR>==", opts)
-keymap("v", "p", '"_dP', opts)
+keymap("v", "<A-j>", ":m .+1<CR>==")
+keymap("v", "<A-k>", ":m .-2<CR>==")
+keymap("v", "p", '"_dP')
 
 -- Insert --
-keymap("i", "jk", "<Esc>", opts)
+keymap("i", "jk", "<Esc>")
 
 -- Terminal --
 -- Better terminal navigation
@@ -86,7 +93,7 @@ keymap("n", "<leader>vi", function()
 		command = "imv",
 		args = { vim.api.nvim_buf_get_name(0) },
 	}):start()
-end, opts)
+end)
 
 local function new_tmp_file_name()
 	local tmp = os.tmpname()
@@ -162,4 +169,4 @@ keymap("n", "<leader>vm", function()
 			end,
 		}):start()
 	end)
-end, opts)
+end)
