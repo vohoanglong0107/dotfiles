@@ -1,0 +1,5 @@
+inoremap jk <Esc>
+nmap gl $
+nmap gs ^
+nmap U <C-r>
+
