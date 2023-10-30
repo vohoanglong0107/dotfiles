@@ -3,18 +3,6 @@ local servers = {
 	cssls = {},
 	dockerls = {},
 	eslint = {},
-	gopls = {
-		settings = {
-			gopls = {
-				directoryFilters = {
-					"-bazel-bin",
-					"-bazel-out",
-					"-bazel-testlogs",
-					"-bazel-mypkg",
-				},
-			},
-		},
-	},
 	jsonls = {
 		settings = {
 			json = {
