@@ -37,8 +37,7 @@ typeset -gA ZSH_HIGHLIGHT_STYLES
 ## Classes
 ## Comments
 ZSH_HIGHLIGHT_STYLES[comment]='fg=#585b70'
-## Constants
-## Entitites
+## Constants ## Entitites
 ## Functions/methods
 ZSH_HIGHLIGHT_STYLES[alias]='fg=#a6e3a1'
 ZSH_HIGHLIGHT_STYLES[suffix-alias]='fg=#a6e3a1'
@@ -111,3 +110,7 @@ typeset -aU path
 
 alias docker=podman
 alias cat="bat"
+
+{{- if eq .chezmoi.os "darwin" }}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{- end }}
