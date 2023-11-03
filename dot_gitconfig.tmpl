@@ -29,9 +29,11 @@
   plus-emph-style = syntax "#84B284" # blend green base 0.750
   plus-style = syntax "#4D6256" # blend green base 0.450
   syntax-theme = Catppuccin-mocha
+{{- if eq .chezmoi.os "linux" }}
 [credential "https://github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
+{{- end }}
