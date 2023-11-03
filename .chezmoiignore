@@ -7,5 +7,19 @@
 .oh-my-zsh/cache/**
 .oh-my-zsh/custom/themes/powerlevel10k/**/*.zwc
 {{- if eq .chezmoi.os "darwin" }}
+.config/notmuch
+.config/neomutt
+.config/msmtp
+.config/isync
+.config/fcitx5
+.config/sway
+.config/swaylock
+.config/waybar
+.config/foot
+.config/mako
+.config/fuzzel
+.config/systemd
+.config/gtk-3.0
+.local
 !Library
 {{- end }}
