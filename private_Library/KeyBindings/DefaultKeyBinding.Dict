@@ -1,0 +1,13 @@
+// https://gist.github.com/trusktr/1e5e516df4e8032cbc3d
+// https://github.com/ttscoff/KeyBindings
+{
+    /* Ctrl + Left */
+    /* "^\UF702"  = "moveWordLeft:"; */
+    "@\UF702"  = "moveWordLeft:";
+
+    /* Ctrl + Right */
+    "^\UF703"  = "moveWordRight:";
+
+    /* Ctrl + Delete */
+    "^\U007F" = "deleteWordBackward:";
+}
