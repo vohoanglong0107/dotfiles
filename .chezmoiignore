@@ -23,3 +23,7 @@
 .local
 !Library
 {{- end }}
+{{- if eq .chezmoi.os "Linux" }}
+.config/yabai
+.config/skhd
+{{- end }}
