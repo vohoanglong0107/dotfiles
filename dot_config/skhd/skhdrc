@@ -33,7 +33,7 @@ cmd - return : open -na "/Applications/iTerm.app"
 # shift + cmd - h : yabai -m window --swap east
 
 # balance size of windows
-# shift + alt - 0 : yabai -m space --balance
+shift + cmd - space : yabai -m space --balance
 
 # make floating window fill screen
 shift + cmd - f     : yabai -m window --toggle float; yabai -m window --grid 1:1:0:0:1:1
