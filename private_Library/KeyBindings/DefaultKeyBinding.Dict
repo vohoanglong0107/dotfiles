@@ -2,8 +2,7 @@
 // https://github.com/ttscoff/KeyBindings
 {
     /* Ctrl + Left */
-    /* "^\UF702"  = "moveWordLeft:"; */
-    "@\UF702"  = "moveWordLeft:";
+    "^\UF702"  = "moveWordLeft:";
 
     /* Ctrl + Right */
     "^\UF703"  = "moveWordRight:";
