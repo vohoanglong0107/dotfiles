@@ -6,7 +6,7 @@
 .config/neomutt/domains.csv
 .oh-my-zsh/cache/**
 .oh-my-zsh/custom/themes/powerlevel10k/**/*.zwc
-{{- if eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.arch "arm64" }}
 .config/notmuch
 .config/neomutt
 .config/msmtp
@@ -23,7 +23,7 @@
 .local
 !Library
 {{- end }}
-{{- if eq .chezmoi.os "Linux" }}
+{{- if eq .chezmoi.arch "amd64" }}
 .config/yabai
 .config/skhd
 {{- end }}
