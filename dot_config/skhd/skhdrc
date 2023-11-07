@@ -22,6 +22,10 @@ shift + cmd - 8 : yabai -m window --space  8
 shift + cmd - 9 : yabai -m window --space  9
 shift + cmd - 0 : yabai -m window --space  10
 
+# send window to different disiplay
+ctrl + shift + cmd - 1 : yabai -m window --display 1; yabai -m display --focus 1
+ctrl + shift + cmd - 2 : yabai -m window --display 2; yabai -m display --focus 2
+
 # open new terminal
 cmd - return : open -na "/Applications/iTerm.app"
 
