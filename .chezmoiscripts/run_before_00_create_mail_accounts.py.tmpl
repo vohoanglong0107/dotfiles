@@ -1,4 +1,4 @@
-{{- if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.os "linux" -}}
 #! /usr/bin/env python3
 from pathlib import Path
 import fnmatch
@@ -184,4 +184,6 @@ for email in emails["emails"]:
                 trash_mailbox_name=mailbox_names["Trash"],
             )
         )
+{{- else -}}
+#!/bin/sh
 {{- end }}
