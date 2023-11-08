@@ -51,6 +51,7 @@ return {
 						["y"] = M.yank_selection,
 					},
 				},
+        file_ignore_patterns = {".git/"}
 			},
 			extensions = {
 				fzf = {
@@ -76,6 +77,9 @@ return {
 						"!.git",
 					},
 				},
+        find_files = {
+          hidden = true
+        }
 			},
 		})
 		telescope.load_extension("fzf")
