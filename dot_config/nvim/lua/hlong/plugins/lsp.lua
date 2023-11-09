@@ -348,7 +348,14 @@ return {
 			ensure_installed = server_keys,
 			automatic_installation = true,
 		})
-		require("neodev").setup({})
+		require("neodev").setup({
+			override = function(root_dir, library)
+				if string.find(root_dir, "nvim") ~= nil then
+					library.enabled = true
+					library.plugins = true
+				end
+			end,
+		})
 
 		local lspconfig = require("lspconfig")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
