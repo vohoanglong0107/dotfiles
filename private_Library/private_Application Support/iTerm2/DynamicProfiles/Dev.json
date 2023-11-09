@@ -15,7 +15,7 @@
       "Sync Title": false,
       "Prompt Before Closing 2": false,
       "BM Growl": true,
-      "Command" : "ssh -p 22222 -t dev@localhost -o StrictHostKeyChecking=no 'tmux -CC new -A -s main'",
+      "Command" : "ssh -p 22222 -t dev@localhost -o StrictHostKeyChecking=no 'tmux -u -CC new -A -s main'",
       "Description": "Default",
       "Mouse Reporting": true,
       "Screen": -1,
