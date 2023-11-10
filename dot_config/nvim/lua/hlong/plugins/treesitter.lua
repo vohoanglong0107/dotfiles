@@ -30,6 +30,7 @@ return {
 				"markdown_inline",
 				"python",
 				"regex",
+				"ruby",
 				"starlark",
 				"terraform",
 				"tsx",
