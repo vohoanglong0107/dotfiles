@@ -209,7 +209,6 @@ local servers = {
 			},
 		},
 	},
-	rnix = {},
 	ruff_lsp = {},
 	terraformls = {},
 	tflint = {},
