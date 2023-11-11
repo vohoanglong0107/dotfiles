@@ -248,13 +248,6 @@ local servers = {
 	},
 }
 
-local disable_formatting = {
-	eslint = true,
-	jsonls = true,
-	lua_ls = true,
-	tsserver = true,
-}
-
 local signs = {
 	{ name = "DiagnosticSignError", text = "" },
 	{ name = "DiagnosticSignWarn", text = "" },
@@ -283,7 +276,7 @@ end
 
 local lspconfig_group = vim.api.nvim_create_augroup("LspConfig", { clear = true })
 
--- TODO: remove this after neovim support pull diagnostic 
+-- TODO: remove this after neovim support pull diagnostic
 -- https://github.com/Shopify/ruby-lsp/blob/main/EDITORS.md#neovim-lsp
 local _timers = {}
 local function setup_ruby_diagnostics(client, buffer)
@@ -327,25 +320,7 @@ local function setup_ruby_diagnostics(client, buffer)
 	})
 end
 
-local on_attach = function(client, bufnr)
-	if disable_formatting[client.name] then
-		client.server_capabilities.documentFormattingProvider = false
-	end
-	if client.name == "ruff_lsp" then
-		client.server_capabilities.hoverProvider = false
-	end
-	if client.name == "yamlls" then
-		if vim.bo[bufnr].buftype ~= "" or vim.bo[bufnr].filetype == "helm" then
-			vim.diagnostic.disable(bufnr)
-		end
-	end
-
-	if client.name == "ruby_ls" then
-		setup_ruby_diagnostics(client, bufnr)
-	end
-
-	lsp_keymaps(bufnr)
-
+local function setup_auto_format_on_save(client, bufnr)
 	if client.server_capabilities.documentFormattingProvider then
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			pattern = "<buffer>",
@@ -355,6 +330,46 @@ local on_attach = function(client, bufnr)
 			group = lspconfig_group,
 		})
 	end
+end
+
+local function disable_formatting_selected_server(client, bufnr)
+	local disable_formatting = {
+		eslint = true,
+		jsonls = true,
+		lua_ls = true,
+		tsserver = true,
+	}
+	if disable_formatting[client.name] then
+		client.server_capabilities.documentFormattingProvider = false
+	end
+end
+
+local function disable_yamlls_on_helm(client, bufnr)
+	if vim.bo[bufnr].buftype ~= "" or vim.bo[bufnr].filetype == "helm" then
+		vim.diagnostic.disable(bufnr)
+	end
+end
+
+local function disable_hover_ruff(client, bufnr)
+		client.server_capabilities.hoverProvider = false
+end
+
+local on_attach = function(client, bufnr)
+	disable_formatting_selected_server(client, bufnr)
+	if client.name == "ruff_lsp" then
+    disable_hover_ruff(client, bufnr)
+	end
+	if client.name == "yamlls" then
+		disable_yamlls_on_helm(client, bufnr)
+	end
+
+	if client.name == "ruby_ls" then
+		setup_ruby_diagnostics(client, bufnr)
+	end
+
+	lsp_keymaps(bufnr)
+
+	setup_auto_format_on_save(client, bufnr)
 end
 
 return {
