@@ -22,4 +22,9 @@ local opts = {
 	},
 }
 
-require("lazy").setup("hlong.plugins", opts)
+local imports = {
+	{ import = "hlong.plugins.dap" },
+	{ import = "hlong.plugins" },
+}
+
+require("lazy").setup(imports, opts)

@@ -1,13 +1,12 @@
 return {
-	"mfussenegger/nvim-dap",
+	"rcarriga/nvim-dap-ui",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
-		"rcarriga/nvim-dap-ui",
-		"theHamsta/nvim-dap-virtual-text",
+		"mfussenegger/nvim-dap",
 	},
 	config = function()
 		local dap, dapui = require("dap"), require("dapui")
-    dapui.setup()
+		dapui.setup()
 		dap.listeners.after.event_initialized["dapui_config"] = function()
 			dapui.open()
 		end
@@ -17,6 +16,5 @@ return {
 		dap.listeners.before.event_exited["dapui_config"] = function()
 			dapui.close()
 		end
-		require("nvim-dap-virtual-text").setup()
 	end,
 }
