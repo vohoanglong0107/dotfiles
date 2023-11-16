@@ -35,7 +35,6 @@ return {
 					["S"] = "noop",
 					["s"] = "noop",
 					["o"] = "open",
-					["/"] = "noop",
 					-- move to parent
 					["P"] = function(state)
 						local node = state.tree:get_node()
@@ -59,6 +58,12 @@ return {
 				},
 				follow_current_file = true,
 				use_libuv_file_watcher = true,
+				window = {
+					fuzzy_finder_mappings = {
+						["<C-j>"] = "move_cursor_down",
+						["<C-k>"] = "move_cursor_up",
+					},
+				},
 			},
 		})
 	end,
