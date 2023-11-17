@@ -1,6 +1,6 @@
 return {
 	"nvim-neo-tree/neo-tree.nvim",
-	branch = "v2.x",
+	branch = "v3.x",
 	cmd = "Neotree",
 	keys = {
 		{
@@ -56,7 +56,9 @@ return {
 					hide_gitignored = false,
 					hide_hidden = false,
 				},
-				follow_current_file = true,
+				follow_current_file = {
+					enabled = true,
+				},
 				use_libuv_file_watcher = true,
 				window = {
 					fuzzy_finder_mappings = {
