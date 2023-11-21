@@ -25,6 +25,7 @@ return {
 				"html",
 				"javascript",
 				"json",
+				"jsonc",
 				"lua",
 				"markdown",
 				"markdown_inline",
@@ -140,5 +141,8 @@ return {
 		})
 
 		vim.treesitter.language.register("terraform", "terraform-vars")
+		vim.filetype.add({ filename = {
+			["devcontainer.json"] = "jsonc",
+		} })
 	end,
 }
