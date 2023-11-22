@@ -1,3 +1,26 @@
+local parsers = {
+	"bash",
+	"css",
+	"dockerfile",
+	"go",
+	"hcl",
+	"html",
+	"javascript",
+	"json",
+	"jsonc",
+	"lua",
+	"markdown",
+	"markdown_inline",
+	"python",
+	"regex",
+	"ruby",
+	"starlark",
+	"terraform",
+	"tsx",
+	"typescript",
+	"vim",
+	"yaml",
+}
 return {
 	"nvim-treesitter/nvim-treesitter",
 	dependencies = {
@@ -6,38 +29,12 @@ return {
 		"nvim-treesitter/playground",
 		"windwp/nvim-ts-autotag",
 	},
-	build = function()
-		local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-		ts_update()
-	end,
+	build = ":TSInstallSync! " .. table.concat(parsers, " "),
 	event = { "BufReadPost", "BufNewFile" },
 	config = function()
 		require("nvim-treesitter.configs").setup({
 			playground = {
 				enable = true,
-			},
-			ensure_installed = {
-				"bash",
-				"css",
-				"dockerfile",
-				"go",
-				"hcl",
-				"html",
-				"javascript",
-				"json",
-				"jsonc",
-				"lua",
-				"markdown",
-				"markdown_inline",
-				"python",
-				"regex",
-				"ruby",
-				"starlark",
-				"terraform",
-				"tsx",
-				"typescript",
-				"vim",
-				"yaml",
 			},
 			highlight = {
 				enable = true, -- false will disable the whole extension
