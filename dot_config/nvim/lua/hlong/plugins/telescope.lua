@@ -51,7 +51,7 @@ return {
 						["y"] = M.yank_selection,
 					},
 				},
-        file_ignore_patterns = {".git/"}
+        file_ignore_patterns = {"%.git/"}
 			},
 			extensions = {
 				fzf = {
