@@ -356,13 +356,13 @@ local function disable_yamlls_on_helm(client, bufnr)
 end
 
 local function disable_hover_ruff(client, bufnr)
-		client.server_capabilities.hoverProvider = false
+	client.server_capabilities.hoverProvider = false
 end
 
 local on_attach = function(client, bufnr)
 	disable_formatting_selected_server(client, bufnr)
 	if client.name == "ruff_lsp" then
-    disable_hover_ruff(client, bufnr)
+		disable_hover_ruff(client, bufnr)
 	end
 	if client.name == "yamlls" then
 		disable_yamlls_on_helm(client, bufnr)
