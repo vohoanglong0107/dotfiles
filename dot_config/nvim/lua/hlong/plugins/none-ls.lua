@@ -36,6 +36,7 @@ return {
 					or "prettier",
 				extra_filetypes = { "toml" },
 			}),
+			formatting.rustfmt,
 			formatting.ruff,
 			formatting.shfmt,
 			formatting.stylua,

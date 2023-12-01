@@ -216,6 +216,7 @@ local servers = {
 	},
 	ruby_ls = {},
 	ruff_lsp = {},
+	rust_analyzer = {},
 	terraformls = {},
 	tflint = {},
 	tsserver = {
