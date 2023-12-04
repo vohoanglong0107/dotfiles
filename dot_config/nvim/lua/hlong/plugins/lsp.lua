@@ -254,6 +254,17 @@ local servers = {
 	},
 }
 
+local ensure_installed = {
+  "bashls",
+  "cssls",
+  "dockerls",
+  "jsonls",
+  "pyright",
+  "lua_ls",
+  "tsserver",
+  "yamlls"
+}
+
 local signs = {
 	{ name = "DiagnosticSignError", text = "" },
 	{ name = "DiagnosticSignWarn", text = "" },
@@ -408,13 +419,8 @@ return {
 			},
 		})
 
-		local server_keys = {}
-		for server, opts in pairs(servers) do
-			table.insert(server_keys, server)
-		end
 		require("mason-lspconfig").setup({
-			ensure_installed = server_keys,
-			automatic_installation = true,
+			ensure_installed = ensure_installed,
 		})
 		require("neodev").setup({
 			override = function(root_dir, library)
