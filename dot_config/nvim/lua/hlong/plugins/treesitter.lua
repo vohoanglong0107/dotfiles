@@ -14,6 +14,7 @@ local parsers = {
 	"python",
 	"regex",
 	"ruby",
+	"rust",
 	"starlark",
 	"terraform",
 	"tsx",
