@@ -18,6 +18,7 @@ plugins=(
   docker
   kubectl
   vi-mode
+  zsh-histdb
   zsh-autosuggestions
   zsh-syntax-highlighting
   fzf
@@ -106,6 +107,58 @@ if zmodload zsh/terminfo && (( terminfo[colors] >= 256 )); then
 else
   [[ ! -f ~/.p10k-compat.zsh ]] || source ~/.p10k-compat.zsh
 fi
+
+HISTDB_TABULATE_CMD=(sed -e $'s/\x1f/\t/g')
+autoload -Uz add-zsh-hook
+_zsh_autosuggest_strategy_histdb_top_here() {
+    local query="select commands.argv from
+history left join commands on history.command_id = commands.rowid
+left join places on history.place_id = places.rowid
+where places.dir LIKE '$(sql_escape $PWD)%'
+and commands.argv LIKE '$(sql_escape $1)%'
+group by commands.argv order by count(*) desc limit 1"
+    suggestion=$(_histdb_query "$query")
+}
+
+ZSH_AUTOSUGGEST_STRATEGY=histdb_top_here
+
+# https://github.com/larkery/zsh-histdb/issues/25
+# https://github.com/junegunn/fzf/issues/1308
+fzf-history-widget() {
+  local selected num
+  setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
+  local query="
+SELECT replace(replace(argv, char(13), '\n'), char(10), '\n') FROM (
+  SELECT argv, in_dir, max(start_time) as latest_time FROM (
+    SELECT commands.argv, 1 AS in_dir, history.start_time AS start_time FROM
+      history LEFT JOIN commands ON history.command_id = commands.rowid
+      LEFT JOIN places on history.place_id = places.rowid
+      WHERE places.dir LIKE '$(sql_escape $PWD)%'
+    UNION ALL
+    SELECT commands.argv, 0 AS in_dir, history.start_time AS start_time FROM
+      history LEFT JOIN commands ON history.command_id = commands.rowid
+      LEFT JOIN places ON history.place_id = places.rowid
+  )
+  GROUP BY argv
+  ORDER BY in_dir DESC, latest_time DESC
+)
+"
+  selected=$(_histdb_query "$query" |
+    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" $(__fzfcmd))
+  local ret=$?
+  if [ -n "$selected" ]; then
+    # https://superuser.com/a/1564353
+    # https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html
+    BUFFER="$(echo ${(F)selected//$'\n'/\\n})"
+    CURSOR=$#BUFFER
+  fi
+  zle redisplay
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
+}
+zle     -N   fzf-history-widget
+bindkey '^R' fzf-history-widget
+
 
 # remove duplicate entry from $PATH. $PATH is string while $path is array
 typeset -aU path

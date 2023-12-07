@@ -23,6 +23,12 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "168h"
+[".oh-my-zsh/custom/plugins/zsh-histdb"]
+    type = "archive"
+    url = "https://github.com/larkery/zsh-histdb/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
 {{- if eq .chezmoi.os "darwin" }}
 [".iterm2_shell_integration.zsh"]
     type = "file"
