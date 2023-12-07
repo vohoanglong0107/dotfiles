@@ -115,9 +115,6 @@ alias cat="bat"
 {{- if eq .chezmoi.os "darwin" }}
 eval "$(/opt/homebrew/bin/brew shellenv)"
 source ~/.iterm2_shell_integration.zsh
-[[ -d ~/.rbenv  ]] && \
-  export PATH=${HOME}/.rbenv/bin:${PATH} && \
-  eval "$(rbenv init -)"
 {{- end }}
 {{- if eq .chezmoi.os "linux" }}
 alias docker=podman
