@@ -27,7 +27,7 @@ ctrl + shift + cmd - 1 : yabai -m window --display 1; yabai -m display --focus 1
 ctrl + shift + cmd - 2 : yabai -m window --display 2; yabai -m display --focus 2
 
 # open new terminal
-cmd - return : open -na "/Applications/iTerm.app"
+cmd - return : /Applications/WezTerm.app/Contents/MacOS/wezterm start --always-new-process
 
 # swap managed window
 # shift + cmd - h : yabai -m window --swap east

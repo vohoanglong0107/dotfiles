@@ -1,0 +1,2 @@
+# To load docker to wezterm, as this seem to be the only way to add env to wezterm, as wezterm is launched by the default launcher
+path+=('/usr/local/bin')
