@@ -1,16 +1,20 @@
 [^.]* # ignoring all non dot files
+!Library
 **/*.log
 *_history*
 .zcompdump-*
 .cache
 .config/neomutt/domains.csv
 .oh-my-zsh/cache/**
-.oh-my-zsh/custom/themes/powerlevel10k/**/*.zwc
-{{- if eq .chezmoi.arch "arm64" }}
+
+{{- if ne .configEmail true }}
 .config/notmuch
 .config/neomutt
 .config/msmtp
 .config/isync
+.config/systemd/user/isync*
+{{- end }}
+{{- if eq .isServer true -}}
 .config/fcitx5
 .config/sway
 .config/swaylock
@@ -21,9 +25,24 @@
 .config/systemd
 .config/gtk-3.0
 .local
-!Library
-{{- end }}
-{{- if eq .chezmoi.arch "amd64" }}
+
 .config/yabai
 .config/skhd
+{{- else -}}
+{{-   if ne .chezmoi.arch "amd64" }}
+.config/fcitx5
+.config/sway
+.config/swaylock
+.config/waybar
+.config/foot
+.config/mako
+.config/fuzzel
+.config/systemd
+.config/gtk-3.0
+.local
+{{-   else if ne .chezmoi.arch "arm64" }}
+.config/yabai
+.config/skhd
+Library
+{{-   end }}
 {{- end }}

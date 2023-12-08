@@ -8,3 +8,22 @@
   ]
   pager = "cat"
   exclude = ["scripts", "dirs"]
+[data]
+{{- $isServer := promptBool "Is this a server?" true }}
+{{- if eq $isServer false -}}
+{{-   $configEmail := promptBool "Configure Emails?" false }}
+{{-   if eq $configEmail true }}
+  emails = [
+{{-     $numEmail := promptInt "Number of email accounts" }}
+{{-     range $id := until (int $numEmail) }}
+{{-       $accountId := add (int $id) 1 }}
+{{-       $accountName := promptString (printf "Name of account number %v" $accountId) }}
+{{-       $accountEmail := promptString (printf "Email of account number %v" $accountId) }}
+{{-       $accountPass := promptString (printf "Passowrd of account number %v" $accountId) }}
+    { name = "{{ $accountName }}", email = "{{ $accountEmail }}", password = "{{ $accountPass }}" },
+{{-     end }}
+{{-   end }}
+  ]
+  configEmail = {{ $configEmail }}
+{{- end }}
+  isServer = {{ $isServer }}
