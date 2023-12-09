@@ -22,8 +22,8 @@
 {{-       $accountPass := promptString (printf "Passowrd of account number %v" $accountId) }}
     { name = "{{ $accountName }}", email = "{{ $accountEmail }}", password = "{{ $accountPass }}" },
 {{-     end }}
-{{-   end }}
   ]
+{{-   end }}
   configEmail = {{ $configEmail }}
 {{- end }}
   isServer = {{ $isServer }}
