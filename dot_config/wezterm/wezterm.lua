@@ -54,6 +54,21 @@ local function container_domain(container_id, container_name)
 	end, "Open in container " .. container_name)
 end
 
+local function set_font()
+	local success, _, _ = wezterm.run_child_process({ "zsh", "-c", "fc-list | grep Fira" })
+	if success then
+		return wezterm.font("FiraMono Nerd Font Mono")
+	end
+	wezterm.log_warning("Can't find font FiraMono")
+
+	success, _, _ = wezterm.run_child_process({ "zsh", "-c", "fc-list | grep Fira" })
+	if success then
+		return wezterm.font("FiraCode Nerd Font Mono")
+	end
+	wezterm.log_warning("Can't find font FiraCode")
+	return wezterm.font("JetBrains Mono")
+end
+
 local exec_domains = {}
 
 local containers = list_container()
@@ -70,7 +85,7 @@ config.set_environment_variables = {
 	EDITOR = "nvim",
 	PATH = "/opt/homebrew/bin:/usr/local/bin:" .. os.getenv("PATH"),
 }
-config.font = wezterm.font("FiraCode Nerd Font Mono")
+config.font = set_font()
 config.enable_tab_bar = false
 
 catppuccin.apply_to_config(config, { sync = true })
