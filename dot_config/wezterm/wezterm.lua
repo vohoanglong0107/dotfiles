@@ -96,13 +96,13 @@ local function set_font()
 	if success then
 		return wezterm.font("FiraMono Nerd Font Mono")
 	end
-	wezterm.log_warning("Can't find font FiraMono")
+	wezterm.log_warn("Can't find font FiraMono")
 
 	success, _, _ = wezterm.run_child_process({ "zsh", "-c", "fc-list | grep Fira" })
 	if success then
 		return wezterm.font("FiraCode Nerd Font Mono")
 	end
-	wezterm.log_warning("Can't find font FiraCode")
+	wezterm.log_warn("Can't find font FiraCode")
 	return wezterm.font("JetBrains Mono")
 end
 
