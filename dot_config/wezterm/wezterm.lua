@@ -16,10 +16,22 @@ local function split(s, delimiter)
 	return result
 end
 
-local function list_container()
+local function get_container_runtime()
+	local success, _, _ = wezterm.run_child_process({ "which", "docker" })
+	if success then
+		return "docker"
+	end
+	success, _, _ = wezterm.run_child_process({ "which", "podman" })
+	if success then
+		return "podman"
+	end
+	return nil
+end
+
+local function list_container(container_runtime)
 	-- https://wezfurlong.org/wezterm/faq.html#im-on-macos-and-wezterm-cannot-find-things-in-my-path
-	local success, stdout, stderr = wezterm.run_child_process({ "zsh", "-c", "docker ps --format {{.ID}}:{{.Names}}" })
-	wezterm.log_info(stdout)
+	local success, stdout, stderr =
+		wezterm.run_child_process({ "zsh", "-c", container_runtime .. " ps --format {{.ID}}:{{.Names}}" })
 	local containers = {}
 	if success then
 		for _, container in ipairs(split(stdout, "\n")) do
@@ -34,11 +46,11 @@ local function list_container()
 	return containers
 end
 
-local function container_domain(container_id, container_name)
+local function container_domain(container_runtime, container_id, container_name)
 	return wezterm.exec_domain("container-" .. container_name, function(cmd)
 		cmd.args = cmd.args or { "zsh" }
 		local wrapped = {
-			"docker",
+			container_runtime,
 			"exec",
 			"-it",
 			"-w",
@@ -52,6 +64,31 @@ local function container_domain(container_id, container_name)
 		cmd.args = wrapped
 		return cmd
 	end, "Open in container " .. container_name)
+end
+
+local function get_container_domains()
+	local domains = {}
+
+	local container_runtime = get_container_runtime()
+	if container_runtime == nil then
+		wezterm.log_info("Container runtime (docker, podman, etc) not found")
+		return domains
+	end
+	local containers = list_container(container_runtime)
+	if next(containers) ~= nil then
+		for _, container in ipairs(containers) do
+			table.insert(domains, container_domain(container_runtime, container["id"], container["name"]))
+		end
+	end
+  return domains
+end
+
+local function set_exec_domains()
+	local exec_domains = {}
+	for _, domain in ipairs(get_container_domains()) do
+		table.insert(exec_domains, domain)
+	end
+  return exec_domains
 end
 
 local function set_font()
@@ -69,18 +106,8 @@ local function set_font()
 	return wezterm.font("JetBrains Mono")
 end
 
-local exec_domains = {}
-
-local containers = list_container()
-wezterm.log_info(containers)
-if next(containers) ~= nil then
-	for _, container in ipairs(containers) do
-		table.insert(exec_domains, container_domain(container["id"], container["name"]))
-	end
-end
-
 config.window_background_opacity = 0.85
-config.exec_domains = exec_domains
+config.exec_domains = set_exec_domains()
 config.set_environment_variables = {
 	EDITOR = "nvim",
 	PATH = "/opt/homebrew/bin:/usr/local/bin:" .. os.getenv("PATH"),
