@@ -1,5 +1,4 @@
 # vim:ft=zsh
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export EDITOR='vi'
 
 # bat
