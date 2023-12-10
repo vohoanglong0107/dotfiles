@@ -20,7 +20,7 @@ export FZF_DEFAULT_OPTS=" \
 --color=fg:#b4befe,header:#f38ba8,info:#cba6f7,pointer:#89dceb \
 --color=marker:#f5e0dc,fg+:#89dceb,prompt:#cba6f7,hl+:#f5c2e7"
 
-{{- if and (eq .isServer false) (eq .chezmoi.arch "amd64") }}
+{{- if and (eq .isServer false) (eq .chezmoi.os "linux") }}
 # bemoji
 export BEMOJI_PICKER_CMD="fuzzel --dmenu"
 
