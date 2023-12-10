@@ -80,7 +80,7 @@ local function get_container_domains()
 			table.insert(domains, container_domain(container_runtime, container["id"], container["name"]))
 		end
 	end
-  return domains
+	return domains
 end
 
 local function set_exec_domains()
@@ -88,22 +88,7 @@ local function set_exec_domains()
 	for _, domain in ipairs(get_container_domains()) do
 		table.insert(exec_domains, domain)
 	end
-  return exec_domains
-end
-
-local function set_font()
-	local success, _, _ = wezterm.run_child_process({ "zsh", "-c", "fc-list | grep Fira" })
-	if success then
-		return wezterm.font("FiraMono Nerd Font Mono")
-	end
-	wezterm.log_warn("Can't find font FiraMono")
-
-	success, _, _ = wezterm.run_child_process({ "zsh", "-c", "fc-list | grep Fira" })
-	if success then
-		return wezterm.font("FiraCode Nerd Font Mono")
-	end
-	wezterm.log_warn("Can't find font FiraCode")
-	return wezterm.font("JetBrains Mono")
+	return exec_domains
 end
 
 config.window_background_opacity = 0.85
@@ -112,7 +97,7 @@ config.set_environment_variables = {
 	EDITOR = "nvim",
 	PATH = "/opt/homebrew/bin:/usr/local/bin:" .. os.getenv("PATH"),
 }
-config.font = set_font()
+config.font = wezterm.font("FiraMono Nerd Font Mono")
 config.enable_tab_bar = false
 
 catppuccin.apply_to_config(config, { sync = true })
