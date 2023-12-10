@@ -9,9 +9,9 @@
   pager = "cat"
   exclude = ["scripts", "dirs"]
 [data]
-{{- $isServer := promptBool "Is this a server?" true }}
+{{- $isServer := promptBoolOnce . "isServer" "Is this a server?" true }}
 {{- if eq $isServer false -}}
-{{-   $configEmail := promptBool "Configure Emails?" false }}
+{{-   $configEmail := promptBoolOnce . "configEmail" "Configure Emails?" false }}
 {{-   if eq $configEmail true }}
   emails = [
 {{-     $numEmail := promptInt "Number of email accounts" }}
