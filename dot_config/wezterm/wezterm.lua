@@ -3,17 +3,16 @@ local catppuccin = wezterm.plugin.require("https://github.com/catppuccin/wezterm
 
 local config = wezterm.config_builder()
 
-local function split(s, delimiter)
-	local result = {}
-	local from = 1
-	local delim_from, delim_to = string.find(s, delimiter, from)
-	while delim_from do
-		table.insert(result, string.sub(s, from, delim_from - 1))
-		from = delim_to + 1
-		delim_from, delim_to = string.find(s, delimiter, from)
+-- https://stackoverflow.com/a/7615129
+local function split(s, sep)
+	if sep == nil then
+		sep = "%s%"
 	end
-	table.insert(result, string.sub(s, from))
-	return result
+	local t = {}
+	for str in string.gmatch(s, "([^" .. sep .. "]+)") do
+		table.insert(t, str)
+	end
+	return t
 end
 
 local function get_container_runtime()
