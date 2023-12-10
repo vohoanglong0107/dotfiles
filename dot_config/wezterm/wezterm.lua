@@ -82,9 +82,74 @@ local function get_container_domains()
 	return domains
 end
 
+local function get_toolbox_command()
+	local success, _, _ = wezterm.run_child_process({ "which", "toolbox" })
+	if success then
+		return "toolbox"
+	end
+	return nil
+end
+
+local function list_toolboxes(toolbox_command)
+	local success, stdout, stderr = wezterm.run_child_process({ "zsh", "-c", toolbox_command .. " list -c" })
+	local toolboxes = {}
+	if success then
+		local containers_info = split(stdout, "\n")
+		-- First line is column header
+		table.remove(containers_info, 1)
+		for _, container in ipairs(containers_info) do
+			if container ~= "" then
+				local id, name = table.unpack(split(container, " "))
+				table.insert(toolboxes, { id = id, name = name })
+			end
+		end
+	else
+		wezterm.log_error(stderr)
+	end
+	return toolboxes
+end
+
+local function toolbox_domain(toolbox_command, toolbox_name)
+	return wezterm.exec_domain("toolbox-" .. toolbox_name, function(cmd)
+		cmd.args = cmd.args or { "zsh", "-l" }
+		local wrapped = {
+			toolbox_command,
+			"run",
+			"-c",
+			toolbox_name,
+		}
+		for _, arg in ipairs(cmd.args) do
+			table.insert(wrapped, arg)
+		end
+
+		cmd.args = wrapped
+		return cmd
+	end, "Open in toolbox " .. toolbox_name)
+end
+
+local function get_toolbox_domains()
+	local domains = {}
+
+	local toolbox_command = get_toolbox_command()
+	if toolbox_command == nil then
+		wezterm.log_info("Toolbox not found")
+		return domains
+	end
+	local toolboxes = list_toolboxes(toolbox_command)
+	if next(toolboxes) ~= nil then
+		for _, container in ipairs(toolboxes) do
+			table.insert(domains, toolbox_domain(toolbox_command, container["name"]))
+		end
+	end
+	return domains
+end
+
 local function set_exec_domains()
 	local exec_domains = {}
 	for _, domain in ipairs(get_container_domains()) do
+		table.insert(exec_domains, domain)
+	end
+	for _, domain in ipairs(get_toolbox_domains()) do
 		table.insert(exec_domains, domain)
 	end
 	return exec_domains
