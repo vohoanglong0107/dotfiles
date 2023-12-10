@@ -1,4 +1,4 @@
-{{- if eq .configEmail true -}}
+{{- if and (eq .isServer false) (eq .configEmail true) -}}
 #! /usr/bin/env python3
 from pathlib import Path
 import fnmatch

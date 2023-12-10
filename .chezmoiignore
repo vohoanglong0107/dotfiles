@@ -7,7 +7,7 @@
 .config/neomutt/domains.csv
 .oh-my-zsh/cache/**
 
-{{- if ne .configEmail true }}
+{{- if or (eq .isServer true) (ne .configEmail true) }}
 .config/notmuch
 .config/neomutt
 .config/msmtp
