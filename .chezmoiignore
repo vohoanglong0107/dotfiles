@@ -1,5 +1,4 @@
 [^.]* # ignoring all non dot files
-!Library
 **/*.log
 *_history*
 .zcompdump-*
@@ -31,4 +30,6 @@
 .config/yabai
 .config/skhd
 Library
+{{- else if and (eq .isServer false) (eq .chezmoi.arch "arm64")}}
+!Library
 {{- end }}
