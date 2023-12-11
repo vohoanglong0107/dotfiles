@@ -14,7 +14,7 @@
 .config/isync
 .config/systemd/user/isync*
 {{- end }}
-{{- if or (eq .isServer true) (ne .chezmoi.arch "amd64") }}
+{{- if or (eq .isServer true) (ne .chezmoi.os "linux") }}
 .config/fcitx5
 .config/sway
 .config/swaylock
@@ -26,10 +26,10 @@
 .config/gtk-3.0
 .local
 {{- end }}
-{{- if or (eq .isServer true) (ne .chezmoi.arch "arm64") }}
+{{- if or (eq .isServer true) (ne .chezmoi.os "darwin") }}
 .config/yabai
 .config/skhd
 Library
-{{- else if and (eq .isServer false) (eq .chezmoi.arch "arm64")}}
+{{- else if and (eq .isServer false) (eq .chezmoi.os "darwin")}}
 !Library
 {{- end }}
