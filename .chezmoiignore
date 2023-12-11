@@ -6,6 +6,7 @@
 .cache
 .config/neomutt/domains.csv
 .oh-my-zsh/cache/**
+.oh-my-zsh/custom/themes/powerlevel10k/**/*.zwc
 
 {{- if or (eq .isServer true) (ne .configEmail true) }}
 .config/notmuch
