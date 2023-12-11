@@ -21,8 +21,7 @@ gui:
       - red # Red
 git:
   paging:
-    colorArg: always
-    pager: delta --dark --paging=never
+    externalDiffCommand: "difft --color=always"
 keybinding:
   universal:
     gotoTop: "g"
@@ -31,16 +30,5 @@ keybinding:
     viewResetOptions: "D"
   stash:
     popStash: "p"
-customCommands:
-  - key: "f"
-    command: "git difftool -y {{.SelectedLocalCommit.Sha}}^1 {{.SelectedLocalCommit.Sha}} -- {{.SelectedCommitFile.Name}}"
-    context: "commitFiles"
-    description: "Compare (difftool) with local copy"
-    subprocess: true
-  - key: "f"
-    command: "git difftool -y -- {{.SelectedFile.Name}}"
-    context: "files"
-    description: "Compare (difftool) with local copy"
-    subprocess: true
 os:
   editPreset: "nvim"
