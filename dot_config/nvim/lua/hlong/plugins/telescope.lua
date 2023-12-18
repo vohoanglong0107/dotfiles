@@ -7,7 +7,6 @@ return {
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		"nvim-telescope/telescope-symbols.nvim",
 		"rcarriga/nvim-notify",
-		"ahmedkhalf/project.nvim",
 	},
 	cmd = "Telescope",
 	keys = {
@@ -17,7 +16,6 @@ return {
 		{ "<leader>fo", "<cmd>Telescope lsp_document_symbols<CR>" }, -- find symbols/object
 		{ "<leader>hc", "<cmd>Telescope command_history<CR>" }, -- history commands
 		{ "<leader>fh", "<cmd>Telescope oldfiles<CR>" }, -- history files
-		{ "<leader>fp", "<cmd>Telescope projects<CR>" }, -- find projects
 	},
 	lazy = true,
 	config = function()
@@ -84,6 +82,5 @@ return {
 		})
 		telescope.load_extension("fzf")
 		telescope.load_extension("notify")
-		telescope.load_extension("projects")
 	end,
 }
