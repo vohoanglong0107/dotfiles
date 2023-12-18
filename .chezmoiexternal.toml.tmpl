@@ -29,9 +29,7 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "168h"
-{{- if eq .chezmoi.os "darwin" }}
-[".iterm2_shell_integration.zsh"]
+[".wezterm.sh"]
     type = "file"
-    url = "https://iterm2.com/shell_integration/zsh"
+    url = "https://raw.githubusercontent.com/wez/wezterm/main/assets/shell-integration/wezterm.sh"
     refreshPeriod = "168h"
-{{- end }}
