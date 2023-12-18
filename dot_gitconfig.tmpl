@@ -14,8 +14,10 @@
 [pager]
   difftool = true
 [merge]
-  tool = nvimdiff2
+  tool = nvim
 	conflictstyle = diff3
+[mergetool "nvim"]
+  cmd = "nvim -d -c \"wincmd l\" -c \"wincmd J\" -c \"norm ]c\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
 [core]
 	editor  = nvim
   pager = delta
