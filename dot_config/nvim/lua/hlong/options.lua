@@ -45,7 +45,7 @@ local options = {
 for k, v in pairs(options) do
 	vim.opt[k] = v
 end
-
+vim.opt.diffopt:append("linematch:60")
 vim.opt.fillchars = "diff:/"
 -- vim.opt.shortmess = "ilmnrx"                        -- flags to shorten vim messages, see :help 'shortmess'
 vim.opt.shortmess:append("c") -- don't give |ins-completion-menu| messages
