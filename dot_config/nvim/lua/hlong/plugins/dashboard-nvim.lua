@@ -62,7 +62,7 @@ return {
 					},
 				},
 				mru = { limit = 3 },
-				project = { limit = 2, icon = "󰏓 " },
+        project = { enable = false, limit = 8, icon = 'your icon', label = '', action = 'Telescope find_files cwd=' },
 			},
 		})
 	end,
