@@ -159,10 +159,6 @@ SELECT replace(replace(argv, char(13), '\n'), char(10), '\n') FROM (
 zle     -N   fzf-history-widget
 bindkey '^R' fzf-history-widget
 
-
-# remove duplicate entry from $PATH. $PATH is string while $path is array
-typeset -aU path
-
 alias cat="bat"
 source ~/.wezterm.sh
 
@@ -172,3 +168,6 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 {{- if eq .chezmoi.os "linux" }}
 alias docker=podman
 {{- end }}
+#
+# remove duplicate entry from $PATH. $PATH is string while $path is array
+typeset -aU path
