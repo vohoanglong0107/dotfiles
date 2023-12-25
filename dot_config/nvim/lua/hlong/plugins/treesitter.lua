@@ -5,6 +5,7 @@ local parsers = {
 	"go",
 	"hcl",
 	"html",
+  "java",
 	"javascript",
 	"json",
 	"jsonc",

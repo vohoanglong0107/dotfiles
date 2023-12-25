@@ -3,6 +3,7 @@ local servers = {
 	cssls = {},
 	dockerls = {},
 	eslint = {},
+	jdtls = {}, -- nvim-jdtls is not working
 	jsonls = {
 		settings = {
 			json = {
@@ -255,14 +256,14 @@ local servers = {
 }
 
 local ensure_installed = {
-  "bashls",
-  "cssls",
-  "dockerls",
-  "jsonls",
-  "pyright",
-  "lua_ls",
-  "tsserver",
-  "yamlls"
+	"bashls",
+	"cssls",
+	"dockerls",
+	"jsonls",
+	"pyright",
+	"lua_ls",
+	"tsserver",
+	"yamlls",
 }
 
 local signs = {
