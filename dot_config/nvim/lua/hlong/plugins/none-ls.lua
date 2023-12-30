@@ -31,6 +31,10 @@ return {
 			formatting.black.with({
 				extra_args = { "--fast" },
 			}),
+			formatting.eslint.with({
+				command = utils.root_has_file("node_modules/.bin/eslint") and "node_modules/.bin/eslint"
+					or "eslint",
+			}),
 			formatting.prettier.with({
 				command = utils.root_has_file("node_modules/.bin/prettier") and "node_modules/.bin/prettier"
 					or "prettier",
