@@ -159,7 +159,11 @@ SELECT replace(replace(argv, char(13), '\n'), char(10), '\n') FROM (
 zle     -N   fzf-history-widget
 bindkey '^R' fzf-history-widget
 
-alias cat="bat"
+if command -v bat &> /dev/null; then
+  export PAGER="bat --plain"
+  alias cat="bat"
+fi
+
 source ~/.wezterm.sh
 
 {{- if eq .chezmoi.os "darwin" }}
