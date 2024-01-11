@@ -20,17 +20,6 @@
   cmd = "nvim -d -c \"wincmd l\" -c \"wincmd J\" -c \"norm ]c\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
 [core]
 	editor  = nvim
-  pager = delta
-[delta]
-  side-by-side = true
-  line-numbers-minus-style = red
-  line-numbers-plus-style = green
-  # blend c1 c2 r: c1 * r + c2 * (1 - r)
-  minus-emph-style = syntax "#BE708A" # blend red base 0.750
-  minus-style = syntax "#674458" # blend red base 0.345
-  plus-emph-style = syntax "#84B284" # blend green base 0.750
-  plus-style = syntax "#4D6256" # blend green base 0.450
-  syntax-theme = Catppuccin-mocha
 {{- if eq .chezmoi.os "linux" }}
 [credential "https://github.com"]
 	helper = 
