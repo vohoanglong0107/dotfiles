@@ -17,6 +17,11 @@ config.set_environment_variables = {
 config.font = wezterm.font("FiraMono Nerd Font Mono")
 config.enable_tab_bar = false
 
+config.keys = {
+  { key = 'UpArrow', mods = 'SHIFT', action = wezterm.action.ScrollByLine(-1) },
+  { key = 'DownArrow', mods = 'SHIFT', action = wezterm.action.ScrollByLine(1) },
+}
+
 -- config.exit_behavior = "Hold"
 
 return config
