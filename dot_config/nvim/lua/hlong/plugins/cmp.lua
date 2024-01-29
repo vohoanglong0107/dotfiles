@@ -148,6 +148,10 @@ return {
 				ghost_text = false,
 				native_menu = false,
 			},
+			performance = {
+				debounce = 0,
+				throttle = 0,
+			},
 		})
 
 		cmp.setup.filetype("gitcommit", {
