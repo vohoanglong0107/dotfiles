@@ -7,10 +7,19 @@ if inside_obsidian_vault ~= 0 then
 	})
 end
 
+local keys = {
+	{
+		"<leader>ot",
+		"<cmd>ObsidianToday<CR>",
+		desc = "Open today notes",
+	},
+}
+
 return {
 	"epwalsh/obsidian.nvim",
 	version = "*",
 	lazy = not (inside_obsidian_vault ~= 0),
+	keys = inside_obsidian_vault ~= 0 and keys or nil,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"hrsh7th/nvim-cmp",
@@ -22,7 +31,7 @@ return {
 		workspaces = workspaces,
 		daily_notes = {
 			folder = "journals",
-      date_format = "%Y-%m-%d",
+			date_format = "%Y-%m-%d",
 			-- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
 			template = "journal.md",
 		},
@@ -36,6 +45,22 @@ return {
 		},
 		templates = {
 			subdir = "templates",
+		},
+		mappings = {
+			-- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
+			["gf"] = {
+				action = function()
+					return require("obsidian").util.gf_passthrough()
+				end,
+				opts = { noremap = false, expr = true, buffer = true },
+			},
+			-- Toggle check-boxes.
+			["<leader>oc"] = {
+				action = function()
+					return require("obsidian").util.toggle_checkbox()
+				end,
+				opts = { buffer = true, desc = "Toggle checkbox in obsidian vault" },
+			},
 		},
 	},
 }
