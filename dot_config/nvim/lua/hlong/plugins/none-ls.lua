@@ -35,6 +35,15 @@ return {
 			formatting.stylua,
 		}
 
+		if utils.root_has_file("node_modules/.bin/biome") then
+			table.insert(
+				sources,
+				formatting.biome.with({
+					command = "node_modules/.bin/biome",
+				})
+			)
+		end
+
 		if utils.root_has_file("node_modules/.bin/eslint") then
 			table.insert(
 				sources,

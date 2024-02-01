@@ -1,5 +1,6 @@
 local servers = {
 	bashls = {},
+	biome = {},
 	cssls = {},
 	dockerls = {},
 	jdtls = {}, -- nvim-jdtls is not working
