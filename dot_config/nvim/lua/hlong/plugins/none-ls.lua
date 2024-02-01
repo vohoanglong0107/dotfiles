@@ -18,12 +18,10 @@ return {
 
 		local null_ls = require("null-ls")
 		local utils = require("null-ls.utils").make_conditional_utils()
-		local code_actions = null_ls.builtins.code_actions
 		local diagnostics = null_ls.builtins.diagnostics
 		local formatting = null_ls.builtins.formatting
 
 		local sources = {
-			code_actions.eslint,
 			diagnostics.ruff,
 			diagnostics.golangci_lint,
 			diagnostics.hadolint,
@@ -31,20 +29,36 @@ return {
 			formatting.black.with({
 				extra_args = { "--fast" },
 			}),
-			formatting.eslint.with({
-				command = utils.root_has_file("node_modules/.bin/eslint") and "node_modules/.bin/eslint"
-					or "eslint",
-			}),
-			formatting.prettier.with({
-				command = utils.root_has_file("node_modules/.bin/prettier") and "node_modules/.bin/prettier"
-					or "prettier",
-				extra_filetypes = { "toml" },
-			}),
 			formatting.rustfmt,
 			formatting.ruff,
 			formatting.shfmt,
 			formatting.stylua,
 		}
+
+		if utils.root_has_file("node_modules/.bin/eslint") then
+			table.insert(
+				sources,
+				formatting.eslint.with({
+					command = "node_modules/.bin/eslint",
+				})
+			)
+			table.insert(
+				sources,
+				diagnostics.eslint.with({
+					command = "node_modules/.bin/eslint",
+				})
+			)
+		end
+
+		if utils.root_has_file("node_modules/.bin/prettier") then
+			table.insert(
+				sources,
+				formatting.prettier.with({
+					command = "node_modules/.bin/prettier",
+					extra_filetypes = { "toml" },
+				})
+			)
+		end
 
 		null_ls.setup({
 			border = "rounded",

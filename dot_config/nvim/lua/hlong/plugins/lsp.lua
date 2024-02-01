@@ -2,7 +2,6 @@ local servers = {
 	bashls = {},
 	cssls = {},
 	dockerls = {},
-	eslint = {},
 	jdtls = {}, -- nvim-jdtls is not working
 	jsonls = {
 		settings = {
