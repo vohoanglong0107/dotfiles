@@ -10,7 +10,6 @@ return {
 			ensure_installed = {
 				"golangci_lint",
 				"prettier",
-				"shellcheck",
 				"shfmt",
 			},
 			automatic_installation = true,
@@ -22,15 +21,11 @@ return {
 		local formatting = null_ls.builtins.formatting
 
 		local sources = {
-			diagnostics.ruff,
 			diagnostics.golangci_lint,
 			diagnostics.hadolint,
-			diagnostics.shellcheck,
 			formatting.black.with({
 				extra_args = { "--fast" },
 			}),
-			formatting.rustfmt,
-			formatting.ruff,
 			formatting.shfmt,
 			formatting.stylua,
 		}
