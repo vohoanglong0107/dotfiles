@@ -14,7 +14,7 @@ config.set_environment_variables = {
 	EDITOR = "nvim",
 	PATH = "/opt/homebrew/bin:/usr/local/bin:" .. os.getenv("PATH"),
 }
-config.font = wezterm.font("FiraMono Nerd Font Mono")
+config.font = wezterm.font("JetBrains Mono")
 config.enable_tab_bar = false
 
 config.keys = {
