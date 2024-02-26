@@ -394,6 +394,7 @@ return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
+		"folke/neoconf.nvim",
 		"folke/neodev.nvim",
 		"hrsh7th/cmp-nvim-lsp",
 		"williamboman/mason-lspconfig.nvim",
@@ -420,6 +421,7 @@ return {
 			},
 		})
 
+		require("neoconf").setup()
 		require("mason-lspconfig").setup({
 			ensure_installed = ensure_installed,
 		})
