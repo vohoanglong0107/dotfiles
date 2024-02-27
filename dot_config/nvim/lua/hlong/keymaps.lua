@@ -58,9 +58,6 @@ keymap("v", "gs", "^")
 keymap("v", "gm", "%", { silent = true, remap = true, desc = "Go to matching pair" })
 keymap("n", "ga", "<C-6>")
 
--- Better paste
-keymap("v", "p", '"_dP')
-
 -- System clipboard yank
 keymap("v", "<leader>y", '"+y')
 keymap("v", "<leader>p", '"+p')
@@ -74,7 +71,6 @@ keymap("v", ">", ">gv")
 -- Move text up and down
 keymap("v", "<A-j>", ":m .+1<CR>==")
 keymap("v", "<A-k>", ":m .-2<CR>==")
-keymap("v", "p", '"_dP')
 
 -- Insert --
 keymap("i", "jk", "<Esc>")
