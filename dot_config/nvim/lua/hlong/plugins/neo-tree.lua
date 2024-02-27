@@ -35,6 +35,7 @@ return {
 					["S"] = "noop",
 					["s"] = "noop",
 					["o"] = "open",
+					["/"] = "noop", -- default search feature in neotree is so hard to use. Better to use telescope for this
 					-- move to parent
 					["P"] = function(state)
 						local node = state.tree:get_node()
