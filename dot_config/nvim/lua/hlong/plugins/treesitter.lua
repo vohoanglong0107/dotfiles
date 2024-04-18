@@ -32,10 +32,11 @@ return {
 		"nvim-treesitter/playground",
 		"windwp/nvim-ts-autotag",
 	},
-	build = ":TSInstallSync! " .. table.concat(parsers, " "),
+	build = ":TSUpdate",
 	event = { "BufReadPost", "BufNewFile" },
 	config = function()
 		require("nvim-treesitter.configs").setup({
+			ensure_installed = parsers,
 			playground = {
 				enable = true,
 			},
