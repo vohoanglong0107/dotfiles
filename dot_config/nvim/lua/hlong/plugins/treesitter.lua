@@ -1,11 +1,13 @@
 local parsers = {
 	"bash",
+	"c",
+	"cpp",
 	"css",
 	"dockerfile",
 	"go",
 	"hcl",
 	"html",
-  "java",
+	"java",
 	"javascript",
 	"json",
 	"jsonc",
@@ -21,9 +23,10 @@ local parsers = {
 	"tsx",
 	"typescript",
 	"vim",
-  "vimdoc",
+	"vimdoc",
 	"yaml",
 }
+
 return {
 	"nvim-treesitter/nvim-treesitter",
 	dependencies = {
