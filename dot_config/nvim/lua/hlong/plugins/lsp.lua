@@ -124,7 +124,7 @@ local on_attach = function(client, bufnr)
 		disable_yamlls_on_helm(client, bufnr)
 	end
 
-	if client.name == "ruby_ls" then
+	if client.name == "ruby_lsp" then
 		setup_ruby_diagnostics(client, bufnr)
 	end
 
@@ -236,7 +236,7 @@ return {
 					},
 				},
 			},
-			ruby_ls = {},
+			ruby_lsp = {},
 			ruff_lsp = {},
 			rust_analyzer = {},
 			terraformls = {},
