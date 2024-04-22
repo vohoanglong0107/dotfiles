@@ -238,7 +238,15 @@ return {
 			},
 			ruby_lsp = {},
 			ruff_lsp = {},
-			rust_analyzer = {},
+			rust_analyzer = {
+				settings = {
+					["rust-analyzer"] = {
+						check = {
+							command = "clippy",
+						},
+					},
+				},
+			},
 			terraformls = {},
 			tflint = {},
 			tsserver = {
