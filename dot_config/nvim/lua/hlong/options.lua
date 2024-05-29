@@ -31,7 +31,6 @@ local options = {
 	relativenumber = true, -- set relative numbered lines
 	numberwidth = 4, -- set number column width to 2 {default 4}
 	fixeol = false,
-
 	showmatch = true,
 	signcolumn = "yes", -- always show the sign column, otherwise it would shift the text each time
 	wrap = true, -- display lines as one long line
@@ -40,6 +39,8 @@ local options = {
 	sidescrolloff = 8, -- minimal number of screen columns either side of cursor if wrap is `false`
 	guifont = "monospace:h17", -- the font used in graphical neovim applications
 	whichwrap = "bs<>[]hl", -- which "horizontal" keys are allowed to travel to prev/next line
+	list = true, -- show tabs and trailing spaces
+	listchars = "eol:↵,trail:~,tab:->,nbsp:␣", -- custom tab and space characters
 }
 
 for k, v in pairs(options) do
