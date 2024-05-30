@@ -25,22 +25,10 @@ local function lsp_keymaps(bufnr)
   keymap("n", "<leader>lq", "<cmd>Trouble document_diagnostics<CR>", opts)
 end
 
-local lspconfig_group = vim.api.nvim_create_augroup("LspConfig", { clear = true })
-
-local function setup_auto_format_on_save(client)
-  if client.server_capabilities.documentFormattingProvider then
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      pattern = "<buffer>",
-      callback = function()
-        vim.lsp.buf.format({ async = false, timeout = 2000 })
-      end,
-      group = lspconfig_group,
-    })
-  end
-end
+local lsp_group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true })
 
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+  group = lsp_group,
   callback = function(args)
     local bufnr = args.buf
     local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -48,14 +36,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
       return
     end
 
-    setup_auto_format_on_save(client)
     lsp_keymaps(bufnr)
+
+    -- Enable auto-format on save
+    if client.server_capabilities.documentFormattingProvider then
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = "<buffer>",
+        callback = function()
+          vim.lsp.buf.format({ async = false, timeout = 2000 })
+        end,
+        group = lsp_group,
+      })
+    end
 
     if client.supports_method("textDocument/codeLens") then
       vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
         callback = function()
           vim.lsp.codelens.refresh({ bufnr = bufnr })
         end,
+        group = lsp_group,
       })
     end
 
