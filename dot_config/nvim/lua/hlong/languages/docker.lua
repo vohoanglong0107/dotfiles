@@ -7,9 +7,6 @@ vim.filetype.add({ filename = {
 } })
 
 lspconfig.dockerls.setup({
-	on_attach = function(_, bufnr)
-		base.setup_default_keymaps(bufnr)
-	end,
 	capabilities = base.capabilities,
 })
 

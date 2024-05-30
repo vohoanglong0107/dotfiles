@@ -6,22 +6,23 @@ default_capabilities.textDocument.completion.completionItem.snippetSupport = tru
 default_capabilities = cmp_nvim_lsp.default_capabilities(default_capabilities)
 
 local function lsp_keymaps(bufnr)
-  local opts = { noremap = true, silent = true }
-  local keymap = vim.api.nvim_buf_set_keymap
-  keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-  keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-  keymap(bufnr, "n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-  keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-  keymap(bufnr, "n", "<leader>ll", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-  keymap(bufnr, "n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
-  keymap(bufnr, "n", "<leader>lI", "<cmd>LspInfo<cr>", opts)
-  keymap(bufnr, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-  keymap(bufnr, "n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", opts)
-  keymap(bufnr, "n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", opts)
-  keymap(bufnr, "n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-  keymap(bufnr, "n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-  keymap(bufnr, "n", "<leader>lq", "<cmd>Trouble document_diagnostics<CR>", opts)
+  local opts = { noremap = true, silent = true, buffer = bufnr }
+  local keymap = vim.keymap.set
+  keymap("n", "gD", vim.lsp.buf.declaration, opts)
+  keymap("n", "gd", vim.lsp.buf.definition, opts)
+  keymap("n", "K", vim.lsp.buf.hover, opts)
+  keymap("n", "<leader>li", vim.lsp.buf.implementation, opts)
+  keymap("n", "gr", vim.lsp.buf.references, opts)
+  keymap("n", "<leader>ll", vim.diagnostic.open_float, opts)
+  keymap("n", "<leader>lf", function()
+    vim.lsp.buf.format({ async = true })
+  end, opts)
+  keymap("n", "<leader>la", vim.lsp.buf.code_action, opts)
+  keymap("n", "<leader>lj", vim.diagnostic.goto_next, opts)
+  keymap("n", "<leader>lk", vim.diagnostic.goto_prev, opts)
+  keymap("n", "<leader>lr", vim.lsp.buf.rename, opts)
+  keymap("n", "<leader>ls", vim.lsp.buf.signature_help, opts)
+  keymap("n", "<leader>lq", "<cmd>Trouble document_diagnostics<CR>", opts)
 end
 
 local lspconfig_group = vim.api.nvim_create_augroup("LspConfig", { clear = true })
@@ -39,12 +40,16 @@ local function setup_auto_format_on_save(client)
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(args)
     local bufnr = args.buf
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if not client then
       return
     end
+
+    setup_auto_format_on_save(client)
+    lsp_keymaps(bufnr)
 
     if client.supports_method("textDocument/codeLens") then
       vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
@@ -61,7 +66,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 M.default_capabilities = default_capabilities
-M.setup_default_keymaps = lsp_keymaps
-M.setup_auto_format_on_save = setup_auto_format_on_save
 
 return M

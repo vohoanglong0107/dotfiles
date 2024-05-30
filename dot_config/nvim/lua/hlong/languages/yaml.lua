@@ -8,7 +8,6 @@ lspconfig.yamlls.setup({
 		},
 	},
 	on_attach = function(_, bufnr)
-		base.setup_default_keymaps(bufnr)
 		if vim.bo[bufnr].buftype ~= "" or vim.bo[bufnr].filetype == "helm" then
 			vim.diagnostic.disable(bufnr)
 		end
