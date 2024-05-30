@@ -5,3 +5,6 @@ require("hlong.keymaps")
 
 require("hlong.themes")
 require("hlong.clipboard")
+
+require("hlong.diagnostic")
+require("hlong.languages")
