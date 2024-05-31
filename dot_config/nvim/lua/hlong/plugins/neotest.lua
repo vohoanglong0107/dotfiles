@@ -37,6 +37,13 @@ return {
 			desc = "Open test output",
 		},
 		{
+			"<leader>ts",
+			function()
+				require("neotest").summary.open()
+			end,
+			desc = "Open tests summary",
+		},
+		{
 			"[t",
 			function()
 				require("neotest").jump.prev({ status = "failed" })
