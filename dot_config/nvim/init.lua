@@ -1,5 +1,8 @@
 require("hlong.options")
--- load lazy first to set leader key
+
+-- map leaderkeys before loading lazy.nvim
+require("hlong.leader")
+
 require("hlong.lazy")
 require("hlong.keymaps")
 
