@@ -72,6 +72,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-M.default_capabilities = default_capabilities
+M.capabilities = default_capabilities
 
 return M
