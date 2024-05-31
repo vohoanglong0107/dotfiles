@@ -36,6 +36,8 @@ return {
 					["s"] = "noop",
 					["o"] = "open",
 					["/"] = "noop", -- default search feature in neotree is so hard to use. Better to use telescope for this
+					["?"] = "noop",
+					["g?"] = "show_help",
 					["<bs>"] = "noop", -- therer is no need to navigate up the tree
 					-- move to parent
 					["P"] = function(state)
