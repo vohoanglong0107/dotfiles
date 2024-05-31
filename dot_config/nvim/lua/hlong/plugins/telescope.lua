@@ -23,7 +23,7 @@ return {
 		local actions = require("telescope.actions")
 		local action_state = require("telescope.actions.state")
 		local action_mt = require("telescope.actions.mt")
-		local trouble = require("trouble.providers.telescope")
+		local trouble = require("trouble.sources.telescope")
 
 		local M = {}
 		M.yank_selection = function(prompt_bufnr)
@@ -38,18 +38,18 @@ return {
 			defaults = {
 				mappings = {
 					i = {
-						["<C-q>"] = trouble.open_with_trouble,
+						["<C-q>"] = trouble.open,
 						["<C-j>"] = actions.move_selection_next,
 						["<C-k>"] = actions.move_selection_previous,
 					},
 					n = {
-						["<C-q>"] = trouble.open_with_trouble,
+						["<C-q>"] = trouble.open,
 						["<C-j>"] = actions.move_selection_next,
 						["<C-k>"] = actions.move_selection_previous,
 						["y"] = M.yank_selection,
 					},
 				},
-        file_ignore_patterns = {"%.git/"}
+				file_ignore_patterns = { "%.git/" },
 			},
 			extensions = {
 				fzf = {
@@ -75,9 +75,9 @@ return {
 						"!.git",
 					},
 				},
-        find_files = {
-          hidden = true
-        }
+				find_files = {
+					hidden = true,
+				},
 			},
 		})
 		telescope.load_extension("fzf")
