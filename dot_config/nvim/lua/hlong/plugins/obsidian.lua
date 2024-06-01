@@ -1,25 +1,7 @@
-local inside_obsidian_vault = vim.fn.isdirectory(".obsidian")
-local workspaces = {}
-if inside_obsidian_vault ~= 0 then
-	table.insert(workspaces, {
-		name = "personal",
-		path = vim.fn.getcwd(),
-	})
-end
-
-local keys = {
-	{
-		"<leader>ot",
-		"<cmd>ObsidianToday<CR>",
-		desc = "Open today notes",
-	},
-}
-
 return {
 	"epwalsh/obsidian.nvim",
 	version = "*",
-	lazy = not (inside_obsidian_vault ~= 0),
-	keys = inside_obsidian_vault ~= 0 and keys or nil,
+	lazy = true,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"hrsh7th/nvim-cmp",
@@ -28,7 +10,10 @@ return {
 	},
 	opts = {
 		detect_cwd = false,
-		workspaces = workspaces,
+		workspaces = { {
+			name = "personal",
+			path = vim.fn.getcwd(),
+		} },
 		daily_notes = {
 			folder = "journals",
 			date_format = "%Y-%m-%d",

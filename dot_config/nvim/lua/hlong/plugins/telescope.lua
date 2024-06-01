@@ -9,14 +9,6 @@ return {
 		"rcarriga/nvim-notify",
 	},
 	cmd = "Telescope",
-	keys = {
-		{ "<leader>ff", "<cmd>Telescope find_files<CR>" }, -- find files
-		{ "<leader>fs", "<cmd>Telescope live_grep<CR>" }, -- find string
-		{ "<leader>fb", "<cmd>Telescope buffers<CR>" }, -- find buffers
-		{ "<leader>fo", "<cmd>Telescope lsp_document_symbols<CR>" }, -- find symbols/object
-		{ "<leader>hc", "<cmd>Telescope command_history<CR>" }, -- history commands
-		{ "<leader>fh", "<cmd>Telescope oldfiles<CR>" }, -- history files
-	},
 	lazy = true,
 	config = function()
 		local telescope = require("telescope")

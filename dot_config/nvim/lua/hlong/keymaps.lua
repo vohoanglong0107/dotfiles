@@ -2,17 +2,12 @@ local Job = require("plenary.job")
 local Path = require("plenary.path")
 local uv = vim.loop
 
--- Shorten function name
-local function keymap(mode, lhs, rhs, opts)
-    local options = { noremap = true, silent = true }
-    if opts then
-        if opts.desc then
-            opts.desc = "keymaps.lua: " .. opts.desc
-        end
-        options = vim.tbl_extend('force', options, opts)
-    end
-    vim.keymap.set(mode, lhs, rhs, options)
-end
+--- @class keymap
+--- @field modes string[]
+--- @field lhs string left hand side
+--- @field rhs string|function right hand side
+--- @field desc string
+--- @field opts table?
 
 -- Modes
 --   normal_mode = "n",
@@ -22,58 +17,310 @@ end
 --   term_mode = "t",
 --   command_mode = "c",
 
--- Resize with arrows
-keymap("n", "<C-Up>", ":resize -2<CR>")
-keymap("n", "<C-Down>", ":resize +2<CR>")
-keymap("n", "<C-Left>", ":vertical resize -2<CR>")
-keymap("n", "<C-Right>", ":vertical resize +2<CR>")
+--- @type keymap[]
+local keymaps = {
+	-- Resize with arrows
+	{
+		modes = { "n" },
+		lhs = "<C-Up>",
+		rhs = ":resize -2<CR>",
+		desc = "Decrease current window height",
+		opts = { silent = true },
+	},
+	{
+		modes = { "n" },
+		lhs = "<C-Down>",
+		rhs = ":resize +2<CR>",
+		desc = "Increase current window height",
+		opts = { silent = true },
+	},
+	{
+		modes = { "n" },
+		lhs = "<C-Left>",
+		rhs = ":vertical resize -2<CR>",
+		desc = "Decrease current window width",
+		opts = { silent = true },
+	},
+	{
+		modes = { "n" },
+		lhs = "<C-Right>",
+		rhs = ":vertical resize +2<CR>",
+		desc = "Increase current window window",
+		opts = { silent = true },
+	},
+	-- Navigate window
+	{ modes = { "n" }, lhs = "<C-w>b", rhs = "<C-w>s", desc = "Split window horizontally", opts = { noremap = true } },
+	-- Move text up and down
+	{ modes = { "n", "v" }, lhs = "<A-j>", rhs = ":m .+1<CR>==", desc = "Move lines down", opts = { silent = true } },
+	{ modes = { "n", "v" }, lhs = "<A-k>", rhs = ":m .-2<CR>==", desc = "Move lines up", opts = { silent = true } },
+	-- Undo
+	{ modes = { "n" }, lhs = "U", rhs = "<C-r>", desc = "Undo", opts = { noremap = true } },
+	-- Clear highlights
+	{
+		modes = { "n" },
+		lhs = "<leader>h",
+		rhs = "<cmd>nohlsearch<CR>",
+		desc = "Clear highlights",
+		opts = { silent = true },
+	},
+	-- Consistent search direction
+	{
+		modes = { "n" },
+		lhs = "n",
+		rhs = function()
+			return vim.v.searchforward == 1 and "n" or "N"
+		end,
+		desc = "Search next",
+		-- expr is used to evaluate "n" or "N" to the underlying mapping
+		opts = { expr = true },
+	},
+	{
+		modes = { "n" },
+		lhs = "N",
+		rhs = function()
+			return vim.v.searchforward == 1 and "N" or "n"
+		end,
+		desc = "Search previous",
+		opts = { expr = true },
+	},
+	-- System clipboard yank
+	{ modes = { "v" }, lhs = "<leader>y", rhs = '"+y', desc = "Yank to system clipboard", opts = { noremap = true } },
+	{
+		modes = { "v", "n" },
+		lhs = "<leader>p",
+		rhs = '"+p',
+		desc = "Paste from system clipboard",
+		opts = { noremap = true },
+	},
+	-- stay in visual mode when indenting
+	{ modes = { "v" }, lhs = "<", rhs = "<gv", desc = "Indent left", opts = { noremap = true } },
+	{ modes = { "v" }, lhs = ">", rhs = ">gv", desc = "Indent right", opts = { noremap = true } },
+	-- switch between buffers
+	{
+		modes = { "n" },
+		lhs = "<S-l>",
+		rhs = "<cmd>BufferLineCycleNext<CR>",
+		desc = "Switch to next buffer",
+		opts = { silent = true },
+	},
+	{
+		modes = { "n" },
+		lhs = "<S-h>",
+		rhs = "<cmd>BufferLineCyclePrev<CR>",
+		desc = "Switch to previous buffer",
+		opts = { silent = true },
+	},
+	-- moving between files
+	{ modes = { "n" }, lhs = "ga", rhs = "<C-6>", desc = "Switch to last accessed buffer", opts = { noremap = true } },
+	{
+		modes = { "n" },
+		lhs = "<leader>ff",
+		rhs = "<cmd>Telescope find_files<CR>",
+		desc = "Find files",
+		opts = { silent = true },
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>fs",
+		rhs = "<cmd>Telescope live_grep<CR>",
+		desc = "Find string in all files",
+		opts = { silent = true },
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>fb",
+		rhs = "<cmd>Telescope buffers<CR>",
+		desc = "Find buffers",
+		opts = { silent = true },
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>fo",
+		rhs = "<cmd>Telescope lsp_document_symbols<CR>",
+		desc = "Find symbols/object in current buffer",
+		opts = { silent = true },
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>hc",
+		rhs = "<cmd>Telescope command_history<CR>",
+		desc = "Find recently used commands",
+		opts = { silent = true },
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>fh",
+		rhs = "<cmd>Telescope oldfiles<CR>",
+		desc = "Find recently accessed files",
+		opts = { silent = true },
+	},
+	-- Commenting
+	{
+		modes = { "n", "v" },
+		lhs = "<leader>/",
+		rhs = function()
+			require("Comment.api").toggle.linewise.current()
+		end,
+		desc = "Toggle comment",
+	},
+	{
+		modes = { "x" },
+		lhs = "<leader>/",
+		rhs = function()
+			-- :h comment.api
+			local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
+			vim.api.nvim_feedkeys(esc, "nx", false)
+			require("Comment.api").toggle.linewise(vim.fn.visualmode())
+		end,
+		desc = "Toggle comment in visual block mode",
+	},
+	-- leap
+	{
+		modes = { "n", "x", "o" },
+		lhs = "s",
+		rhs = function()
+			require("flash").jump()
+		end,
+		desc = "Leap/Flash",
+	},
+	-- toggle file explorer
+	{
+		modes = { "n" },
+		lhs = "<leader>e",
+		rhs = function()
+			require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
+		end,
+		desc = "Toggle file explorer",
+	},
+	-- Run tests
+	{
+		modes = { "n" },
+		lhs = "<leader>tr",
+		rhs = function()
+			require("neotest").run.run()
+		end,
+		desc = "Run closest test",
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>tf",
+		rhs = function()
+			require("neotest").run.run(vim.fn.expand("%"))
+		end,
+		desc = "Run all tests in current buffer",
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>ta",
+		rhs = function()
+			require("neotest").run.run({ suite = true })
+		end,
+		desc = "Run all tests",
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>to",
+		rhs = function()
+			require("neotest").output.open({ enter = true })
+		end,
+		desc = "Open test output",
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>ts",
+		rhs = function()
+			require("neotest").summary.open()
+		end,
+		desc = "Open tests summary",
+	},
+	{
+		modes = { "n" },
+		lhs = "[t",
+		rhs = function()
+			require("neotest").jump.prev({ status = "failed" })
+		end,
+		desc = "Jump to previous failed test",
+	},
+	{
+		modes = { "n" },
+		lhs = "]t",
+		rhs = function()
+			require("neotest").jump.next({ status = "failed" })
+		end,
+		desc = "Jump to next failed test",
+	},
+	-- Obsidian
+	{
+		modes = { "n" },
+		lhs = "<leader>ot",
+		rhs = function()
+			local inside_obsidian_vault = vim.fn.isdirectory(".obsidian")
+			if not inside_obsidian_vault then
+				vim.notify("Not inside an Obsidian vault", vim.log.levels.WARN)
+				return
+			end
+			require("obsidian").get_client().today()
+		end,
+		desc = "Open today notes",
+	},
+	-- Global search and replace
+	{
+		modes = { "n" },
+		lhs = "<leader>S",
+		rhs = function()
+			require("spectre").toggle()
+		end,
+		desc = "Global search and replace",
+	},
+	-- Diagnostic
+	{
+		modes = { "n" },
+		lhs = "<leader>xx",
+		rhs = "<cmd>Trouble diagnostics toggle<cr>",
+		desc = "Open Workspace Diagnostic",
+		opts = { silent = true },
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>xX",
+		rhs = "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+		desc = "Open Buffer Diagnostic",
+		opts = { silent = true },
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>cs",
+		rhs = "<cmd>Trouble symbols toggle focus=false<cr>",
+		desc = "Open Symbols outline",
+		opts = { silent = true },
+	},
+	-- Close buffer
+	{
+		modes = { "n" },
+		lhs = "<leader>q",
+		rhs = "<cmd>Bdelete<CR>",
+		desc = "Close buffer",
+		opts = { silent = true },
+	},
+}
 
--- Navigate window
-keymap("n", "<C-w>b", "<C-w>s")
-
--- Move text up and down
-keymap("n", "<A-j>", ":m .+1<CR>==")
-keymap("n", "<A-k>", ":m .-2<CR>==")
-
--- Clear highlights
-keymap("n", "<leader>h", "<cmd>nohlsearch<CR>")
-
--- Consistent search direction
-keymap("n", "n", function()
-	return vim.v.searchforward == 1 and "n" or "N"
-end, { expr = true, silent = true })
-keymap("n", "N", function()
-	return vim.v.searchforward == 1 and "N" or "n"
-end, { expr = true, silent = true })
-
--- Undo
-keymap("n", "U", "<cmd>redo<CR>")
+for _, keymap in ipairs(keymaps) do
+	local opts = keymap.opts or {}
+	opts.desc = keymap.desc
+	vim.keymap.set(keymap.modes, keymap.lhs, keymap.rhs, opts)
+end
 
 -- Moving aroung
-keymap("n", "gl", "$")
-keymap("n", "gs", "^")
-keymap("n", "gm", "%", { silent = true, remap = true, desc = "Go to matching pair" })
-keymap("v", "gl", "$")
-keymap("v", "gs", "^")
-keymap("v", "gm", "%", { silent = true, remap = true, desc = "Go to matching pair" })
-keymap("n", "ga", "<C-6>")
-
--- System clipboard yank
-keymap("v", "<leader>y", '"+y')
-keymap("v", "<leader>p", '"+p')
-keymap("n", "<leader>p", '"+p')
-
--- Visual --
--- Stay in indent mode
-keymap("v", "<", "<gv")
-keymap("v", ">", ">gv")
-
--- Move text up and down
-keymap("v", "<A-j>", ":m .+1<CR>==")
-keymap("v", "<A-k>", ":m .-2<CR>==")
+-- keymap("n", "gl", "$")
+-- keymap("n", "gs", "^")
+-- keymap("n", "gm", "%", { silent = true, remap = true, desc = "Go to matching pair" })
+-- keymap("v", "gl", "$")
+-- keymap("v", "gs", "^")
+-- keymap("v", "gm", "%", { silent = true, remap = true, desc = "Go to matching pair" })
+-- keymap("n", "ga", "<C-6>")
 
 -- Insert --
-keymap("i", "jk", "<Esc>")
+-- keymap("i", "jk", "<Esc>")
 
 -- Terminal --
 -- Better terminal navigation
@@ -84,85 +331,85 @@ keymap("i", "jk", "<Esc>")
 
 -- Image viewing
 -- run imv detached from vim
-keymap("n", "<leader>vi", function()
-	Job:new({
-		command = "imv",
-		args = { vim.api.nvim_buf_get_name(0) },
-	}):start()
-end)
+-- keymap("n", "<leader>vi", function()
+-- 	Job:new({
+-- 		command = "imv",
+-- 		args = { vim.api.nvim_buf_get_name(0) },
+-- 	}):start()
+-- end)
 
-local function new_tmp_file_name()
-	local tmp = os.tmpname()
-	-- on posix lua create the file on os.tmpname()
-	os.remove(tmp)
-	return tmp
-end
+-- local function new_tmp_file_name()
+-- 	local tmp = os.tmpname()
+-- 	-- on posix lua create the file on os.tmpname()
+-- 	os.remove(tmp)
+-- 	return tmp
+-- end
 
 -- Markdown previewing
-keymap("n", "<leader>vm", function()
-	local tmp_pdf = new_tmp_file_name() .. ".pdf"
-	local tmp_md = new_tmp_file_name() .. ".md"
-	local w = uv.new_fs_event()
-	local md = vim.api.nvim_buf_get_name(0)
-	if w == nil then
-		vim.notify("can't spawn new fs event")
-		return
-	end
-	local function spanw_pandoc(callback)
-		local file = assert(io.open(tmp_md, "w"))
-		file:write('<div class="markdown-body">', "\n")
-		local current_file = assert(io.open(md, "r"))
-		file:write(current_file:read("*a"), "\n")
-		file:write("</div>")
-		file:close()
-		Job:new({
-			command = "pandoc",
-			args = {
-				"-f",
-				"gfm",
-				"-t",
-				"html5",
-				"-c",
-				-- https://stackoverflow.com/a/23994783, thanks to wkhtmltopdf and gfm
-				os.getenv("HOME") .. "/.config/pandoc/github-markdown.css",
-				"-o",
-				tmp_pdf,
-				tmp_md,
-			},
-			cwd = Path:new({ md }):parent().filename,
-			-- silent, gfm pandoc is very loud
-			-- on_stdout = function(err, data)
-			-- 	assert(not err, err)
-			-- 	vim.notify("pandoc: " .. data)
-			-- end,
-			-- on_stderr = function(err, data)
-			-- 	assert(not err, err)
-			-- 	vim.notify("pandoc: " .. data, vim.log.levels.WARN)
-			-- end,
-			on_exit = function(j, return_val)
-				assert(return_val == 0, "Pandoc return non zero code: " .. return_val)
-				if callback ~= nil then
-					callback()
-				end
-			end,
-		}):start()
-	end
-	w:start(
-		md,
-		{},
-		vim.schedule_wrap(function()
-			spanw_pandoc()
-		end)
-	)
-	spanw_pandoc(function()
-		Job:new({
-			command = "zathura",
-			args = { tmp_pdf },
-			on_exit = function()
-				w:stop()
-				os.remove(tmp_pdf)
-				os.remove(tmp_md)
-			end,
-		}):start()
-	end)
-end)
+-- keymap("n", "<leader>vm", function()
+-- 	local tmp_pdf = new_tmp_file_name() .. ".pdf"
+-- 	local tmp_md = new_tmp_file_name() .. ".md"
+-- 	local w = uv.new_fs_event()
+-- 	local md = vim.api.nvim_buf_get_name(0)
+-- 	if w == nil then
+-- 		vim.notify("can't spawn new fs event")
+-- 		return
+-- 	end
+-- 	local function spanw_pandoc(callback)
+-- 		local file = assert(io.open(tmp_md, "w"))
+-- 		file:write('<div class="markdown-body">', "\n")
+-- 		local current_file = assert(io.open(md, "r"))
+-- 		file:write(current_file:read("*a"), "\n")
+-- 		file:write("</div>")
+-- 		file:close()
+-- 		Job:new({
+-- 			command = "pandoc",
+-- 			args = {
+-- 				"-f",
+-- 				"gfm",
+-- 				"-t",
+-- 				"html5",
+-- 				"-c",
+-- 				-- https://stackoverflow.com/a/23994783, thanks to wkhtmltopdf and gfm
+-- 				os.getenv("HOME") .. "/.config/pandoc/github-markdown.css",
+-- 				"-o",
+-- 				tmp_pdf,
+-- 				tmp_md,
+-- 			},
+-- 			cwd = Path:new({ md }):parent().filename,
+-- 			-- silent, gfm pandoc is very loud
+-- 			-- on_stdout = function(err, data)
+-- 			-- 	assert(not err, err)
+-- 			-- 	vim.notify("pandoc: " .. data)
+-- 			-- end,
+-- 			-- on_stderr = function(err, data)
+-- 			-- 	assert(not err, err)
+-- 			-- 	vim.notify("pandoc: " .. data, vim.log.levels.WARN)
+-- 			-- end,
+-- 			on_exit = function(j, return_val)
+-- 				assert(return_val == 0, "Pandoc return non zero code: " .. return_val)
+-- 				if callback ~= nil then
+-- 					callback()
+-- 				end
+-- 			end,
+-- 		}):start()
+-- 	end
+-- 	w:start(
+-- 		md,
+-- 		{},
+-- 		vim.schedule_wrap(function()
+-- 			spanw_pandoc()
+-- 		end)
+-- 	)
+-- 	spanw_pandoc(function()
+-- 		Job:new({
+-- 			command = "zathura",
+-- 			args = { tmp_pdf },
+-- 			on_exit = function()
+-- 				w:stop()
+-- 				os.remove(tmp_pdf)
+-- 				os.remove(tmp_md)
+-- 			end,
+-- 		}):start()
+-- 	end)
+-- end)

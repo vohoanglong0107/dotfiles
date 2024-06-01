@@ -1,25 +1,7 @@
 return {
 	"numToStr/Comment.nvim",
 	dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
-	keys = {
-		{
-			"<leader>/",
-			function()
-				require("Comment.api").toggle.linewise.current()
-			end,
-			mode = "n",
-		},
-		{
-			"<leader>/",
-			function()
-				-- :h comment.api
-				local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
-				vim.api.nvim_feedkeys(esc, "nx", false)
-				require("Comment.api").toggle.linewise(vim.fn.visualmode())
-			end,
-			mode = "x",
-		},
-	},
+	lazy = true,
 	config = function()
 		local comment = require("Comment")
 
