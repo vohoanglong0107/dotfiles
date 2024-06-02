@@ -1,7 +1,8 @@
 return {
 	"catppuccin/nvim",
+	lazy = false,
+	priority = 1000, -- colorscheme must be loaded first, or else some plugins like bufferline will use incorrect colors
 	name = "catppuccin",
-	lazy = true,
 	config = function()
 		require("catppuccin").setup({
 			flavour = "mocha",
