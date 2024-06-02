@@ -1,6 +1,4 @@
-local Job = require("plenary.job")
-local Path = require("plenary.path")
-local uv = vim.loop
+local M = {}
 
 --- @class keymap
 --- @field modes string[]
@@ -18,7 +16,7 @@ local uv = vim.loop
 --   command_mode = "c",
 
 --- @type keymap[]
-local keymaps = {
+local global_keymaps = {
 	-- Resize with arrows
 	{
 		modes = { "n" },
@@ -304,8 +302,118 @@ local keymaps = {
 	},
 }
 
-for _, keymap in ipairs(keymaps) do
-	local opts = keymap.opts or {}
-	opts.desc = keymap.desc
-	vim.keymap.set(keymap.modes, keymap.lhs, keymap.rhs, opts)
+--- @param buffer number
+--- @return keymap[]
+local function lsp_keymaps(buffer)
+	return {
+		{
+			modes = { "n" },
+			lhs = "gD",
+			rhs = function()
+				require("trouble").open({ mode = "lsp_declarations" })
+			end,
+			desc = "Go to declaration",
+			opts = { buffer = buffer },
+		},
+		{
+			modes = { "n" },
+			lhs = "gd",
+			rhs = function()
+				require("trouble").open({ mode = "lsp_definitions" })
+			end,
+			desc = "Go to definition",
+			opts = { buffer = buffer },
+		},
+		{
+			modes = { "n" },
+			lhs = "K",
+			rhs = vim.lsp.buf.hover,
+			desc = "Show information about the hovered symbol",
+			opts = { buffer = buffer },
+		},
+		{
+			modes = { "n" },
+			lhs = "<leader>li",
+			rhs = function()
+				require("trouble").open({ mode = "lsp_implementations" })
+			end,
+			desc = "Go to implementations",
+			opts = { buffer = buffer },
+		},
+		{
+			modes = { "n" },
+			lhs = "gr",
+			rhs = function()
+				require("trouble").open({ mode = "lsp_references" })
+			end,
+			desc = "Go to references",
+			opts = { buffer = buffer },
+		},
+		{
+			modes = { "n" },
+			lhs = "<leader>ll",
+			rhs = vim.diagnostic.open_float,
+			desc = "Open diagnostic float window",
+			opts = { buffer = buffer },
+		},
+		{
+			modes = { "n" },
+			lhs = "<leader>lf",
+			rhs = function()
+				vim.lsp.buf.format({ async = true })
+			end,
+			desc = "Format buffer",
+			opts = { buffer = buffer },
+		},
+		{
+			modes = { "n" },
+			lhs = "<leader>la",
+			rhs = vim.lsp.buf.code_action,
+			desc = "Show code actions",
+			opts = { buffer = buffer },
+		},
+		{
+			modes = { "n" },
+			lhs = "]d",
+			rhs = vim.diagnostic.goto_next,
+			desc = "Go to next diagnostic",
+			opts = { buffer = buffer },
+		},
+		{
+			modes = { "n" },
+			lhs = "[d",
+			rhs = vim.diagnostic.goto_prev,
+			desc = "Go to previous diagnostic",
+			opts = { buffer = buffer },
+		},
+		{
+			modes = { "n" },
+			lhs = "<leader>lr",
+			rhs = vim.lsp.buf.rename,
+			desc = "Rename symbol",
+			opts = { buffer = buffer },
+		},
+		{
+			modes = { "n" },
+			lhs = "<leader>ls",
+			rhs = vim.lsp.buf.signature_help,
+			desc = "Show signature help",
+			opts = { buffer = buffer },
+		},
+	}
 end
+
+--- @param keymaps keymap[]
+local function set_keymaps(keymaps)
+	for _, keymap in ipairs(keymaps) do
+		local opts = keymap.opts or {}
+		opts.desc = keymap.desc
+		vim.keymap.set(keymap.modes, keymap.lhs, keymap.rhs, opts)
+	end
+end
+
+set_keymaps(global_keymaps)
+
+M.lsp = lsp_keymaps
+M.set = set_keymaps
+return M
