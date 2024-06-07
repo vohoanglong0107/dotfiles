@@ -58,3 +58,5 @@ vim.g.python3_host_prog = "/usr/local/venv/bin/python3"
 -- for nvim-tree
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+vim.g.copilot_no_maps = true

@@ -300,6 +300,13 @@ local global_keymaps = {
 		desc = "Close buffer",
 		opts = { silent = true },
 	},
+	{
+		modes = { "i" },
+		lhs = "<S-Right>",
+		rhs = 'copilot#Accept("\\<CR>")',
+		desc = "Accept copilot suggestion",
+		opts = { expr = true, replace_keycodes = false, silent = true },
+	},
 }
 
 --- @param buffer number
@@ -412,8 +419,10 @@ local function set_keymaps(keymaps)
 	end
 end
 
+--- use right key for githlub copilot
 set_keymaps(global_keymaps)
 
 M.lsp = lsp_keymaps
 M.set = set_keymaps
+
 return M
