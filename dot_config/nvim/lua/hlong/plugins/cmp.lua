@@ -8,42 +8,14 @@ return {
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
 		"rafamadriz/friendly-snippets",
+		"onsails/lspkind.nvim",
 	},
 	config = function()
 		local cmp = require("cmp")
-
 		local luasnip = require("luasnip")
+		local lspkind = require("lspkind")
 
 		require("luasnip/loaders/from_vscode").lazy_load()
-
-		-- 󰃐 󰆩 󰙅 󰛡  󰅲 some other good icons
-		local kind_icons = {
-			Text = "󰉿",
-			Method = "m",
-			Function = "󰊕",
-			Constructor = "",
-			Field = "",
-			Variable = "󰆧",
-			Class = "󰌗",
-			Interface = "",
-			Module = "",
-			Property = "",
-			Unit = "",
-			Value = "󰎠",
-			Enum = "",
-			Keyword = "󰌋",
-			Snippet = "",
-			Color = "󰏘",
-			File = "󰈙",
-			Reference = "",
-			Folder = "󰉋",
-			EnumMember = "",
-			Constant = "󰇽",
-			Struct = "",
-			Event = "",
-			Operator = "󰆕",
-			TypeParameter = "󰊄",
-		}
 
 		cmp.setup({
 			snippet = {
@@ -66,21 +38,16 @@ return {
 				}),
 				-- Accept currently selected item. If none selected, `select` first item.
 				-- Set `select` to `false` to only confirm explicitly selected items.
-				["<CR>"] = cmp.mapping.confirm({select=true}),
+				["<CR>"] = cmp.mapping.confirm({ select = true }),
 			},
 			formatting = {
 				fields = { "kind", "abbr", "menu" },
-				format = function(entry, vim_item)
-					vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-					-- Kind icons
-					vim_item.menu = ({
-						nvim_lsp = "[LSP]",
-						luasnip = "[Snippet]",
-						buffer = "[Buffer]",
-						path = "[Path]",
-					})[entry.source.name]
-					return vim_item
-				end,
+				format = lspkind.cmp_format({
+					mode = "symbol",
+					maxwidth = 50,
+					ellipsis_char = "...",
+					show_labelDetails = true,
+				}),
 			},
 			sources = {
 				{ name = "nvim_lsp" },
