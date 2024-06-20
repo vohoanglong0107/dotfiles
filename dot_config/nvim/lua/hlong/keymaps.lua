@@ -351,7 +351,7 @@ local function lsp_keymaps(buffer)
 			modes = { "n" },
 			lhs = "gr",
 			rhs = function()
-				require("trouble").open({ mode = "lsp_references" })
+				require("trouble").open({ mode = "lsp_references", focus = true })
 			end,
 			desc = "Go to references",
 			opts = { buffer = buffer },
