@@ -20,7 +20,6 @@ plugins=(
   vi-mode
   zsh-autosuggestions
   zsh-syntax-highlighting
-  fzf
   z
 )
 
@@ -123,3 +122,5 @@ alias docker=podman
 #
 # remove duplicate entry from $PATH. $PATH is string while $path is array
 typeset -aU path
+
+eval "$(atuin init zsh)"
