@@ -340,7 +340,7 @@ local function lsp_keymaps(buffer)
 		},
 		{
 			modes = { "n" },
-			lhs = "<leader>li",
+			lhs = "gi",
 			rhs = function()
 				require("trouble").open({ mode = "lsp_implementations" })
 			end,
