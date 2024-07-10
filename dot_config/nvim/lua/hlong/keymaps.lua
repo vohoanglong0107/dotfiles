@@ -233,6 +233,14 @@ local global_keymaps = {
 	},
 	{
 		modes = { "n" },
+		lhs = "<leader>td",
+		rhs = function()
+			require("neotest").run.run({ strategy = "dap" })
+		end,
+		desc = "Run closest test with debugger",
+	},
+	{
+		modes = { "n" },
 		lhs = "[t",
 		rhs = function()
 			require("neotest").jump.prev({ status = "failed" })
