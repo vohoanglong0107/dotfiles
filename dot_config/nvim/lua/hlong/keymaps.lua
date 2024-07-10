@@ -255,6 +255,47 @@ local global_keymaps = {
 		end,
 		desc = "Jump to next failed test",
 	},
+	-- Debugging
+	{
+		modes = { "n" },
+		lhs = "<leader>dc",
+		rhs = function()
+			require("dap").continue()
+		end,
+		desc = "Start/Continue debugging",
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>ds",
+		rhs = function()
+			require("dap").step_over()
+		end,
+		desc = "Step over",
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>di",
+		rhs = function()
+			require("dap").step_into()
+		end,
+		desc = "Step in",
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>do",
+		rhs = function()
+			require("dap").step_out()
+		end,
+		desc = "Step out",
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>db",
+		rhs = function()
+			require("dap").toggle_breakpoint()
+		end,
+		desc = "Toggle Breakpoint",
+	},
 	-- Obsidian
 	{
 		modes = { "n" },
