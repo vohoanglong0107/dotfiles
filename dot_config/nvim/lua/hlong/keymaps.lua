@@ -296,6 +296,22 @@ local global_keymaps = {
 		end,
 		desc = "Toggle Breakpoint",
 	},
+	{
+		modes = { "n" },
+		lhs = "<leader>dt",
+		rhs = function()
+			require("dap").terminate()
+		end,
+		desc = "Terminate debugging",
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>dh",
+		rhs = function()
+			require("dap.ui.widgets").hover()
+		end,
+		desc = "View variable",
+	},
 	-- Obsidian
 	{
 		modes = { "n" },
