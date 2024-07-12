@@ -1,7 +1,7 @@
 return {
 	"nvim-neo-tree/neo-tree.nvim",
 	branch = "v3.x",
-	cmd = "Neotree",
+	lazy = false, -- to hijack netrw behavior, this plugin must be loaded before netrw
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-tree/nvim-web-devicons",
@@ -61,6 +61,7 @@ return {
 						["<C-k>"] = "move_cursor_up",
 					},
 				},
+				hijack_netrw_behavior = "open_current",
 			},
 		})
 	end,
