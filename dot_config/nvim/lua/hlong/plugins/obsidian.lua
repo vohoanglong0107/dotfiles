@@ -1,7 +1,10 @@
 return {
 	"epwalsh/obsidian.nvim",
 	version = "*",
-	lazy = true,
+	cond = function()
+		local is_inside_vault = vim.fn.isdirectory(".obsidian")
+		return is_inside_vault == 1
+	end,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"hrsh7th/nvim-cmp",
