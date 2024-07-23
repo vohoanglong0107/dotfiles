@@ -322,7 +322,9 @@ local global_keymaps = {
 				vim.notify("Not inside an Obsidian vault", vim.log.levels.WARN)
 				return
 			end
-			require("obsidian").get_client().today()
+			local client = require("obsidian").get_client()
+			local note = client:today()
+			client:open_note(note)
 		end,
 		desc = "Open today notes",
 	},
