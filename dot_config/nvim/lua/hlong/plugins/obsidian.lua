@@ -12,11 +12,14 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 	},
 	opts = {
-		detect_cwd = false,
-		workspaces = { {
-			name = "personal",
-			path = vim.fn.getcwd(),
-		} },
+		workspaces = {
+			{
+				name = "personal",
+				path = function()
+					return assert(vim.fs.dirname(vim.api.nvim_buf_get_name(0)))
+				end,
+			},
+		},
 		daily_notes = {
 			folder = "journals",
 			date_format = "%Y-%m-%d",
@@ -26,11 +29,11 @@ return {
 		completion = {
 			nvim_cmp = true,
 			min_chars = 1,
-			new_notes_location = "current_dir",
-			prepend_note_id = false,
-			prepend_note_path = true,
-			use_path_only = false,
 		},
+		new_notes_location = "current_dir",
+		wiki_link_func = function(opts)
+			require("obsidian.util").prepend_note_path(opts)
+		end,
 		templates = {
 			subdir = "templates",
 		},
