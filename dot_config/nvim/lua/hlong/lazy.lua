@@ -18,7 +18,6 @@ local opts = {
 }
 
 local imports = {
-	{ import = "hlong.plugins.dap" },
 	{ import = "hlong.plugins" },
 }
 
