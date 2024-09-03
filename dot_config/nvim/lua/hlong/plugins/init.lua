@@ -12,7 +12,4 @@ return {
 	},
 	-- UI
 	{ "folke/trouble.nvim", cmd = { "Trouble" }, opts = {} },
-	{ "RRethy/vim-illuminate" },
-	{ "HiPhish/rainbow-delimiters.nvim" },
-	{ "lewis6991/gitsigns.nvim", event = { "BufReadPre", "BufNewFile" }, opts = {} },
 }
