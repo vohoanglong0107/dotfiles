@@ -10,6 +10,4 @@ return {
 		version = "^4", -- Recommended
 		lazy = false, -- This plugin is already lazy
 	},
-	-- UI
-	{ "folke/trouble.nvim", cmd = { "Trouble" }, opts = {} },
 }
