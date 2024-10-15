@@ -18,8 +18,8 @@ config.font = wezterm.font("JetBrains Mono")
 config.enable_tab_bar = false
 
 config.keys = {
-  { key = 'UpArrow', mods = 'SHIFT', action = wezterm.action.ScrollByLine(-1) },
-  { key = 'DownArrow', mods = 'SHIFT', action = wezterm.action.ScrollByLine(1) },
+	{ key = "UpArrow", mods = "SHIFT", action = wezterm.action.ScrollByLine(-1) },
+	{ key = "DownArrow", mods = "SHIFT", action = wezterm.action.ScrollByLine(1) },
 }
 
 -- config.exit_behavior = "Hold"
