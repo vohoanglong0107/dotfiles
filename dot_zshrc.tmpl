@@ -116,10 +116,7 @@ source ~/.wezterm.sh
 {{- if eq .chezmoi.os "darwin" }}
 eval "$(/opt/homebrew/bin/brew shellenv)"
 {{- end }}
-{{- if eq .chezmoi.os "linux" }}
-alias docker=podman
-{{- end }}
-#
+
 # remove duplicate entry from $PATH. $PATH is string while $path is array
 typeset -aU path
 
