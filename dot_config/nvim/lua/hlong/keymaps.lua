@@ -148,7 +148,9 @@ local global_keymaps = {
 	{
 		modes = { "n" },
 		lhs = "<leader>fh",
-		rhs = "<cmd>Telescope oldfiles<CR>",
+		rhs = function()
+			require("telescope.builtin").oldfiles({ only_cwd = true })
+		end,
 		desc = "Find recently accessed files",
 		opts = { silent = true },
 	},
