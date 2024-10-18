@@ -5,7 +5,7 @@ local ensure_installed = {
 	"jsonls",
 	"pyright",
 	"lua_ls",
-	"tsserver",
+	"ts_ls",
 	"yamlls",
 }
 
