@@ -61,8 +61,14 @@ return {
 						key = "d",
 					},
 				},
-				mru = { limit = 3 },
-        project = { enable = false, limit = 8, icon = 'your icon', label = '', action = 'Telescope find_files cwd=' },
+				mru = { limit = 3, cwd_only = true },
+				project = {
+					enable = false,
+					limit = 8,
+					icon = "your icon",
+					label = "",
+					action = "Telescope find_files cwd=",
+				},
 			},
 		})
 	end,
