@@ -374,6 +374,14 @@ local global_keymaps = {
 		desc = "Accept copilot suggestion",
 		opts = { expr = true, replace_keycodes = false, silent = true },
 	},
+	-- Open lazygit
+	{
+		modes = { "n" },
+		lhs = "<leader>g",
+		rhs = "<cmd>LazyGit<CR>",
+		desc = "Open lazygit",
+		opts = { silent = true },
+	},
 }
 
 --- @param buffer number
