@@ -187,10 +187,8 @@ local global_keymaps = {
 	{
 		modes = { "n" },
 		lhs = "<leader>e",
-		rhs = function()
-			require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
-		end,
-		desc = "Toggle file explorer",
+		rhs = "<cmd>Oil<CR>",
+		desc = "Open file explorer",
 	},
 	-- Run tests
 	{
