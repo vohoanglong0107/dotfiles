@@ -43,8 +43,7 @@ return {
 			winbar = {},
 			inactive_winbar = {},
 			extensions = {
-				"neo-tree",
-				"toggleterm",
+				"oil",
 			},
 		})
 	end,
