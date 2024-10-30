@@ -93,21 +93,6 @@ local global_keymaps = {
 	-- stay in visual mode when indenting
 	{ modes = { "v" }, lhs = "<", rhs = "<gv", desc = "Indent left", opts = { noremap = true } },
 	{ modes = { "v" }, lhs = ">", rhs = ">gv", desc = "Indent right", opts = { noremap = true } },
-	-- switch between buffers
-	{
-		modes = { "n" },
-		lhs = "<S-l>",
-		rhs = "<cmd>BufferLineCycleNext<CR>",
-		desc = "Switch to next buffer",
-		opts = { silent = true },
-	},
-	{
-		modes = { "n" },
-		lhs = "<S-h>",
-		rhs = "<cmd>BufferLineCyclePrev<CR>",
-		desc = "Switch to previous buffer",
-		opts = { silent = true },
-	},
 	-- moving between files
 	{ modes = { "n" }, lhs = "ga", rhs = "<C-6>", desc = "Switch to last accessed buffer", opts = { noremap = true } },
 	{
