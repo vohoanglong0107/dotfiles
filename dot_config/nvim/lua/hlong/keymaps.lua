@@ -322,28 +322,6 @@ local global_keymaps = {
 		end,
 		desc = "Global search and replace",
 	},
-	-- Diagnostic
-	{
-		modes = { "n" },
-		lhs = "<leader>xx",
-		rhs = "<cmd>Trouble diagnostics toggle<cr>",
-		desc = "Open Workspace Diagnostic",
-		opts = { silent = true },
-	},
-	{
-		modes = { "n" },
-		lhs = "<leader>xX",
-		rhs = "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-		desc = "Open Buffer Diagnostic",
-		opts = { silent = true },
-	},
-	{
-		modes = { "n" },
-		lhs = "<leader>cs",
-		rhs = "<cmd>Trouble symbols toggle focus=false<cr>",
-		desc = "Open Symbols outline",
-		opts = { silent = true },
-	},
 	-- Close buffer
 	{
 		modes = { "n" },
@@ -466,6 +444,35 @@ local function lsp_keymaps(buffer)
 			rhs = vim.lsp.buf.signature_help,
 			desc = "Show signature help",
 			opts = { buffer = buffer },
+		},
+		-- Diagnostic
+		{
+			modes = { "n" },
+			lhs = "<leader>ld",
+			rhs = function()
+				require("trouble").toggle({
+					mode = "diagnostics",
+					filter = { buf = 0 },
+				})
+			end,
+			desc = "Open Buffer Diagnostic",
+			opts = { silent = true },
+		},
+		{
+			modes = { "n" },
+			lhs = "<leader>lD",
+			rhs = function()
+				require("trouble").toggle({ mode = "diagnostics" })
+			end,
+			desc = "Open Workspace Diagnostic",
+			opts = { silent = true },
+		},
+		{
+			modes = { "n" },
+			lhs = "<leader>lo",
+			rhs = "<cmd>Trouble symbols toggle focus=false<cr>",
+			desc = "Open Symbols outline",
+			opts = { silent = true },
 		},
 	}
 end
