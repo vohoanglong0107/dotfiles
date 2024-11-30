@@ -26,17 +26,18 @@ plugins=(
 
 # Must be sourced before loading the zsh-syntax-highlighting plugin to change
 # the color scheme.
-source ~/.catppuccin_syntax_highlighting.zsh
+source ~/.zsh/catppuccin_syntax_highlighting.zsh
 
 DISABLE_AUTO_UPDATE=true
 
 source $ZSH/oh-my-zsh.sh
 
+export POWERLEVEL9K_CONFIG_FILE=~/.zsh/p10k.zsh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 if zmodload zsh/terminfo && (( terminfo[colors] >= 256 )); then
-  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+  source ~/.zsh/p10k.zsh
 else
-  [[ ! -f ~/.p10k-compat.zsh ]] || source ~/.p10k-compat.zsh
+  source ~/.zsh/p10k-compat.zsh
 fi
 
 if command -v bat &> /dev/null; then
@@ -44,7 +45,7 @@ if command -v bat &> /dev/null; then
   alias cat="bat"
 fi
 
-source ~/.wezterm.sh
+source ~/.zsh/wezterm.sh
 
 {{- if eq .chezmoi.os "darwin" }}
 eval "$(/opt/homebrew/bin/brew shellenv)"
