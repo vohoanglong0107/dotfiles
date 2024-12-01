@@ -11,6 +11,7 @@ return {
 		lsp_file_methods = {
 			autosave_changes = "unmodified",
 		},
+		skip_confirm_for_simple_edits = true,
 		watch_for_changes = true,
 		keymaps = {
 			["<C-c>"] = false,
@@ -24,6 +25,7 @@ return {
 			["<leader>s"] = "actions.change_sort",
 			["<leader>x"] = "actions.open_external",
 			["<leader>."] = "actions.toggle_hidden",
+			["<C-y>"] = "actions.yank_entry",
 		},
 	},
 	-- Optional dependencies
