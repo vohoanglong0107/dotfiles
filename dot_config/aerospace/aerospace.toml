@@ -93,7 +93,8 @@ outer.right =      0
 # end tell'
 # '''
 
-cmd-enter = "exec-and-forget /Applications/WezTerm.app/Contents/MacOS/wezterm start --always-new-process"
+cmd-enter = "exec-and-forget /Applications/WezTerm.app/Contents/MacOS/wezterm start",
+
 cmd-shift-space = "balance-sizes"
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
