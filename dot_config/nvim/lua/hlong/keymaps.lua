@@ -291,6 +291,21 @@ local global_keymaps = {
 	},
 	{
 		modes = { "n" },
+		lhs = "<leader>dx",
+		rhs = function()
+			local dap = require("dap")
+
+			-- Session might have been closed when the executable throws or rans to complete
+			if dap.session() ~= nil then
+				dap.terminate()
+			end
+
+			require("dapui").close()
+		end,
+		desc = "Exit debugging",
+	},
+	{
+		modes = { "n" },
 		lhs = "<leader>dh",
 		rhs = function()
 			require("dap.ui.widgets").hover()
