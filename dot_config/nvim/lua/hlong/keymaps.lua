@@ -352,12 +352,19 @@ local global_keymaps = {
 		desc = "Accept copilot suggestion",
 		opts = { expr = true, replace_keycodes = false, silent = true },
 	},
-	-- Open lazygit
+	-- Git
 	{
 		modes = { "n" },
-		lhs = "<leader>g",
+		lhs = "<leader>gl",
 		rhs = "<cmd>LazyGit<CR>",
 		desc = "Open lazygit",
+		opts = { silent = true },
+	},
+	{
+		modes = { "n" },
+		lhs = "<leader>gb",
+		rhs = "<cmd>Gitsigns blame<CR>",
+		desc = "Open git blame",
 		opts = { silent = true },
 	},
 }
