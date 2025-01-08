@@ -93,7 +93,7 @@ outer.right =      0
 # end tell'
 # '''
 
-cmd-enter = "exec-and-forget /Applications/WezTerm.app/Contents/MacOS/wezterm start",
+cmd-enter = "exec-and-forget /Applications/WezTerm.app/Contents/MacOS/wezterm start"
 
 cmd-shift-space = "balance-sizes"
 
