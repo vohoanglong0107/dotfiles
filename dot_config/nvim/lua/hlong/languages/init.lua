@@ -1,3 +1,8 @@
+-- Set up language specific config
+--
+-- Can't put them in after/ftplugin due to how lspconfig works
+-- Ref: https://github.com/neovim/nvim-lspconfig/issues/970#issuecomment-860133357
+
 require("hlong.languages.docker")
 require("hlong.languages.go")
 require("hlong.languages.hcl")
