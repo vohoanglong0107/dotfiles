@@ -7,6 +7,7 @@ local options = {
 	cursorline = true, -- highlight the current line
 	expandtab = true, -- convert tabs to spaces
 	fileencoding = "utf-8", -- the encoding written to a file
+	fillchars = "diff:/",
 	fixeol = false,
 	guifont = "monospace:h17", -- the font used in graphical neovim applications
 	hlsearch = true, -- highlight all matches on previous search pattern
@@ -47,7 +48,6 @@ for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 vim.opt.diffopt:append("linematch:60")
-vim.opt.fillchars = "diff:/"
 -- vim.opt.shortmess = "ilmnrx"                        -- flags to shorten vim messages, see :help 'shortmess'
 vim.opt.shortmess:append("c") -- don't give |ins-completion-menu| messages
 vim.opt.iskeyword:append("-") -- hyphenated words recognized by searches
