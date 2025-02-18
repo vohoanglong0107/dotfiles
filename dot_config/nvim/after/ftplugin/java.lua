@@ -26,6 +26,20 @@ local path_to_java_test = mason_registry.get_package("java-test"):get_install_pa
 local paths_to_java_test_bundles = vim.fn.glob(path_to_java_test .. "/extension/server/*.jar", true, true)
 vim.list_extend(java_bundles, paths_to_java_test_bundles)
 
+local function jdtls_on_attach(_, bufnr)
+	-- Override run closest test keymap
+	vim.keymap.set("n", "<leader>tr", function()
+		require("jdtls").test_nearest_method()
+	end, { buffer = bufnr, desc = "Run closest test" })
+
+	-- Override run tests in current buffer, since in java one file only contains
+	-- one class, run all test current buffer should be equivalent to run all
+	-- tests in a class
+	vim.keymap.set("n", "<leader>tf", function()
+		require("jdtls").test_class()
+	end, { buffer = bufnr, desc = "Run all tests in current buffer" })
+end
+
 local config = {
 	cmd = {
 		"jdtls", -- need to be on your PATH
@@ -34,6 +48,7 @@ local config = {
 		workspace_dir,
 	},
 	root_dir = root_dir,
+	on_attach = jdtls_on_attach,
 	init_options = {
 		bundles = java_bundles,
 	},
