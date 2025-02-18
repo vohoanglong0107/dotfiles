@@ -1,11 +1,43 @@
-local base = require("hlong.languages.base")
 local lspconfig = require("lspconfig")
+local mason_lsp_install = require("mason-lspconfig.install")
+local mason_registry = require("mason-registry")
 local null_ls = require("null-ls")
 local null_ls_utils = require("null-ls.utils").make_conditional_utils()
 
-lspconfig.biome.setup({
-	capabilities = base.capabilities,
-})
+local base = require("hlong.languages.base")
+
+--- @param package_name string
+--- @return string
+local function get_binary_path_in_node_modules(package_name)
+	return "node_modules/.bin/" .. package_name
+end
+
+--- @param package_name string
+--- @return boolean
+local function is_installed_in_local_node_modules(package_name)
+	return null_ls_utils.root_has_file(get_binary_path_in_node_modules(package_name))
+end
+
+if is_installed_in_local_node_modules("biome") then
+	lspconfig.biome.setup({
+		cmd = { get_binary_path_in_node_modules("biome"), "lsp-proxy" },
+		capabilities = base.capabilities,
+	})
+elseif mason_registry.is_installed("biome") then
+	lspconfig.biome.setup({
+		capabilities = base.capabilities,
+	})
+end
+
+if is_installed_in_local_node_modules("eslint") then
+	local eslint = mason_registry.get_package("eslint-lsp")
+	if not eslint:is_installed() then
+		mason_lsp_install.install(eslint)
+	end
+	lspconfig.eslint.setup({
+		capabilities = base.capabilities,
+	})
+end
 
 lspconfig.cssls.setup({
 	capabilities = base.capabilities,
@@ -34,10 +66,10 @@ lspconfig.tsserver.setup({
 	capabilities = base.capabilities,
 })
 
-if null_ls_utils.root_has_file("node_modules/.bin/prettier") then
+if is_installed_in_local_node_modules("prettier") then
 	null_ls.register({
 		null_ls.builtins.formatting.prettier.with({
-			command = "node_modules/.bin/prettier",
+			command = get_binary_path_in_node_modules("prettier"),
 			extra_filetypes = { "toml" },
 		}),
 	})
