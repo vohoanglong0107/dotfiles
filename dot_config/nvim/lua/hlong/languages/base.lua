@@ -1,5 +1,7 @@
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
+
 local keymaps = require("hlong.keymaps")
+
 local M = {}
 
 local default_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -40,9 +42,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			})
 		end
 
-		if client.supports_method("textDocument/inlayHints") then
-			vim.lsp.inlay_hint.enable(true)
+		local inlay_hint_enable = false
+		if client.server_capabilities.inlayHintProvider then
+			inlay_hint_enable = true
 		end
+
+		vim.lsp.inlay_hint.enable(inlay_hint_enable)
 	end,
 })
 
