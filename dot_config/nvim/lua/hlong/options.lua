@@ -9,6 +9,7 @@ local options = {
 	fileencoding = "utf-8", -- the encoding written to a file
 	fillchars = "diff:/",
 	fixeol = false,
+	foldlevelstart = 2,
 	guifont = "monospace:h17", -- the font used in graphical neovim applications
 	hlsearch = true, -- highlight all matches on previous search pattern
 	ignorecase = true, -- ignore case in search patterns
