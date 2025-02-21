@@ -40,6 +40,9 @@ local function jdtls_on_attach(_, bufnr)
 	end, { buffer = bufnr, desc = "Run all tests in current buffer" })
 end
 
+local extendedClientCapabilities = jdtls.extendedClientCapabilities
+extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
+
 local config = {
 	cmd = {
 		"jdtls", -- need to be on your PATH
@@ -51,6 +54,7 @@ local config = {
 	on_attach = jdtls_on_attach,
 	init_options = {
 		bundles = java_bundles,
+		extendedClientCapabilities = extendedClientCapabilities,
 	},
 }
 
