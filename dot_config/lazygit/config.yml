@@ -1,5 +1,5 @@
 gui:
-  windowSize: normal
+  screenMode: normal
   sidePanelWidth: 0.2
   theme:
     activeBorderColor:
