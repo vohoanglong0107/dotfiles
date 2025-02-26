@@ -285,14 +285,6 @@ local global_keymaps = {
 		modes = { "n" },
 		lhs = "<leader>dt",
 		rhs = function()
-			require("dap").terminate()
-		end,
-		desc = "Terminate debugging",
-	},
-	{
-		modes = { "n" },
-		lhs = "<leader>dx",
-		rhs = function()
 			local dap = require("dap")
 
 			-- Session might have been closed when the executable throws or rans to complete
@@ -302,7 +294,7 @@ local global_keymaps = {
 
 			require("dapui").close()
 		end,
-		desc = "Exit debugging",
+		desc = "Exit debugging. The session might have been terminated, either by running to complete or throw",
 	},
 	{
 		modes = { "n" },
