@@ -33,3 +33,5 @@ Library
 {{- else if and (eq .isServer false) (eq .chezmoi.os "darwin")}}
 !Library
 {{- end }}
+
+Brewfile
