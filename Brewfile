@@ -1,5 +1,5 @@
 tap "homebrew/bundle"
-tap "nikitabobko/tap"
+
 brew "atuin"
 brew "bat"
 brew "chezmoi"
@@ -8,7 +8,11 @@ brew "fd"
 brew "lazygit"
 brew "mise"
 brew "neovim"
+brew "pyright"
 brew "ripgrep"
 brew "stylua"
-cask "aerospace"
+
 cask "raycast"
+
+tap "nikitabobko/tap"
+cask "aerospace"
