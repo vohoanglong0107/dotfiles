@@ -10,6 +10,7 @@ brew "mise"
 brew "neovim"
 brew "pyright"
 brew "ripgrep"
+brew "ruff"
 brew "stylua"
 
 cask "raycast"
