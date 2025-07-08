@@ -1,12 +1,12 @@
 # vim:ft=gitconfig
 [pull]
-	rebase = true
+  rebase = true
 [fetch]
-	prune = true
+  prune = true
 [diff]
-	colorMoved = zebra
+  colorMoved = zebra
   tool = difftastic
-	external = difft
+  external = difft
 [difftool]
   prompt = false
 [difftool "difftastic"]
@@ -15,16 +15,16 @@
   difftool = true
 [merge]
   tool = nvim
-	conflictstyle = diff3
+  conflictstyle = diff3
 [mergetool "nvim"]
   cmd = "nvim -d -c \"wincmd l\" -c \"wincmd J\" -c \"norm ]c\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
 [core]
-	editor  = nvim
+  editor  = nvim
 {{- if eq .chezmoi.os "linux" }}
 [credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
+  helper = 
+  helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
+  helper = 
+  helper = !/usr/bin/gh auth git-credential
 {{- end }}
