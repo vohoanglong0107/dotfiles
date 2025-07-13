@@ -21,6 +21,7 @@ config.keys = {
 	{ key = "UpArrow", mods = "SHIFT", action = wezterm.action.ScrollByLine(-1) },
 	{ key = "DownArrow", mods = "SHIFT", action = wezterm.action.ScrollByLine(1) },
 }
+config.term = "wezterm"
 
 -- config.exit_behavior = "Hold"
 
