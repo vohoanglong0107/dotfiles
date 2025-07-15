@@ -35,3 +35,6 @@ Library
 {{- end }}
 
 Brewfile
+README.md
+domains.csv
+screenshots
