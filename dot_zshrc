@@ -8,12 +8,12 @@ source ~/.zsh/external/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 source ~/.zsh/external/wezterm.sh
 
-source ~/.zsh/completions.zsh
+source ~/.zsh/envs.zsh
 
 source ~/.zsh/tools.zsh
 
-source ~/.zsh/envs.zsh
+# Must be source after brew
+source ~/.zsh/completions.zsh
 
 source ~/.zsh/aliases.zsh
 
-eval "$(starship init zsh)"
