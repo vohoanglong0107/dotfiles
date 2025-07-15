@@ -1,21 +1,19 @@
 # vim:ft=zsh
 
-source ~/.zsh/p10k/instant-prompt.zsh
+# Must be sourced before zsh-syntax-highlighting is loaded.
+source ~/.zsh/external/catppuccin-zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
+source ~/.zsh/external/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Must be sourced before oh-my-zsh loads the zsh-syntax-highlighting plugin to
-# change the color scheme.
-source ~/.zsh/catppuccin_syntax_highlighting.zsh
+source ~/.zsh/external/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+source ~/.zsh/external/wezterm.sh
 
 source ~/.zsh/completions.zsh
-
-source ~/.zsh/oh-my-zsh.zsh
-
-source ~/.zsh/p10k.zsh
-
-source ~/.zsh/wezterm.sh
 
 source ~/.zsh/tools.zsh
 
 source ~/.zsh/envs.zsh
 
 source ~/.zsh/aliases.zsh
+
+eval "$(starship init zsh)"

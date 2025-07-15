@@ -11,6 +11,7 @@ brew "neovim"
 brew "pyright"
 brew "ripgrep"
 brew "ruff"
+brew "starship"
 brew "stylua"
 
 cask "raycast"
