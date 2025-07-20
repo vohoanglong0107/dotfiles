@@ -27,6 +27,10 @@
     type = "file"
     url = "https://raw.githubusercontent.com/wez/wezterm/main/assets/shell-integration/wezterm.sh"
     refreshPeriod = "168h"
-[".config/nvim"]
+{{- $nvim_target := ".config/nvim" }}
+{{- if eq .chezmoi.os "windows" }}
+  {{- $nvim_target = "AppData/Local/nvim" }}
+{{- end }}
+["{{ $nvim_target }}"]
     type = "git-repo"
     url = "git@github.com:vohoanglong0107/nvim-config.git"
