@@ -28,6 +28,7 @@
 {{- end }}
 {{- if or (eq .isServer true) (ne .chezmoi.os "darwin") }}
 .config/yabai
+.config/aerospace
 .config/skhd
 Library
 {{- end }}
