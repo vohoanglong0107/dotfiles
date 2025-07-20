@@ -9,7 +9,7 @@ $line_break\
 $jobs\
 $container\
 $netns\
-$character
+$character\
 """
 
 # Palette setting
