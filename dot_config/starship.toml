@@ -1,5 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+# Format definition
 format = """
 $all\
 $fill\
@@ -10,34 +11,58 @@ $container\
 $netns\
 $character
 """
+
+# Palette setting
 palette = "catppuccin_mocha"
+
+# Continuation prompt
 continuation_prompt = "[▶▶](dimmed peach) "
 
-[git_status]
-conflicted = '✘'
-deleted = '-'
-stashed = '*'
-
-[time]
-disabled = false
-style = 'green'
-utc_time_offset = '9'
-
+# Character section
 [character]
 # Note the use of Catppuccin color 'peach'
 success_symbol = "[󰄛 ](green) [❯](peach)"
 error_symbol = "[󰄛 ](red) [❯](peach)"
-vimcmd_symbol = "[󰄛 ❮](subtext1)" # For use with zsh-vi-mode
+vimcmd_symbol = "[󰄛 ❮](sapphire)" # For use with zsh-vi-mode
 
-[git_branch]
-style = "bold mauve"
-
+# Directory section
 [directory]
 truncation_length = 4
 style = "bold lavender"
 
+# Fill section
 [fill]
 style = "dimmed surface1"
+
+# Git branch section
+[git_branch]
+style = "bold mauve"
+
+# Git status section
+[git_status]
+ahead = '[⇡](sapphire)'
+behind = '[⇣](sapphire)'
+conflicted = '[✘](red)'
+deleted = '[-](maroon)'
+diverged = '[⇕]flamingo'
+modified = '[!](yellow)'
+staged = '[+](green)'
+stashed = '[*](rosewater)'
+untracked = '[?](sky)'
+
+# Gradle section
+[gradle]
+style = "bold sky"
+
+# Time section
+[time]
+disabled = false
+style = 'teal'
+utc_time_offset = '9'
+
+# Username section
+[username]
+style_user = "bold pink"
 
 # From https://github.com/catppuccin/starship/
 [palettes.catppuccin_mocha]
