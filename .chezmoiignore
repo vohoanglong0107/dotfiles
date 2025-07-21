@@ -3,13 +3,8 @@
 *_history*
 .zcompdump-*
 .cache
-.config/neomutt/domains.csv
 .oh-my-zsh/cache/**
 .oh-my-zsh/custom/themes/powerlevel10k/**/*.zwc
-
-{{- if or (eq .isServer true) (eq .configEmail false) }}
-.chezmoiscripts/00_create_mail_accounts.py
-{{- end }}
 
 {{- if eq .chezmoi.os "windows" }}
 .config/lazygit
@@ -28,13 +23,6 @@ AppData
 Documents
 {{- end }}
 
-{{- if or (eq .isServer true) (ne .configEmail true) }}
-.config/notmuch
-.config/neomutt
-.config/msmtp
-.config/isync
-.config/systemd/user/isync*
-{{- end }}
 {{- if or (eq .isServer true) (ne .chezmoi.os "linux") }}
 .config/fcitx5
 .config/sway
@@ -58,3 +46,4 @@ Brewfile
 README.md
 domains.csv
 screenshots
+winget-packages.json
