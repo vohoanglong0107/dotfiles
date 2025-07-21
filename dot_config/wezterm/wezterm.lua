@@ -27,6 +27,10 @@ config.keys = {
 }
 config.term = "wezterm"
 
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+	config.default_prog = { "pwsh" }
+end
+
 -- config.exit_behavior = "Hold"
 
 return config
