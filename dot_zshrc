@@ -18,4 +18,3 @@ source ~/.zsh/tools.zsh
 source ~/.zsh/completions.zsh
 
 source ~/.zsh/aliases.zsh
-

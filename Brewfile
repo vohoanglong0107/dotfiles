@@ -13,6 +13,7 @@ brew "ripgrep"
 brew "ruff"
 brew "starship"
 brew "stylua"
+brew "zoxide"
 
 cask "raycast"
 
