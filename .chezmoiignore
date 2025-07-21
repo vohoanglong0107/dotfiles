@@ -11,6 +11,23 @@
 .chezmoiscripts/00_create_mail_accounts.py
 {{- end }}
 
+{{- if eq .chezmoi.os "windows" }}
+.config/lazygit
+.bashrc
+.profile
+.vimrc
+.virc
+.zprofile
+.zsh/**
+.zshenv
+.zshrc
+{{- end }}
+
+{{- if ne .chezmoi.os "windows" }}
+AppData
+Documents
+{{- end }}
+
 {{- if or (eq .isServer true) (ne .configEmail true) }}
 .config/notmuch
 .config/neomutt
