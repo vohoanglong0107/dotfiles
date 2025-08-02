@@ -6,6 +6,8 @@ source ~/.zsh/external/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 source ~/.zsh/external/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+source ~/.zsh/vi-mode.zsh
+
 fpath=(~/.zsh/external/zsh-completions/src $fpath)
 
 source ~/.zsh/external/wezterm.sh
