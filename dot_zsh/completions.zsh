@@ -28,5 +28,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # Shift-tab for selecting previous completion
 bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete
 
+fpath=(~/.zsh/external/zsh-completions/src $fpath)
+
 # Inspired by https://thevaluable.dev/zsh-completion-guide-examples/
 # https://wiki.archlinux.org/title/Zsh
