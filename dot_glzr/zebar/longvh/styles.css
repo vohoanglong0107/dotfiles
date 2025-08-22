@@ -1,0 +1,229 @@
+/**
+ * Import the Nerdfonts icon font.
+ * Ref https://www.nerdfonts.com/cheat-sheet for a cheatsheet of available Nerdfonts icons.
+ */
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
+@import url("https://cdn.jsdelivr.net/npm/@catppuccin/palette/css/catppuccin.css");
+
+@font-face {
+  font-family: "JetBrainsMonoNerd";
+  src: url("./JetBrainsMonoNerdFont-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --text-size: 1rem;
+  --icon-size: 1rem;
+
+  --text-color-light: var(--ctp-frappe-text);
+  --text-color-focused-light: var(--ctp-frappe-mauve);
+  --text-color-hover-light: var(--ctp-frappe-peach);
+
+  --text-color-dark: var(--ctp-mocha-text);
+  --text-color-focused-dark: var(--ctp-mocha-flamingo);
+  --text-color-hover-dark: var(--ctp-mocha-mauve);
+
+  --icon-color-light: var(--ctp-frappe-lavender);
+  --icon-color-dark: var(--ctp-mocha-base);
+
+  --background-color-light: var(--ctp-frappe-base);
+  --background-color-dark: var(--ctp-mocha-lavender);
+
+  --high-cpu-light: var(--ctp-frappe-red);
+  --high-cpu-dark: var(--ctp-mocha-red);
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    color: var(--text-color-light);
+  }
+
+  i {
+    color: var(--icon-color-light);
+  }
+
+  .workspace {
+    color: var(--text-color-light);
+
+    &.displayed,
+    &.focused {
+      color: var(--text-color-focused-light);
+      border-color: var(--text-color-focused-light);
+    }
+
+    &:hover {
+      color: var(--text-color-hover-light);
+    }
+  }
+
+  .modes {
+    background: var(--background-color-light);
+    color: var(--icon-color-light);
+  }
+
+  .modules {
+    background: var(--background-color-light);
+    color: var(--icon-color-light);
+  }
+
+  .cpu .high-usage {
+    color: var(--high-cpu-light);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: var(--text-color-dark);
+  }
+
+  i {
+    color: var(--icon-color-dark);
+  }
+
+  .workspace {
+    color: var(--text-color-dark);
+
+    &.displayed,
+    &.focused {
+      color: var(--text-color-focused-dark);
+      border-color: var(--text-color-focused-dark);
+    }
+
+    &:hover {
+      color: var(--text-color-hover-dark);
+    }
+  }
+
+  .modes {
+    background: var(--background-color-dark);
+    color: var(--icon-color-dark);
+    opacity: 0.8;
+    & > * {
+      background: var(--background-color-dark);
+      color: var(--icon-color-dark);
+      opacity: 0.8;
+    }
+  }
+
+  .modules {
+    background: var(--background-color-dark);
+    color: var(--icon-color-dark);
+    opacity: 0.8;
+  }
+
+  .cpu .high-usage {
+    color: var(--high-cpu-dark);
+  }
+}
+
+i {
+  font-size: var(--icon-size);
+}
+
+body {
+  font-family: JetBrainsMonoNerd, ui-monospace, monospace;
+  font-size: var(--text-size);
+  overflow: hidden;
+}
+
+div,
+span,
+p {
+  cursor: default;
+  user-select: none;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  height: 100%;
+  padding: 0.25rem 1.5vw;
+}
+
+.left,
+.center,
+.right {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.center {
+  justify-self: center;
+}
+
+.right {
+  justify-self: end;
+}
+
+.workspaces {
+  display: flex;
+  align-items: center;
+}
+
+.workspace {
+  margin-right: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background-color: transparent;
+  cursor: pointer;
+  border-width: 0;
+
+  &.displayed,
+  &.focused {
+    border-top-width: 2px;
+  }
+}
+
+.modes {
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  margin-right: 1rem;
+  height: 100%;
+}
+
+.binding-mode,
+.tiling-direction,
+.paused-button {
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  border: 0;
+  cursor: pointer;
+}
+
+.modules {
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  height: 100%;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  gap: 0.75rem;
+}
+
+.battery {
+  position: relative;
+}
+
+.battery .charging-icon {
+  position: absolute;
+  font-size: 7px;
+  left: -8px;
+  top: 3px;
+}
+
+.memory,
+.cpu,
+.battery {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
