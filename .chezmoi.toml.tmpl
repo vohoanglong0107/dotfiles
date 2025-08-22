@@ -5,7 +5,6 @@
     "always",
     "--skip-unchanged",
   ]
-  pager = "cat"
   exclude = ["scripts", "dirs"]
 [data]
 {{- $isServer := promptBoolOnce . "isServer" "Is this a server?" true }}
