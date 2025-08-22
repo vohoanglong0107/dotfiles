@@ -25,7 +25,10 @@ config.keys = {
 	{ key = "UpArrow", mods = "SHIFT", action = wezterm.action.ScrollByLine(-1) },
 	{ key = "DownArrow", mods = "SHIFT", action = wezterm.action.ScrollByLine(1) },
 }
-config.term = "wezterm"
+
+if wezterm.target_triple ~= "x86_64-pc-windows-msvc" then
+	config.term = "wezterm"
+end
 
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 	config.default_prog = { "pwsh" }
